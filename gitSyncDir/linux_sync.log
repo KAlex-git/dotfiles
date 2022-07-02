@@ -1,0 +1,40 @@
+
+02.07.2022 21:39:00 === ===============================================
+02.07.2022 21:39:00 === Changes from Linux
+02.07.2022 21:39:00 === Command "cd /home/kalex/phone/dotfiles"
+02.07.2022 21:39:00 === Command "git diff"
+M	README.md
+02.07.2022 21:39:00 === Command "git add ."
+02.07.2022 21:39:00 === Command "git commit"
+[KAlex-git 9c72be8] Changes from Linux - 02.07.2022 21:39:00
+ 2 files changed, 15 insertions(+), 1 deletion(-)
+ create mode 100644 .gitignore
+02.07.2022 21:39:00 === Command "git pull"
+Уже актуально.
+02.07.2022 21:39:02 === Command "git push"
+To github.com:KAlex-git/dotfiles.git
+   3da0a5b..9c72be8  KAlex-git -> KAlex-git
+
+02.07.2022 22:05:19 === ===============================================
+02.07.2022 22:05:19 === Changes from Linux
+02.07.2022 22:05:19 === Command "cd /home/kalex/phone/dotfiles"
+02.07.2022 22:05:19 === Command "git diff"
+M	.gitignore
+02.07.2022 22:05:19 === Command "git add ."
+02.07.2022 22:05:19 === Command "git commit"
+[KAlex-git 2cbd0ec] Changes from Linux - 02.07.2022 22:05:19
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+02.07.2022 22:05:19 === Command "git pull"
+Уже актуально.
+02.07.2022 22:05:21 === Command "git push"
+To github.com:KAlex-git/dotfiles.git
+   9c72be8..2cbd0ec  KAlex-git -> KAlex-git
+
+02.07.2022 22:14:23 === ===============================================
+02.07.2022 22:14:23 === Changes from Linux
+02.07.2022 22:14:23 === Command "cd /home/kalex/phone/dotfiles"
+02.07.2022 22:14:23 === Command "git diff"
+D	.gitignore
+M	README.md
+02.07.2022 22:14:23 === Command "git add ."
+02.07.2022 22:14:23 === Command "git commit"
