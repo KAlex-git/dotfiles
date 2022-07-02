@@ -3,7 +3,7 @@
 *.temp
 
 # Ignore this is files only current folder
-/*.pdf
-/syn?.sh
 
+git rm --cached --ignore-unmatch README.pdf
+git rm --cached --ignore-unmatch sync.sh
 
