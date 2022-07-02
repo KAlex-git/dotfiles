@@ -4,13 +4,10 @@
 #REPO_DIR=$(cd "${BASH_SOURCE%/*}/.." && pwd) # This is a $HOME directory
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && cd "$(dirname "$(readlink "${BASH_SOURCE[0]}" || echo ".")")" && pwd)"
-LOGFILE="$REPO_DIR/linux_sync.log"
+LOGFILE="$REPO_DIR/sync.log"
 
-# Checking dir 'gitSyncDir'
-msg_sync(){  notify-send "Sync github to local ..." "$REPO_ROOT" ;}
-msg_true
+notify-send "Sync github to local ..." "$REPO_ROOT"
 
-LOG-sync.log
 # функции
 log(){
   echo "$(date +""%d.%m.%Y\ %T"") === $@"
