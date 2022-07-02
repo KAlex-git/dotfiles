@@ -1,8 +1,0 @@
-# ignore ALL .log files
-*.log
-*.temp
-
-# Ignore this is files only current folder
-/*.pdf
-/syn?.sh
-
