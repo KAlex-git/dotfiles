@@ -3,7 +3,7 @@
 *.temp
 
 # Ignore this is files only current folder
-/README.pdf
-/sync.sh
+/*.pdf
+/syn*.sh
 
 
