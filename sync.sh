@@ -4,7 +4,7 @@
 #REPO_DIR=$(cd "${BASH_SOURCE%/*}/.." && pwd) # This is a $HOME directory
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && cd "$(dirname "$(readlink "${BASH_SOURCE[0]}" || echo ".")")" && pwd)"
-LOGFILE="$REPO_DIR/sync.log"
+LOGFILE="$REPO_DIR/LOG_Sync.log"
 
 notify-send "Sync github to local ..." "$REPO_ROOT"
 
