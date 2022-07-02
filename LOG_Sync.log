@@ -147,3 +147,19 @@ To github.com:KAlex-git/dotfiles.git
 M	LOG_Sync.log
 02.07.2022 23:22:02 === Command "git add ."
 02.07.2022 23:22:02 === Command "git commit"
+[KAlex-git 6543eb8] Changes from Linux - 02.07.2022 23:22:02
+ 2 files changed, 16 insertions(+), 46 deletions(-)
+ delete mode 100755 sync.sh
+02.07.2022 23:22:02 === Command "git pull"
+Уже актуально.
+02.07.2022 23:22:05 === Command "git push"
+To github.com:KAlex-git/dotfiles.git
+   b29af62..6543eb8  KAlex-git -> KAlex-git
+
+02.07.2022 23:26:45 === ===============================================
+02.07.2022 23:26:45 === Changes from Linux
+02.07.2022 23:26:45 === Command "cd /home/kalex/phone/dotfiles"
+02.07.2022 23:26:45 === Command "git diff"
+M	LOG_Sync.log
+02.07.2022 23:26:45 === Command "git add ."
+02.07.2022 23:26:45 === Command "git commit"
