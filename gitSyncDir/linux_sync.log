@@ -61,3 +61,21 @@ M	gitSyncDir/linux_sync.log
 D	install.md
 02.07.2022 22:21:16 === Command "git add ."
 02.07.2022 22:21:16 === Command "git commit"
+[KAlex-git f072b27] Changes from Linux - 02.07.2022 22:21:16
+ 5 files changed, 35 insertions(+), 5 deletions(-)
+ delete mode 100644 install.md
+ create mode 100644 install.sh
+02.07.2022 22:21:16 === Command "git pull"
+Уже актуально.
+02.07.2022 22:21:18 === Command "git push"
+To github.com:KAlex-git/dotfiles.git
+   4a6367c..f072b27  KAlex-git -> KAlex-git
+
+02.07.2022 22:23:39 === ===============================================
+02.07.2022 22:23:39 === Changes from Linux
+02.07.2022 22:23:39 === Command "cd /home/kalex/phone/dotfiles"
+02.07.2022 22:23:39 === Command "git diff"
+D	gitSyncDir/.gitignore
+M	gitSyncDir/linux_sync.log
+02.07.2022 22:23:39 === Command "git add ."
+02.07.2022 22:23:39 === Command "git commit"
