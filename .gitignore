@@ -1,9 +1,0 @@
-# ignore ALL .log files
-*.log
-*.temp
-
-# Ignore this is files only current folder
-
-git rm --cached --ignore-unmatch README.pdf
-git rm --cached --ignore-unmatch sync.sh
-

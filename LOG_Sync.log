@@ -1,0 +1,115 @@
+
+02.07.2022 22:39:24 === ===============================================
+02.07.2022 22:39:24 === Changes from Linux
+02.07.2022 22:39:24 === Command "cd /home/kalex/phone/dotfiles"
+02.07.2022 22:39:24 === Command "git diff"
+M	.gitignore
+M	sync.sh
+02.07.2022 22:39:24 === Command "git add ."
+02.07.2022 22:39:24 === Command "git commit"
+[KAlex-git 8d32e36] Changes from Linux - 02.07.2022 22:39:24
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+02.07.2022 22:39:24 === Command "git pull"
+Уже актуально.
+02.07.2022 22:39:26 === Command "git push"
+To github.com:KAlex-git/dotfiles.git
+   7d24157..8d32e36  KAlex-git -> KAlex-git
+
+02.07.2022 22:49:08 === ===============================================
+02.07.2022 22:49:08 === Changes from Linux
+02.07.2022 22:49:08 === Command "cd /home/kalex/phone/dotfiles"
+02.07.2022 22:49:08 === Command "git diff"
+M	.gitignore
+02.07.2022 22:49:08 === Command "git add ."
+02.07.2022 22:49:08 === Command "git commit"
+[KAlex-git 946c020] Changes from Linux - 02.07.2022 22:49:08
+ 1 file changed, 4 insertions(+), 16 deletions(-)
+02.07.2022 22:49:08 === Command "git pull"
+Уже актуально.
+02.07.2022 22:49:10 === Command "git push"
+To github.com:KAlex-git/dotfiles.git
+   8d32e36..946c020  KAlex-git -> KAlex-git
+
+02.07.2022 22:52:55 === ===============================================
+02.07.2022 22:52:55 === Changes from Linux
+02.07.2022 22:52:55 === Command "cd /home/kalex/phone/dotfiles"
+02.07.2022 22:52:55 === Command "git diff"
+M	.gitignore
+02.07.2022 22:52:55 === Command "git add ."
+02.07.2022 22:52:55 === Command "git commit"
+[KAlex-git 1430f27] Changes from Linux - 02.07.2022 22:52:55
+ 1 file changed, 1 insertion(+)
+02.07.2022 22:52:55 === Command "git pull"
+Уже актуально.
+02.07.2022 22:52:57 === Command "git push"
+To github.com:KAlex-git/dotfiles.git
+   946c020..1430f27  KAlex-git -> KAlex-git
+
+02.07.2022 22:58:01 === ===============================================
+02.07.2022 22:58:01 === Changes from Linux
+02.07.2022 22:58:01 === Command "cd /home/kalex/phone/dotfiles"
+02.07.2022 22:58:01 === Command "git diff"
+M	.gitignore
+02.07.2022 22:58:01 === Command "git add ."
+02.07.2022 22:58:01 === Command "git commit"
+[KAlex-git 72c7639] Changes from Linux - 02.07.2022 22:58:01
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+02.07.2022 22:58:01 === Command "git pull"
+Уже актуально.
+02.07.2022 22:58:03 === Command "git push"
+To github.com:KAlex-git/dotfiles.git
+   1430f27..72c7639  KAlex-git -> KAlex-git
+
+02.07.2022 23:01:20 === ===============================================
+02.07.2022 23:01:20 === Changes from Linux
+02.07.2022 23:01:20 === Command "cd /home/kalex/phone/dotfiles"
+02.07.2022 23:01:20 === Command "git diff"
+M	.gitignore
+02.07.2022 23:01:20 === Command "git add ."
+02.07.2022 23:01:20 === Command "git commit"
+[KAlex-git ee7f80c] Changes from Linux - 02.07.2022 23:01:20
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+02.07.2022 23:01:20 === Command "git pull"
+Уже актуально.
+02.07.2022 23:01:22 === Command "git push"
+To github.com:KAlex-git/dotfiles.git
+   72c7639..ee7f80c  KAlex-git -> KAlex-git
+
+02.07.2022 23:06:29 === ===============================================
+02.07.2022 23:06:29 === Changes from Linux
+02.07.2022 23:06:29 === Command "cd /home/kalex/phone/dotfiles"
+02.07.2022 23:06:29 === Command "git diff"
+M	.gitignore
+02.07.2022 23:06:29 === Command "git add ."
+02.07.2022 23:06:29 === Command "git commit"
+[KAlex-git b9048e8] Changes from Linux - 02.07.2022 23:06:29
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+02.07.2022 23:06:30 === Command "git pull"
+Уже актуально.
+02.07.2022 23:06:32 === Command "git push"
+To github.com:KAlex-git/dotfiles.git
+   ee7f80c..b9048e8  KAlex-git -> KAlex-git
+
+02.07.2022 23:11:35 === ===============================================
+02.07.2022 23:11:35 === Changes from Linux
+02.07.2022 23:11:35 === Command "cd /home/kalex/phone/dotfiles"
+02.07.2022 23:11:35 === Command "git diff"
+02.07.2022 23:11:35 === Command "git add ."
+02.07.2022 23:11:35 === Command "git commit"
+Текущая ветка: KAlex-git
+Эта ветка соответствует «origin/KAlex-git».
+
+нечего коммитить, нет изменений в рабочем каталоге
+02.07.2022 23:11:35 === Command "git pull"
+Уже актуально.
+02.07.2022 23:11:37 === Command "git push"
+Everything up-to-date
+
+02.07.2022 23:15:05 === ===============================================
+02.07.2022 23:15:05 === Changes from Linux
+02.07.2022 23:15:05 === Command "cd /home/kalex/phone/dotfiles"
+02.07.2022 23:15:05 === Command "git diff"
+D	.gitignore
+D	README.pdf
+02.07.2022 23:15:05 === Command "git add ."
+02.07.2022 23:15:05 === Command "git commit"
