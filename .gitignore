@@ -1,20 +1,8 @@
-# Created by https://www.toptal.com/developers/gitignore/api/archlinuxpackages
-# Edit at https://www.toptal.com/developers/gitignore?templates=archlinuxpackages
-
-### ArchLinuxPackages ###
-*.tar
-*.tar.*
-*.jar
-*.exe
-*.msi
-*.zip
-*.tgz
+# ignore ALL .log files
 *.log
-*.log.*
-*.sig
 
-*README.pdf*
-*sync.sh*
+# Ignore this is files only current folder
+/README.pdf
+/sync.sh
 
-# End of https://www.toptal.com/developers/gitignore/api/archlinuxpackages
 
