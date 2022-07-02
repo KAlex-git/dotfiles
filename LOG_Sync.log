@@ -113,3 +113,21 @@ D	.gitignore
 D	README.pdf
 02.07.2022 23:15:05 === Command "git add ."
 02.07.2022 23:15:05 === Command "git commit"
+[KAlex-git ef9b007] Changes from Linux - 02.07.2022 23:15:05
+ 3 files changed, 115 insertions(+), 9 deletions(-)
+ delete mode 100644 .gitignore
+ create mode 100644 LOG_Sync.log
+ delete mode 100644 README.pdf
+02.07.2022 23:15:05 === Command "git pull"
+Уже актуально.
+02.07.2022 23:15:08 === Command "git push"
+To github.com:KAlex-git/dotfiles.git
+   b9048e8..ef9b007  KAlex-git -> KAlex-git
+
+02.07.2022 23:16:38 === ===============================================
+02.07.2022 23:16:38 === Changes from Linux
+02.07.2022 23:16:38 === Command "cd /home/kalex/phone/dotfiles"
+02.07.2022 23:16:38 === Command "git diff"
+M	LOG_Sync.log
+02.07.2022 23:16:38 === Command "git add ."
+02.07.2022 23:16:38 === Command "git commit"
