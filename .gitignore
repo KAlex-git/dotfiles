@@ -4,6 +4,6 @@
 
 # Ignore this is files only current folder
 /*.pdf
-/syn*.sh
+/syn?.sh
 
 
