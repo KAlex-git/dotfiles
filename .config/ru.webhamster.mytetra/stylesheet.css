@@ -1,9 +1,15 @@
 /* CSS for any desktop OS */
 /* Set your Qt CSS style in this file */
+/*
+QToolBar, QToolButton, QPushButton
+{ 
+  icon-size: META_ICON_SIZEpx; /* maximum icon size 
+}
+ */
 
 QToolBar, QToolButton, QPushButton
 { 
-  icon-size: META_ICON_SIZEpx; /* maximum icon size */ 
+  icon-size: 12px; /* maximum icon size */ 
 }
 
 /* Скругление кнопок */
