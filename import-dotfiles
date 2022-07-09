@@ -109,8 +109,7 @@ ln -sf $path/.config/qutebrowser $HOME/.config/qutebrowser
 [ -d $HOME/.config/rclone ] && rm -rf $HOME/.config/rclone 
 ln -sf $path/.config/rclone $HOME/.config/rclone 
 
-[ -d $HOME/.config/ru.webhamster.mytetra ] && rm -rf $HOME/.config/ru.webhamster.mytetra 
-ln -sf $path/.config/ru.webhamster.mytetra $HOME/.config/ru.webhamster.mytetra 
+[ -d $path/.config/ru.webhamster.mytetra ] && cp -rf $path/.config/ru.webhamster.mytetra $HOME/.config/ru.webhamster.mytetra 
 
 #[ -d $HOME/.config/neofetch ] && rm -rf $HOME/.config/neofetch
 #ln -sf $path/.config/neofetch $HOME/.config/neofetch
