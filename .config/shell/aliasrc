@@ -1,0 +1,723 @@
+#!/usr/bin/sh
+#######################################################################
+#
+#  __  __            _    _ _
+# |  \/  |_   _     / \  | (_) __ _ ___  ___  ___
+# | |\/| | | | |   / _ \ | | |/ _` / __|/ _ \/ __|
+# | |  | | |_| |  / ___ \| | | (_| \__ \  __/\__ \
+# |_|  |_|\__, | /_/   \_\_|_|\__,_|___/\___||___/
+#         |___/
+#
+#######################################################################
+##
+## Variable Color
+bold=$(tput bold)
+underline=$(tput sgr 0 1)
+reset=$(tput sgr0)
+
+purple=$(tput setaf 171)
+red=$(tput setaf 1)
+green=$(tput setaf 76)
+tan=$(tput setaf 3)
+blue=$(tput setaf 38)
+#
+_start() { printf "\n${bold}${blue}==========  %s  ==========${reset}\n" "$@" ;}
+_done() { printf "\n${bold}${green}==========  %s  ==========${reset}\n" "$@" ;}
+_error() { printf "${bold}${red}==========  %s  ==========${reset}\n" "$@" ;}
+
+##
+##
+##
+## -- дополнительныей аллисы есть также в ~/.config/zsh/.zshrc (line 19)
+##
+##
+# Use neovim for vim if present.
+[ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
+
+# Use $XINITRC variable if file exists.
+[ -f "$XINITRC" ] && alias startx="startx $XINITRC"
+
+# sudo not required for some system commands
+for command in  mount umount sv pacman updatedb su shutdown poweroff reboot ; do
+	alias $command="sudo $command"
+done; unset command
+
+## install bat needed for reader
+vf() { cd $HOME/.local/share/nvim/vimwiki && fzf --border --preview='bat --theme="Solarized (dark)" --style=numbers --color=always {} | head -500' | xargs -r -I % $EDITOR % ;}
+
+# Verbosity and settings that you pretty much just always are going to want.
+alias \
+	rm="rm -vI" \
+	ffmpeg="ffmpeg -hide_banner" \
+
+alias fontUpdate="sudo fc-cache -f -v"
+alias fontSearch="sudo fc-list | grep -i "$1""
+
+#mkd="mkdir -pv" \
+
+# Colorize commands when possible.
+alias \
+	diff="diff --color=auto" \
+	ccat="highlight --out-format=ansi" \
+	book="abook -C $HOME/.config/abook/abookrc" \
+	-='cd -; ls' \	# переход в предыдущий каталог посещения
+
+# Changing "ls" to "exa"
+alias ls='exa --icons --group-directories-first' # my preferred listing
+alias la='exa --icons  -a --color=always --group-directories-first'  # all files and dirs
+alias ll='exa --icons -la --color=always --group-directories-first'  # long format
+alias lt='exa ---icons aT --color=always --group-directories-first' # tree listing
+alias l.='exa -a | egrep "^\."'
+
+alias	v="$EDITOR"
+
+# These common commands are just too long! Abbreviate them.
+alias \
+	g="git" \
+	trem="transmission-remote" \
+	YT="youtube-viewer" \
+	sdn="sudo shutdown -h now" \
+	f="$FILE" \
+	sv="sudo $EDITOR" \
+	a="yay" \
+	p="sudo pacman" \
+	xi="sudo xbps-install" \
+	xr="sudo xbps-remove -R" \
+	xq="xbps-query" \
+	q='exit' \
+    	au='ncdu' \
+
+# Edit LaTeX files
+alias dt="cd /home/alex/Documents/TEX ; ls -l"
+alias per="$EDITOR /home/alex/Documents/TEX/charaсter/charter.tex"
+
+alias \
+	magit="nvim -c MagitOnly" \
+	ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc" \
+	weath="less -S ${XDG_DATA_HOME:-$HOME/.local/share}/weatherreport" \
+	tmux="tmux -f ${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf" \
+
+##############################################
+#
+#		Misc
+#
+##############################################
+# mime
+#mime() { mimeo -m "$1" ;}
+mime() { file --mime-type "$1" ;}
+
+ask()
+{
+    echo -n "$@" '[y/n] ' ; read -r ans
+    case "$ans" in
+        y*|Y*) return 0 ;;
+        *) return 1 ;;
+    esac
+}
+
+###
+fs(){ sudo fc-cache -f -v ;}
+
+
+
+##
+   cla(){
+	xprop | awk '
+		/^WM_CLASS/{sub(/.* =/, "instance:"); sub(/,/, "\nclass:"); print}
+		/^WM_NAME/{sub(/.* =/, "title:"); print}'
+		## ver.2
+		#  xprop WM_CLASS | grep -o '"[^"]*"' | head -n 1
+   }
+
+
+##
+
+
+## chown
+#cw () { sudo chown -R ${USER}:${GROUP} "$@" && ls -al ${!#} 2> /dev/null; }
+#c (){
+#  printf "Mode Bits: "
+#  read ans
+#  for file in $1
+#  do
+#    chmod $ans $file
+#ls -la $file
+#  done
+#	printf "$(stat --format '%a' $file) $(ls -la $file |cut -f3-8 -d ' ')\n"
+#}
+##
+#   ch()
+#   {
+#		echo " 	   Change permission on:"
+#		echo "          	------"
+#		echo "					-rwxr-xr-x	(x;755) "
+#		echo "[x;755]	    -= у владелеца есть право на чтение, изм. и выполнение файла, a у группы и остальных есть право только на чтение и выполнение =-"
+#		echo "					--rwxr-xr-x	(755) "
+#		echo "[d] dir -all 755    -= у владелеца есть право на чтение, изм. и выполнение файла, a у группы и остальных есть право только на чтение и выполнение =-"
+#		echo "					-rw-rw-rw-	(666) "
+#		echo "[l] file -all 666    -= любой пользователь имеет право на чтение, изм. и выполнение файла (БУДЬ ОСТОРОЖЕН С ТАКИМИ ПРАВАМИ) =-"
+#		echo
+#
+#		read choice
+#
+#case "$choice" in
+#    "755"|"x")
+#		sudo chown -R ${USER}:${GROUP} "$@"
+#    	sudo chmod -R 755 "$@"
+#   	    ls -al ${!#} 2> /dev/null
+#		;;
+#    "d")
+#		echo "					--rwxr-xr-x	(755) "
+#		echo "[d] dir -all 755    -= у владелеца есть право на чтение, изм. и выполнение файла, a у группы и остальных есть право только на чтение и выполнение =-"
+#		sleep 3
+#		find . -maxdepth 1 -type d -print0 | xargs -0 chmod 755
+#   	    ls -al ${!#} 2> /dev/null
+#		;;
+#    "l")
+#		echo "					-rw-rw-rw-	(666) "
+#		echo "[l] file -all 666    -= любой пользователь имеет право на чтение, изм. и выполнение файла (БУДЬ ОСТОРОЖЕН С ТАКИМИ ПРАВАМИ) =-"
+#		sleep 3
+#		find . -maxdepth 1 -type f -print0 | xargs -0 chmod 666
+#   	    ls -al ${!#} 2> /dev/null
+#		;;
+#    *)
+#esac
+#   }
+
+
+## convert in mp3
+cnv(){
+find -maxdepth 1 -name "*.flac" -exec ffmpeg -i {} -acodec libmp3lame -ab 128k {}.mp3 \;
+find -maxdepth 1 -name "*.wav" -exec ffmpeg -i {} -acodec libmp3lame -ab 128k {}.mp3 \;
+}
+
+
+csv (){
+    if [ $# -ne 1 ]; then
+    echo "Usage: csv <filename>"
+    return
+  fi
+
+    less $1 | sed -e 's/,,/, ,/g' | column -s, -t | less -#5 -N -S
+}
+
+## delete files/directories
+   rd()
+   {
+   	RED="\033[0;31m" ; ORANGE="\033[33m" ; PURPLE="\033[45m";
+    	reset="\e[0m" ;
+    	blink="\e[5m" ;
+   	if [[ -f "$1" ]]; then
+		clear
+		sudo rm -rf "$@"
+   		echo -e "${RED}${PURPLE}$blink "$@" \
+			${PURPLE}deleted file(s) $reset" 2>/dev/null
+		ls .
+   	elif [[ -d "$1" ]]; then
+		clear
+		sudo rm -Rf "$@"
+		echo -e "${RED}$blink "$@" \
+			${YELLOW}deleted folder(s) $reset" 2> /dev/null
+		ls .
+        else
+        	echo "Sorry, files not find"
+   	fi;
+   }
+
+## rename file ' ' >> '_' ( 1 file )
+## Оболочка автоматически оценивает *.* ко всем соответствующим файлам. (циклически)
+  r_()
+  {
+	mv "$1" $(echo "$1"|tr " " _)\
+  }
+
+  ra_()
+  {
+	find . -maxdepth 1 -name '* *' -type f -printf 'mv "%p" $(echo "%p"|tr " " _)\n'|sh
+  }
+## -- START -------------- find && rename in vimv
+	rr()
+	{
+	    REDBG="\033[0;41m"
+	    reset="\e[0m" ;
+	    blink="\e[5m" ;
+			if [[ ! -z "$1" ]]
+			then
+					eval vimv "'$*'"
+					clear
+					ls -a
+			else
+					echo -e "${blink}${REDBG} такого ^(0_0)^ не существует, \
+							   может это часть ^(0_0)^ ${reset} "
+			fi
+	}
+
+
+
+##
+## color bash scripts: https://misc.flogisoft.com/bash/tip_colors_and_formatting
+	red="\033[0;31m" ; yellow="\033[33m" ; blink="\e[5m" ;
+	LightCyan="\e[96m" ; LightMagenta="\e[95m"
+
+	reset="\e[0m" ;
+
+	blueBG="\e[44m" ; redBG="\033[0;41m" ; greenFG="\e[32m" ;
+	darkgreyBG="\e[100m"
+
+
+## find files in curret folders (colors)
+	fn() { find . -maxdepth 1 -type d,f,l -name "*$1*" -print -ok open {} \; ; }
+
+
+
+win10(){
+		dir="/mnt/win10/Documents and Settings/akala/Desktop/"
+		if [[ -d "$dir" ]]; then
+						GR="$(groups | awk '{print$2}')" ## wheel
+				sudo mount -o rw,users,umask=000,exec /dev/sdb2 /mnt/win10  ## full access
+				sudo chmod +x ${dir}
+				sudo chown -R ${USER}:$GR ${dir}
+				lf /mnt/win10
+		else
+						GR="$(groups | awk '{print$2}')" ## wheel
+				sudo mkdir /mnt/win10
+				sudo mount -o rw,users,umask=000,exec /dev/sdb2 /mnt/win10  ## full access
+				sudo chmod +x ${dir}
+				sudo chown -R ${USER}:$GR	${dir}
+				lf /mnt/win10
+		fi
+		return 0	## возвращает результат работы
+   }
+
+## make folder and permissions
+ad()
+{
+	GR="$(groups | awk '{print$2}')" ## wheel
+	echo -n 'Name directories: '
+	read
+	mkdir -p $REPLY
+	sudo chmod +x $REPLY >/dev/null 2>&1
+	sudo chown -R ${USER}:$GR "$REPLY"
+	echo "Create file with permissions:	\n\t$(ls -ld "$REPLY")"
+	echo " $REPLY " | xclip -selection clipboard ; cd "$REPLY"
+}
+## create file and permission
+af()
+{
+	GR="$(groups | awk '{print$2}')" ## wheel
+	newfile="$1"
+	echo -n 'Name file: '
+	read
+	touch $REPLY
+	sudo chmod +x $REPLY >/dev/null 2>&1
+	sudo chown -R ${USER}:$GR "$REPLY"
+	echo "Create file with permissions: \n\t$(ls -la "$REPLY")"
+	nvim "$REPLY"
+}
+
+
+##using curl
+transfer() {
+		#tar -czf - "$@" | curl --upload-file - https://transfer.sh/1.tar.gz
+    curl --progress-bar --upload-file "$1" https://transfer.sh/$(basename $1) -H "Max-Downloads: 14" | tee > file_transfer && \
+		cat file_transfer
+		cat $HOME/file_transfer |	mutt -s 'pass (tranfer.sh) ' akalashnic@gmail.com -a $HOME/file_transfer 2>1
+}
+
+## translate-shell
+	tlr(){
+		ii=$(trans -b :ru "$*")
+		echo -e "\x22 ${ii} \x22"
+	}
+	tle(){
+		ii=$(trans -b :en "$*")
+		echo -e "\x22 ${ii} \x22"
+	}
+## stardict
+alias saa="sdcv -u \"English-Russian full dictionary\""
+
+
+## create link
+   mlk()
+   {
+   	RED="\033[0;31m"
+   	BLUE="\e[38;5;26m"
+   	g=$(readlink -e "${FILE}" | sed "y|.|/|; s|$|/|")
+   	sudo ln -sT $PWD/"$1" "$2" 2>/dev/null
+   	echo -e " $BLUE "$(ls -ld "$2")" "
+   }
+## find all symlink in current directory
+   li()
+   {
+   	find * -maxdepth 0 -type l -exec ls -l {} \; | \
+   	awk '{print $9$10$10$11$12$13$14$15$16$17$18$19$20$21$22$23$24$25}'
+   }
+
+
+
+
+##  -- START --------   open files PDF in content
+    fp () {
+    open=$READER   # this will open pdf file withthe default PDF viewer on KDE, xfce, LXDE and perhaps on other desktops.
+		cd /home/kalex/Documents/SKE/SKE-U/
+    ag -U -g ".pdf$" \
+    | fast-p \
+    | fzf --read0 --reverse -e -d $'\t'  \
+        --preview-window down:80% --preview '
+            v=$(echo {q} | tr " " "|");
+            echo -e {1}"\n"{2} | grep -E "^|$v" -i --color=always;
+        ' \
+    | cut -z -f 1 -d $'\t' | tr -d '\n' | xargs -r --null $open > /dev/null 2> /dev/null
+}
+
+##  -- END --------   open files PDF in content
+
+
+
+
+## fullsite downloads
+site()
+{
+		wget --page-requisites -r -l 2 "$@"
+}
+
+
+
+
+## -- open in file SKE/* -------------------------
+   sk() { du -a ~/Documents/SKE/SKE-U/* | awk '{print $2}' | fzf | xargs -r -I % open % ; disown ; exit ;}
+   ks() { du -a ~/SKE/SKE-U/* | awk '{print $2}' | fzf | xargs -r -I % open-files % ; disown ; exit ;}
+   ыл() { du -a ~/SKE/SKE-U/* | awk '{print $2}' | fzf | xargs -r -I % open-files % ; disown ; exit ;}
+   лы() { du -a ~/SKE/SKE-U/* | awk '{print $2}' | fzf | xargs -r -I % open-files % ; disown ; exit ;}
+
+
+
+
+## -- END FZF ------------------------
+
+
+## -- PACK \ UNPACK ------------------
+## unpack - archive wrapper
+   ax()
+   { ext "$1"
+   }
+# pack - archive wrapper
+# usage: compress <foo.tar.gz> ./foo ./bar
+   Zz()
+   {
+	   fname=`basename $@`
+	   zip $fname.zip -r $fname
+	   echo "--= ${1} =--"
+   }
+
+
+
+##
+##
+##
+
+
+##
+#cr()
+#{
+#		#sudo crontab -u kalex -e
+#		#echo
+#		#echo
+#		#echo " $(crontab -l) "
+#		#echo
+#		#echo
+#		sudo crontab -u kalex -e
+#        #nvim /home/kalex/.local/bin/cron.sh
+#}
+relcronie()
+{
+	crontog && crontog ; sudo systemctl reload cronie.service ; sudo systemctl status cronie.service
+}
+alias view_XDG_RUNTIME_DIR="env|grep -i runt"
+tn()
+{
+		crow &
+		disown ; exit
+}
+## go to ... cd and open
+s() {
+	if [[  -d "$@" ]]
+	then
+		builtin cd -P "$1" || return
+		ll
+	else
+		open "$1" & disown ; exit
+	fi
+}
+## `s` or `o`
+o(){ if  cd "$1"; then ls -a; else open "$1" & disown ; exit; fi ;}
+
+
+## buku - bookmarks
+buadd() {
+	echo " add bookmarks '$1' and title '$2' "
+	case "$1" in
+		*[!https]*|"") buku --add "$1" --title "$2" ;;
+	esac
+}
+# buku delete bookmarks
+budel() {
+	buku -d "$1"
+	echo " bookmarks '$1' deleted "
+}
+#
+bup() { buku --print ;} 		# buku search bookmarks
+bus() { buku -S "$1" ;}
+buo() { buku -o "$1" ; disown ;exit ;} 	# open bookmarks in browser (default)
+buw() { buku -w "$1" ;} 		# buku editor bookmarks
+buc() { buku -c "$1" ;} 		# buku copy url whih bookmarks
+buia() { buku --ai ;} 			# buku auto-import bookmarks with browsers
+bui() {
+	echo " imput file name 'html' or 'md' or 'db' "
+	wait 1
+	buku -i "$1"
+}
+bue() {	buku -e "$1".db ;buku -e "$1".html; buku -e "$1".md ;}
+
+
+
+## END GIT
+## ---- END GIT ###################################3
+
+
+## Speech-Plan
+spb() {
+    declare -a options=("Ohm_law"
+	"Сечение-выбор")
+    choice=$(echo "$(printf '%s\n' "${options[@]}")" | dmenu -l 5 -b -p 'Electro: ')
+	case "$choice" in
+		Ohm_law) o $HOME/Documents/BOOKS/Electro/Схемы/Ohm_law.jpg ;;
+				"Сечение-выбор") o $HOME/Documents/BOOKS/Electro/Схемы/Таблица_расчета_проводов_по_нагрузке.png ;;
+		*)
+	esac
+}
+
+rs() {
+		dir="/mnt/usb/"
+		if [[ -d "$dir" ]]; then
+				sudo mount /dev/sdb1 $dir &&
+				#sudo chown -R alex:users ${dir}
+                rsync --delete -avzhv --exclude '~/.cache' --progress ~ $dir/OS/Linux_OS/backup
+                lf $dir/OS/Linux_OS/backup
+		else
+				sudo mkdir $dir
+				sudo mount /dev/sdb1 $dir &&
+				#sudo chown -R alex:users ${dir}
+				#sudo chmod +x ${dir}
+                rsync --delete -avzhv --exclude '~/.cache' --progress ~ /mnt/usb/OS/Linux_OS/backup
+                lf $dir/OS/Linux_OS/backup
+
+		fi
+		return 0	## возвращает результат работы
+    }
+
+
+sni(){
+dir="$HOME/.config/nvim/UltiSnips"
+while true; do
+	echo " [a] >> open { .../all.snippets } "
+	echo " [s] >> open { .../sh.snippets } "
+	echo " [m] >> open { .../markdown.snippets } "
+	echo " [t] >> open { .../tex.snippets } "
+	echo " [p] >> open { .../python.snippets } "
+	echo " [w] >> open { .../vimwiki.snippets } "
+	echo " [o] >> open { ...folder } "
+       	read choi
+	case "$choi" in
+        a) $EDITOR $dir/all.snippets; break;;
+        s) $EDITOR $dir/sh.snippets; break;;
+        m) $EDITOR $dir/markdown.snippets; break;;
+        t) $EDITOR $dir/tex.snippets; break;;
+        p) $EDITOR $dir/python.snippets; break;;
+        w) $EDITOR $dir/vimwiki.snippets; break;;
+        o) cd $dir ; ls -a; break;;
+    esac
+done
+}
+
+## vinote record write ....
+vin(){
+dir="/tmp/vinote"
+Cyan="\e[96m" ;reset="\e[0m"
+while true; do
+	echo " press ( s ) >> preview { .../tmp/vinote/* } "
+	echo " press ( o ) >> open last file"
+	echo " press ( m ) >> delete { .../tmp/vinote/* } "
+       	read choi
+	case "$choi" in
+		s) clear; echo -e "${Cyan}`ls /tmp/vinote/ | sort -r`${reset}" ;;
+        o) find $dir | sort -r | head -n 1 | xargs -I {} $EDITOR "{}" ; break;;
+        m) sudo rm -rf $dir/*; ls -la /tmp/vinote/ | sort -r ; break;;
+    esac
+done
+}
+
+db_remove() { sudo rm -rf /var/lib/pacman/db.lck ;}
+SS(){ sudo systemctl ;}
+
+IP(){
+while true; do
+
+	echo "___________________________________"
+	echo "Main Menu"
+	echo "___________________________________"
+	echo "[s] 👀 Внешн. IP"
+	echo "[r] 👀  show IP address of an router"
+	echo "[v] 👀 Внутр. IP"
+	echo "[q] Exit/Stop"
+	echo "===================================="
+       	read choi
+	case "$choi" in
+		s)echo "Your public ip is:\n `curl ifconfig.me`"; sleep 3s ;clear;;
+		v)echo `cat /etc/resolv.conf | head -2 | grep "nameserver" | sed -e "s/nameserver/My internal IP:  /"`; sleep 3s ;clear ;;
+		r)echo `ifconfig "wlp2s0f0" | grep -Eom1 'inet ([0-9]{1,3}\.){3}[0-9]{1,3}' | cut -d: -f2`; sleep 4;clear;;
+		q) exit 0;;
+		*) echo "Press a key...";read;;
+	esac
+done
+}
+
+
+ka(){
+#sudo kill $(pgrep -f "$1")
+	local test="$(ps aux | grep "$1")"
+	echo "___________________________________"
+	echo -e "${bold}\t\t\t\tMenu${reset}"
+	echo "___________________________________"
+	echo "[${red}Y${reset}/${blue}n${reset}] 👀 удалить ли процесс?"
+	echo "===================================="
+       	read choi
+	case "$choi" in
+		Y|y)
+			if [ "x$test" != "x" ]; then
+			echo "$test" | xargs kill -${1:-9} ||  sudo kill  "$1"; sudo killall -q "$1" && echo "${LightCyan}good${r}"
+			fi
+			;;
+		*) e_arrow "process not found"; exit 0;;
+	esac
+}
+
+
+unpack() {
+    local c e i
+
+    (($#)) || return
+
+    for i; do
+        c=''
+        e=1
+
+        if [[ ! -r $i ]]; then
+            echo "$0: file is unreadable: \`$i'" >&2
+            continue
+        fi
+
+        case $i in
+            *.t@(gz|lz|xz|b@(2|z?(2))|a@(z|r?(.@(Z|bz?(2)|gz|lzma|xz)))))
+                   c=(bsdtar xvf);;
+            *.7z)  c=(7z x);;
+            *.Z)   c=(uncompress);;
+            *.bz2) c=(bunzip2);;
+            *.exe) c=(cabextract);;
+            *.gz)  c=(gunzip);;
+            *.rar) c=(unrar x);;
+            *.xz)  c=(unxz);;
+            *.zip) c=(unzip);;
+            *.zst) c=(unzstd);;
+            *)     echo "$0: unrecognized file extension: \`$i'" >&2
+                   continue;;
+        esac
+
+        command "${c[@]}" "$i"
+        ((e = e || $?))
+    done
+    return "$e"
+}
+
+
+
+
+run() {
+  if ! pgrep $1 ;
+  then
+    $@&
+  fi
+}
+sev(){xev | awk -F'[ )]+' '/^KeyPress/ { a[NR+2] } NR in a { printf "%-3s %s\n", $5, $8 }' ;}
+
+# youtube-dl
+alias \
+    yta-aac="youtube-dl --extract-audio --audio-format aac " \
+    yta-best="youtube-dl --extract-audio --audio-format best " \
+    yta-flac="youtube-dl --extract-audio --audio-format flac " \
+    yta-m4a="youtube-dl --extract-audio --audio-format m4a " \
+    yta-mp3="youtube-dl --extract-audio --audio-format mp3 " \
+    yta-opus="youtube-dl --extract-audio --audio-format opus " \
+    yta-vorbis="youtube-dl --extract-audio --audio-format vorbis " \
+    yta-wav="youtube-dl --extract-audio --audio-format wav " \
+    ytv-best="youtube-dl -f bestvideo+bestaudio " \
+    yta="yt -x -f bestaudio/best" \
+    yt="youtube-dl --add-metadata -i"
+
+ytta() {
+	echo "[ Download & convert to mp3 from textfile ]"
+	youtube-dl -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 \
+	--metadata-from-title  "(?P<artist>.+?) - (?P<title>.+)"  \
+	--embed-thumbnail --add-metadata -o "~/Documents/Music/%(title)s.%(ext)s" \
+	--batch-file "/home/jsn/Downloads/yt.txt" "${@}" &&
+		trash-put ~/Downloads/yt.txt
+	}
+
+## Pipe Aliases (Global)
+alias gr="grep --color -E '$1' '$2'"
+alias -g L='|less'
+alias -g G='|grep'
+alias -g T='|tail'
+alias -g H='|head'
+alias -g W='|wc -l'
+alias -g S='|sort'
+alias -g LL="2>&1 | less"
+alias -g CA="2>&1 | cat -A"
+alias -g NE="2> /dev/null"
+alias lastl='last | head -5 | tr -s " "' # Last log-ins
+alias -g NUL="> /dev/null 2>&1"alias hgrep="fc -El 0 | grep"
+
+
+# TODO MISC
+wp(){ OpenGulpIndex.py ;}
+calc(){$EDITOR $HOME/.config/calcurse/conf ;}
+#tt(){ tar -czf "../${PWD##*/}.tar.gz" . ;} ## Arhive current directory
+tt(){ mpv -fs -quiet `youtube-dl -g "$1"` ;}
+
+subt(){
+   printf "First video\nSecond audio"
+   echo -n "$@" '[y/n] ' ; read -r ans
+    case "$ans" in
+        y*|Y*) ffmpeg -threads 0 -i $1 -filter_complex 'ass="$2"[1];[1]concat=n=3' -preset ultrafast -y final.mp4 ;;
+        *) return 1 ;;
+    esac
+}
+
+##
+
+si(){ open $HOME/Documents/SKE/si-U_Всё_Писание.pdf & disown; exit ;}
+
+##########################
+source $HOME/.config/shell/fzf.function
+source $HOME/.config/shell/github.function
+
+
+duh() {
+  # shows disk utilization for a path and depth level
+  path="${1:-$PWD}"
+  level="${2:-1}"
+  /usr/bin/du -h --max-depth="$level" $path
+}
+i_to_xpm(){
+/usr/bin/convert -resize x18 -background transparent -gravity center -crop 16x16+0+0 "$1" -flatten -colors 256 ~/.config/xmobar/icons/workspaces/"$2".xpm
+}

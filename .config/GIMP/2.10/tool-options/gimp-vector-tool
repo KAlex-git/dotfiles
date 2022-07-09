@@ -1,0 +1,9 @@
+# GIMP gimp-vector-tool options
+
+(brush "2. Hardness 050")
+(dynamics "Dynamics Off")
+(pattern "Pine")
+(gradient "Основной в фоновый (RGB)")
+(palette "Предыдущие цвета")
+
+# end of gimp-vector-tool options

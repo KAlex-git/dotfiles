@@ -1,0 +1,83 @@
+snippet Base "base" b
+---
+mainfont: Arial
+documentclass: extarticle
+fontsize: 14pt
+geometry: margin=1cm
+
+<!-- title: Alexandro -->
+<!-- date: 05.11.20 -->
+tags:
+categories: [i ]
+papersize: a5
+---
+
+$0
+endsnippet
+
+snippet h1 "header" b
+# ${1:big header} #
+$0
+endsnippet
+
+
+snippet bf "bold text" b
+**${1:bold text}**
+$0
+endsnippet
+
+snippet bi "italic text" b
+**${1:italic text}**
+$0
+endsnippet
+
+###########################
+# Sections and Paragraphs #
+###########################
+snippet sec "Section" b
+# ${1:Section Name} #
+$0
+endsnippet
+
+
+snippet table "table" b
+| Column 1 | Column 2 |
+| -------- | -------- |
+| Cell 1-1 | Cell 1-2 |
+| Cell 2-1 | Cell 2-2 |
+
+endsnippet
+
+
+snippet w "Title Block" b
+---
+title: ${1:`!p snip.rv = fn.rstrip('.md').replace('-', ' ')`}
+Date: `date '+%Y-%m-%d %H:%M'`
+Tags: ${2:unknown, unknown}
+URL: `!p snip.rv ='' if not fn else fn.strip().rstrip('.md').replace(' ', '-')`
+---
+${0}
+endsnippet
+
+snippet zl "Insert Link"
+[${1:${VISUAL}}](${1/ /-/g})$0
+endsnippet
+
+snippet t
+<tag>${1}${VISUAL:inside text/should/is/g}</tag>
+endsnippet
+
+snippet /c "Insert code block" b
+\`\`\`${0}
+\`\`\`
+endsnippet
+
+snippet /. "Comment" b
+<!-- ${1:${VISUAL}} -->$0
+endsnippet
+
+snippet br "Comment" b
+*** ${1:${VISUAL}} ***$0
+endsnippet
+
+# vim:ft=snippets:

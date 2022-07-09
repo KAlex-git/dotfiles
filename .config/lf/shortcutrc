@@ -1,0 +1,122 @@
+map fbm    cd ~/.config/bookmenu
+map mbm    !mv "$f" ~/.config/bookmenu
+map ybm    !rsync -ahrp "$f" ~/.config/bookmenu 
+
+map fcac    cd ~/.cache
+map mcac    !mv "$f" ~/.cache
+map ycac    !rsync -ahrp "$f" ~/.cache 
+
+map fcc    cd ~/.config
+map mcc    !mv "$f" ~/.config
+map ycc    !rsync -ahrp "$f" ~/.config 
+
+map fcl    cd ~/.config/lf
+map mcl    !mv "$f" ~/.config/lf
+map ycl    !rsync -ahrp "$f" ~/.config/lf 
+
+map fde    cd ~/Documents/meeting
+map mde    !mv "$f" ~/Documents/meeting
+map yde    !rsync -ahrp "$f" ~/Documents/meeting 
+
+map fdc    cd ~/Documents
+map mdc    !mv "$f" ~/Documents
+map ydc    !rsync -ahrp "$f" ~/Documents 
+
+map fds    cd ~/Downloads
+map mds    !mv "$f" ~/Downloads
+map yds    !rsync -ahrp "$f" ~/Downloads 
+
+map fdm    cd ~/Documents/ministry
+map mdm    !mv "$f" ~/Documents/ministry
+map ydm    !rsync -ahrp "$f" ~/Documents/ministry 
+
+map fh    cd ~
+map mfh    !mv "$f" ~
+map yfh    !rsync -ahrp "$f" ~ 
+
+map fia    cd ~/Downloads/dotfiles-dev/install_pkg/AUR_PKG
+map mia    !mv "$f" ~/Downloads/dotfiles-dev/install_pkg/AUR_PKG
+map yia    !rsync -ahrp "$f" ~/Downloads/dotfiles-dev/install_pkg/AUR_PKG 
+
+map fii    cd ~/Downloads/dotfiles-dev/install_pkg
+map mii    !mv "$f" ~/Downloads/dotfiles-dev/install_pkg
+map yii    !rsync -ahrp "$f" ~/Downloads/dotfiles-dev/install_pkg 
+
+map fis    cd ~/Downloads/dotfiles-dev/install_pkg/Man/shell
+map mis    !mv "$f" ~/Downloads/dotfiles-dev/install_pkg/Man/shell
+map yis    !rsync -ahrp "$f" ~/Downloads/dotfiles-dev/install_pkg/Man/shell 
+
+map flb    cd ~/.local/bin
+map mlb    !mv "$f" ~/.local/bin
+map ylb    !rsync -ahrp "$f" ~/.local/bin 
+
+map fle    cd ~/.local/share
+map mle    !mv "$f" ~/.local/share
+map yle    !rsync -ahrp "$f" ~/.local/share 
+
+map flh    cd ~/.local/share/zettel
+map mlh    !mv "$f" ~/.local/share/zettel
+map ylh    !rsync -ahrp "$f" ~/.local/share/zettel 
+
+map fmn    cd /mnt/
+map mmn    !mv "$f" /mnt/
+map ymn    !rsync -ahrp "$f" /mnt/ 
+
+map fmi    cd /mnt/iso
+map mmi    !mv "$f" /mnt/iso
+map ymi    !rsync -ahrp "$f" /mnt/iso 
+
+map fmu    cd /mnt/usb
+map mmu    !mv "$f" /mnt/usb
+map ymu    !rsync -ahrp "$f" /mnt/usb 
+
+map fmw    cd /mnt/win10
+map mmw    !mv "$f" /mnt/win10
+map ymw    !rsync -ahrp "$f" /mnt/win10 
+
+map fmm    cd ~/Music
+map mmm    !mv "$f" ~/Music
+map ymm    !rsync -ahrp "$f" ~/Music 
+
+map fpp    cd ~/Pictures
+map mpp    !mv "$f" ~/Pictures
+map ypp    !rsync -ahrp "$f" ~/Pictures 
+
+map fcr    cd ~/.local/src
+map mcr    !mv "$f" ~/.local/src
+map ycr    !rsync -ahrp "$f" ~/.local/src 
+
+map fvv    cd ~/Videos
+map mvv    !mv "$f" ~/Videos
+map yvv    !rsync -ahrp "$f" ~/Videos 
+
+map fVV    cd ~/.config/nvim
+map mVV    !mv "$f" ~/.config/nvim
+map yVV    !rsync -ahrp "$f" ~/.config/nvim 
+
+map fqt    cd ~/.config/qtile
+map mqt    !mv "$f" ~/.config/qtile
+map yqt    !rsync -ahrp "$f" ~/.config/qtile 
+
+map fqu    cd ~/.config/qutebrowser
+map mqu    !mv "$f" ~/.config/qutebrowser
+map yqu    !rsync -ahrp "$f" ~/.config/qutebrowser 
+
+map fzh    cd ~/.config/zsh
+map mzh    !mv "$f" ~/.config/zsh
+map yzh    !rsync -ahrp "$f" ~/.config/zsh 
+
+map ebf	  	$$EDITOR "/home/kalex/.config/shell/bm-files" 
+map ebd	  	$$EDITOR "/home/kalex/.config/shell/bm-dirs" 
+map ecfX	  	$$EDITOR "/home/kalex/.config/x11/xresources" 
+map ecfa	  	$$EDITOR "/home/kalex/.config/shell/aliasrc" 
+map eclf	  	$$EDITOR "/home/kalex/.config/lf/lfrc" 
+map ecfn	  	$$EDITOR "/home/kalex/.config/newsboat/config" 
+map ecfp	  	$$EDITOR "/home/kalex/.config/shell/profile" 
+map ecfv	  	$$EDITOR "/home/kalex/.config/nvim/lua/user/options.lua" 
+map ecfu	  	$$EDITOR "/home/kalex/.config/newsboat/urls" 
+map ecfx	  	$$EDITOR "/home/kalex/.config/x11/xprofile" 
+map ecfq	  	$$EDITOR "/home/kalex/.config/qutebrowser/config.py" 
+map ecq	  	$$EDITOR "/home/kalex/.config/qtile/config.py" 
+map ecfz	  	$$EDITOR "/home/kalex/.config/zsh/.zshrc" 
+map eldc	  	$$EDITOR "/home/kalex/.local/src/dwm-master/config.h" 

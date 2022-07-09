@@ -1,0 +1,153 @@
+## vim: filetype=sh
+#
+###git aliases
+### git status, add, commit, push
+#gs(){
+### MENU
+#	 cd $HOME/dev/Arch_dotfiles/
+#	 echo "$(ls -a)"
+#while true; do
+#	echo " press ( s ) >>  git git status"
+#	echo " press ( a ) >>  git add -A (ALL) & "
+#	echo " press ( l ) >>  git show (просмотр последнего изменения) "
+#	echo " press ( c ) >>  git commit -m "please write" (add file; commit; push)"
+#	echo " press ( d ) >> delete directory/files"
+#	echo " press ( r ) >> delete directory/files (удалить файлы из репозитория на основе вашего .gitignore, не удаляя их из локальной файловой системы)"
+#	echo " press ( q ) >> exit "
+#       	read choi
+#	case "$choi" in
+#        s)
+#					rsync -avzur --delete "$HOME/vimwiki" "$HOME/dev/Arch_dotfiles/vimwiki"
+#					rsync -avzur --delete "$HOME/.config/alacritty" "$HOME/dev/Arch_dotfiles/.config"
+#					rsync -avzur --delete "$HOME/.config/bookmenu" "$HOME/dev/Arch_dotfiles/.config"
+#					rsync -avzur --delete "$HOME/.config/conky" "$HOME/dev/Arch_dotfiles/.config"
+#                    rsync -avzur --delete "$HOME/.config/doom" "$HOME/dev/Arch_dotfiles/.config"
+#					rsync -avzur --delete "$HOME/.config/dmscripts" "$HOME/dev/Arch_dotfiles/.config"
+#					rsync -avzur --delete "$HOME/.config/kitty" "$HOME/dev/Arch_dotfiles/.config"
+#					rsync -avzur --delete "$HOME/.config/rofi" "$HOME/dev/Arch_dotfiles/.config"
+#					rsync -avzur --delete "$HOME/.config/lf" "$HOME/dev/Arch_dotfiles/.config"
+#					rsync -avzur --delete "$HOME/.config/sxhkd" "$HOME/dev/Arch_dotfiles/.config"
+#					rsync -avzur --delete "$HOME/.config/polybar" "$HOME/dev/Arch_dotfiles/.config"
+#					rsync -avzur --delete "$HOME/.config/shell" "$HOME/dev/Arch_dotfiles/.config"
+#					rsync -avzur --delete "$HOME/.config/x11" "$HOME/dev/Arch_dotfiles/.config"
+#
+#					rsync -avzur --delete "$HOME/.config/nvim/UltiSnips" "$HOME/dev/Arch_dotfiles/.config/nvim"
+#					rsync -avzur --delete "$HOME/.config/nvim/colors" "$HOME/dev/Arch_dotfiles/.config/nvim"
+#					rsync -avzur --delete "$HOME/.config/nvim/plugconfig" "$HOME/dev/Arch_dotfiles/.config/nvim"
+#					rsync -avzur --delete "$HOME/.config/nvim/init.vim" "$HOME/dev/Arch_dotfiles/.config/nvim"
+#
+#					rsync -avzur --delete "$HOME/.config/mpv/binding" "$HOME/dev/Arch_dotfiles/.config/mpv"
+#					rsync -avzur --delete "$HOME/.config/mpv/input" "$HOME/dev/Arch_dotfiles/.config/mpv"
+#					rsync -avzur --delete "$HOME/.config/mpv/mpv.conf" "$HOME/dev/Arch_dotfiles/.config/mpv"
+#					rsync -avzur --delete "$HOME/.config/mpv/scripts" "$HOME/dev/Arch_dotfiles/.config/mpv"
+#
+#					rsync -avzur --delete "$HOME/.config/sxiv" "$HOME/dev/Arch_dotfiles/.config"
+#					rsync -avzur --delete "$HOME/.config/qutebrowser" "$HOME/dev/Arch_dotfiles/.config"
+#					rsync -avzur --delete "$HOME/.config/qtile" "$HOME/dev/Arch_dotfiles/.config"
+#					rsync -avzur --delete "$HOME/.config/zsh" "$HOME/dev/Arch_dotfiles/.config"
+#
+#					rsync -avzur --delete "$HOME/.local/bin" $HOME/dev/Arch_dotfiles/.local
+#                    (cd $HOME/.local/src/ ; tar zcvf dwm.tgz dwm-kalex)
+#					(cd $HOME/.local/src/ ; tar zcvf st.tgz st-kalex)
+#					(cd $HOME/.local/src/ ; tar zcvf dmenu.tgz dmenu-kalex)
+#					(cd $HOME/.local/src/ ; tar zcvf dwmblocks.tgz dwmblocks)
+#					(cd $HOME/.local/src/ ; tar zcvf sxiv.tgz sxiv-kalex)
+#					rsync -avzur --delete "$HOME/.local/src/dwm-kalex" $HOME/dev/Arch_dotfiles/.local/src
+#                    rsync -avzur --delete "$HOME/.local/src/dwm.tgz" $HOME/dev/Arch_dotfiles/.local/src
+#					rsync -avzur --delete "$HOME/.local/src/st-kalex" $HOME/dev/Arch_dotfiles/.local/src
+#					rsync -avzur --delete "$HOME/.local/src/st.tgz" $HOME/dev/Arch_dotfiles/.local/src
+#					rsync -avzur --delete "$HOME/.local/src/dmenu-kalex" $HOME/dev/Arch_dotfiles/.local/src
+#					rsync -avzur --delete "$HOME/.local/src/dmenu.tgz" $HOME/dev/Arch_dotfiles/.local/src
+#					rsync -avzur --delete "$HOME/.local/src/dwmblocks" "$HOME/dev/Arch_dotfiles/.local/src"
+#					rsync -avzur --delete "$HOME/.local/src/dwmblocks.tgz" "$HOME/dev/Arch_dotfiles/.local/src"
+#					rsync -avzur --delete "$HOME/.local/src/sxiv" "$HOME/dev/Arch_dotfiles/.local/src"
+#					rsync -avzur --delete "$HOME/.local/src/sxiv-kalex.tgz" "$HOME/dev/Arch_dotfiles/.local/src"
+#
+#					rsync -avzur --delete "$HOME/.local/share/larbs" "$HOME/dev/Arch_dotfiles/.local/share"
+#
+#					 git rev-parse HEAD > /dev/null 2>&1 || return
+#					 git -c color.status=always status --short
+#					 ;;																										## git status
+#
+#        a)
+#					git add -A
+#					git commit -m "no commentary"
+#					git push
+#					break
+#					;;																	## add all
+#        l) git show; break;;																		## просмотреть последние изменения в commits
+#        c) local files=$(git ls-files --modified | fzf --ansi)
+#							if [[ -n $files ]]; then
+#									git add --verbose $files
+#							fi
+#						echo -n 'commentary'; read -r write
+#						git commit -m "$write"
+#						git push origin main
+#						break
+#						;;																									## commit
+#        d)  echo -n 'remove dir/files: '
+#						ls
+#						read
+#						rd $REPLY
+#						git add -A
+#						git commit -m "no commit"
+#						git push
+#						break
+#						;;																									## remove folder/files
+#        r) git rm --cached $(git ls-files -i -X .gitignore)
+#						git add .gitignore
+#						git commit -m "fix .gitignore"
+#						git push
+#						break
+#						;;																									## удалить файлы, папки используя изменения из файла .gitignore
+#				q) break;;																							## выход из цикла
+#    esac
+#done
+#}
+#
+#
+## ----------------------    GIT heart FZF ------------------------------------- #
+### add 1 files (fzf)
+#	ga() {
+#			local files=$(git ls-files --modified | fzf --ansi)
+#			if [[ -n $files ]]; then
+#					git add --verbose $files
+#			fi
+#	}
+#
+### Переключение на нужную ветку в git
+#   #alias gb='git branch'			## view current branch
+#gb() {
+#		cd ssh.local/
+#		git branch ;
+#		git rev-parse HEAD > /dev/null 2>&1 || return
+#		git branch -a --color=always | grep -v '/HEAD\s' | sort |
+#		fzf --ansi --multi --tac --preview-window right:70% \
+#		--preview 'git log --oneline --graph --date=short \
+#		--color=always --pretty="format:%C(auto)%cd %h%d %s" \
+#		$(sed s/^..// <<< {} | cut -d" " -f1) | head -200' |
+#  sed 's/^..//' | cut -d' ' -f1 |
+#  sed 's#^remotes/##'
+#}
+#
+###
+#  alias gl="git log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)'--all"
+#  alias gll='fzf_git_log'
+##  alias gl2="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all"
+#
+#alias gbo="git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'"
+#
+#####
+#gd_open(){
+#cd $HOME/GDisk/
+#drive open
+#}
+#
+#gd_pull_cloud_sync_local_folder(){
+#cd $HOME/GDisk/
+#drive pull RSL_Иллюстрации_к_служению/*
+#}
+#gd_puch_local_folder_sync_Cloud(){
+#cd $HOME/GDisk/
+#drive push RSL_Иллюстрации_к_служению
+#}

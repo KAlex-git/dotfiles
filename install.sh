@@ -41,7 +41,7 @@ log "Setting up NTP"
 timedatectl set-ntp true
 
 log "Updating mirror list"
-reflector -c Spain,France,Germany -a 6 --sort rate --save /etc/pacman.d/mirrorlist
+reflector -c Ukraine -a 6 --sort rate --save /etc/pacman.d/mirrorlist
 
 log "Refreshing packages"
 pacman -Syy

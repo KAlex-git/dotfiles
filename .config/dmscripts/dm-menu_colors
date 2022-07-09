@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+#
+# Script name: dtos-colorscheme
+# Description: Change colorscheme in DTOS.
+# Dependencies: dmenu, dmscripts
+# GitLab: https://www.gitlab.com/dwt1/dtos
+# License: https://www.gitlab.com/dwt1/dtos/LICENSE
+# Contributors: Derek Taylor
+
+# Set with the flags "-e", "-u","-o pipefail" cause the script to fail
+# if certain things happen, which is a good thing.  Otherwise, we can
+# get hidden bugs that are hard to discover.
+set -euo pipefail
+
+# shellcheck disable=SC1091
+source "$HOME/.config/dmscripts/config"
+
+options=(
+"default"
+"suckless"
+"best-color"
+)
+
+choice=$(printf '%s\n' "${options[@]}" | ${DMENU} 'Choose color scheme:' "${@}")
+
+
+if [ "$choice" ]; then
+    cd $HOME/.local/src/dmenu-kalex/
+    [ -n "$(grep -E default config.h)" ] && \
+        sed  -i "s/default/$choice/g" config.h; sudo make install
+
+    [ -n "$(grep -E suckless config.h)" ] && \
+        sed  -i "s/suckless/$choice/g" config.h; sudo make install
+
+    [ -n "$(grep -E best-color config.h)" ] && \
+        sed  -i "s/best-color/$choice/g" config.h; sudo make install
+
+# What to do if we just escape without choosing anything.
+else
+  echo "Program terminated." && exit 0
+fi

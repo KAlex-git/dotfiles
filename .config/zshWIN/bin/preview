@@ -1,0 +1,4 @@
+#!/bin/sh
+
+notify-send 'open -a 'Marked 2.app''
+#open -a 'Marked 2.app' "$@"

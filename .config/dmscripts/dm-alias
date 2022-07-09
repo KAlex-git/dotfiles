@@ -1,0 +1,38 @@
+#!/bin/sh
+##
+
+# Set with the flags "-e", "-u","-o pipefail" cause the script to fail
+# if certain things happen, which is a good thing.  Otherwise, we can
+# get hidden bugs that are hard to discover.
+set -euo pipefail
+
+dir="$HOME/.config/nvim/UltiSnips"
+# shellcheck disable=SC1091
+source "$HOME/.config/dmscripts/config"
+
+declare -A vim_sni
+vim_sni[  all.snippets]="$HOME/.config/nvim/UltiSnips/all.snippets"
+vim_sni[  sh.snippets]="$dir/sh.snippets"
+vim_sni[  markdown.snippets]="$dir/markdown.snippets"
+vim_sni[  tex.snippets]="$dir/tex.snippets"
+vim_sni[  python.snippets]="$dir/python.snippets"
+vim_sni[  vimwiki.snippets]="$dir/vimwiki.snippets"
+vim_sni[UltiSnips]="$dir"
+vim_sni[clear_dmenu]="$HOME/.local/src/dmenu-kalex/.drun_history"
+
+vim_sni[  aliasrc ]="$HOME/.config/shell/alias-shortcuts/aliasrc"
+vim_sni[  git     ]="$HOME/.config/shell/github.function"
+vim_sni[shell]="$HOME/.config/shell"
+
+title=$(printf '%s\n' "${!vim_sni[@]}" | sort | ${DMENU} 'DTOS Help:' "$@")
+path="${vim_sni["${title}"]}"
+
+if [ -f "$path" ]; then
+  # shellcheck disable=SC2154
+  $DMEDITOR "${path}"
+# What to do if we just escape without choosing anything.
+else
+    $DMTERM lf-ueberzug "${path}"
+fi
+
+  echo "Program terminated." && exit 0

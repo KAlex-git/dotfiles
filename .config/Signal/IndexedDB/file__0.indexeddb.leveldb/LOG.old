@@ -1,0 +1,6 @@
+2022/05/03-20:02:02.381 255f Creating DB /home/kalex/.config/Signal/IndexedDB/file__0.indexeddb.leveldb since it was missing.
+2022/05/03-20:02:02.471 255f Reusing MANIFEST /home/kalex/.config/Signal/IndexedDB/file__0.indexeddb.leveldb/MANIFEST-000001
+2022/05/03-20:02:03.209 2569 Level-0 table #5: started
+2022/05/03-20:02:03.297 2569 Level-0 table #5: 492 bytes OK
+2022/05/03-20:02:03.404 2569 Delete type=0 #3
+2022/05/03-20:02:03.404 2569 Manual compaction at level-0 from '\x00\x01\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at (end)

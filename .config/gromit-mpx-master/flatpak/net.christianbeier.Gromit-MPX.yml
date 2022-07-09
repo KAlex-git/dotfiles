@@ -1,0 +1,32 @@
+id: net.christianbeier.Gromit-MPX
+runtime: org.gnome.Platform # using GNOME for the time being as we need dconf for setting hotkeys under Wayland
+runtime-version: '3.38'
+sdk: org.gnome.Sdk
+command: gromit-mpx
+finish-args:
+  - --socket=x11
+  # needed to show appindicator in Ubuntu
+  - --talk-name=org.kde.StatusNotifierWatcher
+  # this is the dconf hole for setting hotkeys under Wayland
+  - --filesystem=xdg-run/dconf
+  - --filesystem=~/.config/dconf:ro
+  - --talk-name=ca.desrt.dconf
+  - --env=DCONF_USER_CONFIG_DIR=.config/dconf
+modules:
+  - shared-modules/libappindicator/libappindicator-gtk3-12.10.json
+  # ship media-keys schema for settings hotkeys under Wayland
+  - name: media-keys
+    buildsystem: simple
+    build-commands:
+      - install -D data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in /app/share/glib-2.0/schemas/org.gnome.settings-daemon.plugins.media-keys.gschema.xml
+      - sed -i -e 's/@GETTEXT_PACKAGE@/gnome-settings-daemon/g' /app/share/glib-2.0/schemas/org.gnome.settings-daemon.plugins.media-keys.gschema.xml
+      - glib-compile-schemas /app/share/glib-2.0/schemas
+    sources:
+      - type: archive
+        url: https://github.com/GNOME/gnome-settings-daemon/archive/GNOME_SETTINGS_DAEMON_3_38_1.tar.gz
+        sha256: 736a961ccdb314b9a157e29710743563dc67652ebc3ca69c0f37df2776863523
+  - name: gromit-mpx
+    buildsystem: cmake
+    sources:
+      - type: dir
+        path: ..

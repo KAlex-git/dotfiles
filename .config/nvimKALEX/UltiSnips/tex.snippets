@@ -1,0 +1,410 @@
+priority -50
+
+extends texmath
+
+global !p
+
+def create_table(snip):
+	rows = snip.buffer[snip.line].split('x')[0]
+	cols = snip.buffer[snip.line].split('x')[1]
+
+	int_val = lambda string: int(''.join(s for s in string if s.isdigit()))
+
+	rows = int_val(rows)
+	cols = int_val(cols)
+
+	offset = cols + 1
+	old_spacing = snip.buffer[snip.line][:snip.buffer[snip.line].rfind('\t') + 1]
+
+	snip.buffer[snip.line] = ''
+
+	final_str = old_spacing + "\\begin{tabular}{|" + "|".join(['$' + str(i + 1) for i in range(cols)]) + "|}\n"
+
+	for i in range(rows):
+		final_str += old_spacing + '\t'
+		final_str += " & ".join(['$' + str(i * cols + j + offset) for j in range(cols)])
+
+		final_str += " \\\\\\\n"
+
+	final_str += old_spacing + "\\end{tabular}\n$0"
+
+	snip.expand_anon(final_str)
+
+def add_row(snip):
+	row_len = int(''.join(s for s in snip.buffer[snip.line] if s.isdigit()))
+	old_spacing = snip.buffer[snip.line][:snip.buffer[snip.line].rfind('\t') + 1]
+
+	snip.buffer[snip.line] = ''
+
+	final_str = old_spacing
+	final_str += " & ".join(['$' + str(j + 1) for j in range(row_len)])
+	final_str += " \\\\\\"
+
+	snip.expand_anon(final_str)
+
+endglobal
+
+snippet "\\?b(egin)?" "begin{} / end{}" br
+\begin{${1:something}}
+	${0:${VISUAL}}
+\end{$1}
+endsnippet
+
+snippet abs "abstract environment" b
+\begin{abstract}
+	$0
+\end{abstract}
+endsnippet
+
+snippet tab "tabular / array environment" b
+\begin{${1:t}${1/(t)$|(a)$|(.*)/(?1:abular)(?2:rray)/}}{${2:c}}
+$0${2/(?<=.)(c|l|r)|./(?1: & )/g}
+\end{$1${1/(t)$|(a)$|(.*)/(?1:abular)(?2:rray)/}}
+endsnippet
+
+pre_expand "create_table(snip)"
+snippet "gentbl(\d+)x(\d+)" "Generate table of *width* by *height*" r
+endsnippet
+
+pre_expand "add_row(snip)"
+snippet "tr(\d+)" "Add table row of dimension ..." r
+endsnippet
+
+snippet table "Table environment" b
+\begin{table}[${1:htpb}]
+	\centering
+	\caption{${2:caption}}
+	\label{tab:${3:label}}
+	\begin{${4:t}${4/(t)$|(a)$|(.*)/(?1:abular)(?2:rray)/}}{${5:c}}
+	$0${5/(?<=.)(c|l|r)|./(?1: & )/g}
+	\end{$4${4/(t)$|(a)$|(.*)/(?1:abular)(?2:rray)/}}
+\end{table}
+endsnippet
+
+snippet fig "Figure environment" b
+\begin{figure}[${2:htpb}]
+	\centering
+	\includegraphics[width=${3:0.8}\linewidth]{${4:name.ext}}
+	\caption{${4/(\w+)\.\w+/\u$1/}$0}%
+	\label{fig:${4/(\w+)\.\w+/$1/}}
+\end{figure}
+endsnippet
+
+snippet enum "Enumerate" b
+\begin{enumerate}
+	\item $0
+\end{enumerate}
+endsnippet
+
+snippet item "Itemize" b
+\begin{itemize}
+	\item $0
+\end{itemize}
+endsnippet
+
+snippet desc "Description" b
+\begin{description}
+	\item[$1] $0
+\end{description}
+endsnippet
+
+snippet it "Individual item" b
+\item $0
+endsnippet
+
+snippet part "Part" b
+\part{${1:part name}}%
+\label{prt:${2:${1/(\w+)|\W+/(?1:\L$0\E:_)/ga}}}
+
+$0
+endsnippet
+
+snippet cha "Chapter" b
+\chapter{${1:chapter name}}%
+\label{cha:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+
+$0
+endsnippet
+
+snippet sec "Section"
+\section{${1:${VISUAL:section name}}}%
+\label{sec:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+
+$0
+endsnippet
+
+snippet sec* "Section"
+\section*{${1:${VISUAL:section name}}}%
+\label{sec:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+
+${0}
+endsnippet
+
+
+snippet sub "Subsection"
+\subsection{${1:${VISUAL:subsection name}}}%
+\label{sub:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+
+$0
+endsnippet
+
+snippet sub* "Subsection"
+\subsection*{${1:${VISUAL:subsection name}}}%
+\label{sub:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+
+${0}
+endsnippet
+
+snippet ssub "Subsubsection"
+\subsubsection{${1:${VISUAL:subsubsection name}}}%
+\label{ssub:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+
+$0
+endsnippet
+
+snippet ssub* "Subsubsection"
+\subsubsection*{${1:${VISUAL:subsubsection name}}}%
+\label{ssub:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+
+${0}
+endsnippet
+
+snippet par "Paragraph"
+\paragraph{${1:${VISUAL:paragraph name}}}%
+\label{par:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+
+$0
+endsnippet
+
+snippet subp "Subparagraph"
+\subparagraph{${1:${VISUAL:subparagraph name}}}%
+\label{par:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+
+$0
+endsnippet
+
+snippet ac "Acroynm normal" b
+\ac{${1:acronym}}
+$0
+endsnippet
+
+snippet acl "Acroynm expanded" b
+\acl{${1:acronym}}
+$0
+endsnippet
+
+snippet ni "Non-indented paragraph" b
+\noindent
+$0
+endsnippet
+
+snippet pac "Package" b
+\usepackage`!p snip.rv='[' if t[1] else ""`${1:options}`!p snip.rv = ']' if t[1] else ""`{${2:package}}$0
+endsnippet
+
+snippet lp "Long parenthesis"
+\left(${1:${VISUAL:contents}}\right)$0
+endsnippet
+
+snippet "mint(ed)?( (\S+))?" "Minted code typeset" br
+\begin{listing}
+\begin{minted}[linenos,numbersep=5pt,frame=lines,framesep=2mm]{${1:`!p
+snip.rv = match.group(3) if match.group(2) is not None else "language"`}}
+${2:${VISUAL:code}}
+\end{minted}
+\caption{${3:caption name}}
+\label{lst:${4:${3/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+\end{listing}
+
+$0
+endsnippet
+
+snippet gln "New glossary item" b
+\newglossaryentry{${1:identifier}}
+{
+  name={${2:name}},
+  first={${3:first occurrence}},
+  sort={${4:sort value}},
+  description={${0:description}},
+}
+endsnippet
+snippet glnl "New long glossary item" b
+\longnewglossaryentry{${1:identifier}}
+{
+  name={${2:name}},
+  first={${3:first occurrence}},
+  sort={${4:sort value}},
+}
+{
+  ${0:description}
+}
+endsnippet
+
+# Bold text
+snippet bf "Bold" b
+\textbf{$1} $0
+endsnippet
+
+# Italic text
+snippet ita "Italics" b
+\textit{$1} $0
+endsnippet
+
+# Underlined text
+snippet und "Underline" b
+\underline{$1} $0
+endsnippet
+
+#################################
+#				#
+#		BOOK		#
+#				#
+#################################
+snippet base_book "start" b
+\documentclass[14pt,a4paper,twoside]{book}
+\usepackage[T2A]{fontenc}
+\usepackage[TS1]{fontenc}
+\usepackage[english,russian]{babel}
+\usepackage{geometry,graphicx,amssymb,amsmath,scalerel,wasysym}
+\graphicspath{{./images/}}
+%\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\usepackage{float}
+\usepackage{wrapfig} 		% пакет нужный для обтекания текста
+\geometry{top=1cm,left=2cm,bottom=1cm,right=2cm}
+\usepackage{color,soul}
+\usepackage[dvipsnames]{xcolor}      % https://en.wikibooks.org/wiki/LaTeX/Colors
+\usepackage{multicol,array}
+\usepackage{blindtext}
+\usepackage[unicode, pdftex]{hyperref} % подключаем hyperref
+\usepackage{csquotes}
+\usepackage{tabularx, longtable}
+\usepackage{setspace} % setting spacing
+\usepackage{textcomp}
+\usepackage[pagecolor=none]{pagecolor}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=cyan,
+	bookmarks=false,
+	}
+
+\pagestyle{headings}
+
+% Start the document
+\begin{document}
+{\usefont{T2A}{Tempora-TLF}{m}{n} % Шрифт, похожий на Times New Roman.
+
+\chapter{Sample Chapter}
+\section{New section}
+ И что со шкафом?
+$0
+
+
+ }
+\end{document}
+endsnippet
+
+#################################
+#				#
+#	    Arcticle		#
+#				#
+#################################
+snippet base_article "arcticle" b
+% https://www.verbosus.com/latex.html
+% login: kalexandro
+% pass:  -----
+\documentclass[14pt,a3paper]{extarticle}
+\usepackage[T2A]{fontenc}
+\usepackage[TS1]{fontenc}    % needed for windows
+\usepackage[english,russian]{babel}
+\usepackage{geometry,graphicx,amssymb,amsmath,scalerel,wasysym}
+\graphicspath{{./images/}}
+%\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\usepackage{float}
+\usepackage{wrapfig} 		% пакет нужный для обтекания текста
+\geometry{top=0.75pt,left=0.80pt,bottom=0.75pt,right=0.80pt} % needed for windows
+\usepackage{color,soul}      % needed for windows
+\usepackage[dvipsnames]{xcolor}      % https://en.wikibooks.org/wiki/LaTeX/Colors
+\usepackage{multicol,array}
+\usepackage{blindtext}
+\usepackage[unicode, pdftex]{hyperref} % подключаем hyperref
+\usepackage{csquotes}
+\usepackage{tabularx, longtable}
+\usepackage{setspace} % setting spacing
+\usepackage{textcomp}
+\usepackage[pagecolor=none]{pagecolor}
+
+\newcommand{\squarecheck}[1]{\item[{\ooalign{$\checkmark$\cr\hidewidth$\square$\hidewidth\cr}}]\textbf{#1}}
+\newcommand{\notcheck}[1]{\item[{$\square$}]\textbf{#1}}
+\newcommand{\comment}[1]{\textit{\textcolor{gray}{#1}}}
+\newcommand{\ready}[1]{\textit{\textcolor{green}{#1}}}
+\newcommand{\padding}[1]{\begingroup\leftskip=10mm\rightskip=10mm{#1}\par\endgroup}
+\newcommand{\poems}[1]{\noindent\begingroup\leftskip=30mm\rightskip=30mm\textit{\violet{{#1}}}\par\endgroup} % без отступа, курсив, цвет текста - фиолетовый, отступ от края
+
+
+%color
+\newcommand{\gray}{\textcolor[rgb]{0.43, 0.5, 0.5}}
+\definecolor{orange}{HTML}{ff7e00}
+\definecolor{darkred}{HTML}{c32148}
+\definecolor{violet}{HTML}{ff0aef}
+\newcommand{\violet}{\textcolor{violet}}
+\definecolor{awesome}{rgb}{1.0, 0.13, 0.32} 		% backround color
+\definecolor{amber(sae/ece)}{rgb}{1.0, 0.49, 0.0}
+\definecolor{brightmaroon}{rgb}{0.76, 0.13, 0.28}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=cyan,
+	bookmarks=false,
+	}
+
+% Start the document
+\begin{document}
+
+$0
+
+\end{document}
+endsnippet
+
+## arcticle_table
+snippet arcticle_table "table"
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{p{12cm}c|p{12cm}}
+	\begin{itemize}		% начало - маркерованный список
+	  \begin{spacing}{0.0}
+		  \squarecheck{\comment {${1:Аввакум}}} ---23.10.2020---\textit{${2:name}}
+		  \squarecheck{\comment{${1:Аввакум}}} ---30.10.2020--- \textit{${2:name}}
+		  \squarecheck{\comment{${1:Аввакум}}} ---1.11.2020--- \textit{${2:name}}
+		  \squarecheck{\comment {${1:Аввакум}}} ------\textit{${2:name}}
+		  \squarecheck{\comment {${1:Аввакум}}} ------\textit{${2:name}}
+		  \squarecheck{\comment {${1:Аввакум}}} ------\textit{${2:name}}
+		  \squarecheck{\comment {${1:Аввакум}}} ------\textit{${2:name}}
+	  \end{spacing}
+  	\end{itemize} 	% конец - маркерованный список
+    & \hfill &
+  \begin{itemize}	% начало - маркерованный список
+		  \notcheck{\comment{${1:Аввакум}}} ---00.00.0000--- \textit{${2:name}}
+		  %\notcheck{\comment{}} %---01.07--- \textit{${2:name}}
+		  %\notcheck{\comment{}} %---01.07--- \textit{${2:name}}
+		  %\notcheck{\comment{}} %---01.07--- \textit{${2:name}}
+  \end{itemize} 	% конец - маркерованный список
+  \end{tabular}
+\end{table}
+endsnippet
+
+## ALIGN
+snippet center "align" b
+
+\begin{center}
+
+\end{center}
+endsnippet
+
+
+
+# vim:ft=snippets:

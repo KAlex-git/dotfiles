@@ -1,0 +1,10 @@
+# GIMP action-history
+
+(history-item "tools-iscissors" 1)
+(history-item "edit-cut" 0)
+(history-item "edit-copy" 0)
+(history-item "edit-paste" 0)
+(history-item "tools-by-color-select" 0)
+(history-item "file-quit" 1)
+
+# end of action-history

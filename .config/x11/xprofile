@@ -1,0 +1,49 @@
+#!/bin/sh
+
+# This file runs when a DM logs you into a graphical session.
+# If you use startx/xinit like a Chad, this file will also be sourced.
+
+xrandr --dpi 96		# Set DPI. User may want to use a larger number for larger screens.
+setbg &			# set the background with the `setbg` script
+xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources & xrdbpid=$!	# Uncomment to use Xresources colors/settings on startup
+remaps &		# run the remaps script, switching caps/esc and more; check it for more info
+#/home/kalex/.local/bin/pinentry-wrapper
+
+autostart="mpd xcompmgr dunst unclutter pipewire xscreensaver --nosplash"
+
+for program in $autostart; do
+	pidof -s "$program" || "$program" &
+done >/dev/null 2>&1
+
+# Ensure that xrdb has finished running before moving on to start the WM/DE.
+[ -n "$xrdbpid" ] && wait "$xrdbpid"
+
+# Authentication dialog
+cmd_exist() { unalias "$1" >/dev/null 2>&1 ; command -v "$1" >/dev/null 2>&1 ;}
+__kill() { kill -9 "$(pidof "$1")" >/dev/null 2>&1 ; }
+__start() { sleep 1 && "$@" >/dev/null 2>&1 & }
+__running() { pidof "$1" >/dev/null 2>&1 ;}
+
+if [ -f /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 ]; then
+     polkit-gnome-authentication-agent-1
+    #__start /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+fi
+
+#source /home/kalex/.cache/bwsession
+
+session=${1:-dwm}
+case $session in
+    dwm)
+	    exec ssh-agent dwm;;
+    xmonad)
+	    exec xmonad;;
+    i3) exec i3;;
+	qtile)
+			#picom &
+			#/usr/bin/emacs --daemon &
+			#conky -c $HOME/.config/conky/doomone-qtile.conkyrc
+			#nm-applet &
+			qtile start ;;
+    # No known session, try to run it as command
+    *)	exec $1;;
+esac

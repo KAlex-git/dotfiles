@@ -1,0 +1,7 @@
+2022/05/04-15:26:43.650 6150 Reusing MANIFEST /home/kalex/.config/Signal/IndexedDB/file__0.indexeddb.leveldb/MANIFEST-000001
+2022/05/04-15:26:43.651 6150 Recovering log #4
+2022/05/04-15:26:43.661 6150 Reusing old log /home/kalex/.config/Signal/IndexedDB/file__0.indexeddb.leveldb/000004.log 
+2022/05/04-15:26:44.871 614f Level-0 table #8: started
+2022/05/04-15:26:44.942 614f Level-0 table #8: 472 bytes OK
+2022/05/04-15:26:45.051 614f Delete type=0 #4
+2022/05/04-15:26:45.051 614f Manual compaction at level-0 from '\x00\x02\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x03\x00\x00\x00' @ 0 : 0; will stop at (end)

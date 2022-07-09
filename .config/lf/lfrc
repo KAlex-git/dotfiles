@@ -1,0 +1,566 @@
+# -*- mode: sh -*-
+# https://pkg.go.dev/github.com/gokcehan/lf#section-readme
+  ##      ##
+   #     #  #
+   #     #
+   #    ####
+   #     #
+   #     #
+  ###    #
+
+# Alex's lf settings
+# Basic vars
+set shellopts '-eu'
+set ifs "\n"
+set scrolloff 4
+set icons
+set ignorecase # Игнорирование регистра при поиске
+set info size
+set period 1
+set hiddenfiles ".*:*.aux:*.log:*.bbl:*.bcf:*.blg:*.run.xml"
+set cleaner '~/.config/lf/cleaner'
+set previewer '~/.config/lf/scope'
+set relativenumber
+set timefmt '2006.01.02 15:04:05'
+set ratios 1:3
+set promptfmt "
+\033[38;5;8m\033[48;5;236m %u@%h \033[38;5;236m\033[48;5;234m
+\033[38;5;8m\033[48;5;234m %w/%f \033[0m\033[38;5;234m\033[0m
+"
+
+# Vars that depend on environmental variables
+$lf -remote "send $id set previewer ${XDG_CONFIG_HOME:-$HOME/.config}/lf/scope"
+
+# cmds/functions
+cmd open ${{
+    case "$f" in
+        *.xmind) notify-send -i "$HOME/.local/share/icons/xmind.png" "mapping"; xmind-2020 $fx ;;
+        *.doc|*.docx) notify-send -i "$HOME/.local/share/icons/libreoffice.png" "T"; libreoffice $fx ;;
+				*.m3u)	mpv --input-ipc-server=/tmp/mpvsoc$(date +%%s) $fx ;;
+				*.sh|*.txt)	$EDITOR $fx ;;
+				*.gpg)	gpg $fx ;;
+				*.svg)	gimp $fx ;;
+				*.epub)	foliate $fx ;;
+    esac
+    case $(file --mime-type $f -b) in
+    	text/troff) man ./ $f;;
+    	text/html) $BROWSER $f;;
+      text/*|application/json) $EDITOR $fx;;
+      image/x-xcf|image/svg+xml) setsid gimp $f >/dev/null 2>&1 & ;;
+	    image/svg+xml) display -- $f ;;
+	    image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" | sxiv -aio 2>/dev/null | lf-select ;;
+	    audio/*) mpv --input-ipc-server=/tmp/mpvsoc$(date +%%s) $f ;;
+      video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
+	    application/pdf) zathura "$fx" ;;
+	    application/csv) $TERMINAL -e sc-im $fx ;;
+	    application/octet-stream) wine start /ProgIDOpen Wtlib.Favorite $f >/dev/null 2>&1 & ;;
+	    application/x-bittorrent) transadd $f >/dev/null 2>&1 & ;;
+	    application/x-iso9660-image) 7z x $f >/dev/null 2>&1 & ;;
+
+        #*) for f in $fx; do setsid $OPENER $f >/dev/null 2>&1 & done;;
+    esac
+}}
+
+
+cmd delete ${{
+	set -f
+	printf "%s\n\t" "$fx"
+	printf "delete?[y/N]"
+	read ans
+	[ $ans = "y" ] && rm -rf $fx
+}}
+
+# TODO MOVE
+cmd moveto ${{
+	clear; tput cup $(($(tput lines)/3)); tput bold
+	set -f
+	clear; echo "Move to where?"
+	dest="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')" &&
+	for x in $fx; do
+		eval mv -iv \"$x\" \"$dest\"
+	done &&
+	notify-send "🚚 File(s) moved." "File(s) moved to $dest."
+}}
+
+# TODO COPY [ copy fzf ]
+cmd copyto ${{
+	clear; tput cup $(($(tput lines)/3)); tput bold
+	set -f
+	clear; echo "Copy to where?"
+	dest="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')" &&
+	for x in $fx; do
+		eval cp -ivr \"$x\" \"$dest\"
+	done &&
+	notify-send "✳️ File(s) copied." "File(s) copies to $dest."
+}}
+# copy clipboard full path
+cmd copy_path ${{
+set -f
+	if command -v pbcopy > /dev/null 2> /dev/null; then
+		echo "$f" | tr -d '\n' | pbcopy
+	elif command -v xclip > /dev/null 2> /dev/null; then
+		echo "$f" | tr -d '\n' | xclip -sel clip
+	fi
+	notify-send "🎿 full path copied."
+}}
+
+#cmd yank-path ${{
+#    echo "$fx" | xclip -i -selection clipboard
+#}}
+# copy clipboard only name
+cmd copy_name ${{
+    echo "$fx" |
+      xargs -r -d '\n' basename -a -- |
+      xclip -i -selection clipboard
+      only_name=$(xclip -out -selection clipboard)
+      msg="<span foreground='#00ffe0' font='Verdana 16'>'$(xclip -out -selection clipboard)'</span>"
+      notify-send "Name 'folder'"  "$msg \n copied in buffer."
+
+}}
+
+#{{{ TODO paste }}}
+cmd pasteto &{{
+    load=$(lf -remote 'load')
+    mode=$(echo "$load" | sed -n '1p')
+    list=$(echo "$load" | sed '1d')
+    if [ $mode = 'copy' ]; then
+        rsync -av --ignore-existing --progress $list . \
+        | stdbuf -i0 -o0 -e0 tr '\r' '\n' \
+        | while read line; do
+            lf -remote "send $id echo $line"
+        done
+    elif [ $mode = 'move' ]; then
+        mv -n $list .
+    fi
+    lf -remote 'send load'
+    lf -remote 'send clear'
+    notify-send "📋 File(s) copied." "File(s) copies to $dest."
+}}
+cmd paste &{{
+    set -- $(cat ~/.local/share/lf/files)
+    mode="$1"
+    shift
+    case "$mode" in
+        copy)
+            rsync -av --ignore-existing --progress -- "$@" . |
+            stdbuf -i0 -o0 -e0 tr '\r' '\n' |
+            while IFS= read -r line; do
+                lf -remote "send $id echo $line"
+            done
+            ;;
+        move) mv -n -- "$@" .;;
+    esac
+    rm ~/.local/share/lf/files
+    lf -remote "send clear"
+}}
+# paste as a symbolic link to original
+cmd paste_link %{{
+  if [ "$(wc -l < ~/.local/share/lf/files)" -gt 1 ]; then
+    while read -r file; do
+      case "$file" in
+        copy|move) ;;
+        *)
+          ln -s "$file" .
+          ;;
+      esac
+    done < ~/.local/share/lf/files
+  else
+    lf -remote "send $id echo no files to link."
+  fi
+}}
+
+map unLink :{{
+    symlink
+    unselect
+}}
+
+#{{{ TODO - Arhived files }}}
+# -- zip
+cmd zip ${{
+	set -f
+  if [[ -d $fx ]]; then
+  cp -r $fx/ $f-zip
+  (cd $f-zip/ ; zip -r $f.zip .)
+  rm -rf $f-zip/
+	notify-send "to pack" "$f.zip"
+	fi
+
+	if [[ -f $f ]]; then
+		fname=$(basename $f)
+		name=${fname%.*}
+    zip -r $name.zip $fx
+		notify-send "to pack" "$name.zip"
+	fi
+}}
+
+# -- tgz
+cmd tgz ${{
+	set -f
+  if [[ -d $fx ]]; then
+  cp -r $fx/ $f-tgz
+  (cd $f-tgz/ ; tar zcvf $f.tgz .)
+  rm -rf $f-tgz/
+	notify-send "to pack" "$f.tgz"
+	fi
+
+	if [[ -f $f ]]; then
+		fname=$(basename $f)
+		name=${fname%.*}
+    tar zcvf $name.tgz $fx
+		notify-send "to pack" "$name.tgz"
+	fi
+}}
+cmd tar %tar cvf "$f.tar" "$f"
+cmd tarbz2 %tar cjvf "$f.tar.bz2" "$f"
+
+#** unpack
+cmd ext ${{
+set -f
+ext $fx
+}}
+
+cmd crypt ${{
+gpg -c --cipher-algo AES256 "$f"
+}}
+
+#{{{ TODO - configs edit }}}
+cmd open_config  ${{
+  $EDITOR $(bookmenu -b ~/.config/bookmenu/configs -f fzf -o)
+}}
+#{{{ TODO change permissions }}}
+## ver 1.0
+#cmd chmd ${{
+#	set -f
+#	printf "chmod permissions?[y/N]"
+#	read ans
+#	[ $ans = "y" ] && ch $fx
+#	lf -remote 'send reload'
+#}}
+## ver 1.1
+cmd chmd ${{
+  printf "Mode Bits: "
+  read ans
+  for file in "$fx"
+  do
+    chmod $ans $file
+  done
+  lf -remote 'send reload'
+}}
+
+cmd chwn ${{
+	set -f
+	cw $fx
+	lf -remote 'send reload'
+}}
+
+#{{{ TODO rename }}}
+cmd vimv ${{			# vimv
+	set -f
+	inst_vimv="$HOME/.config/install_system/AUR_PKG/vimv/vimv"
+	VIMV="$HOME/.local/bin/vimv"
+if [[ -f "$VIMV" ]]; then
+	filename=$(basename "$fx")
+	vimv $filename
+else
+	notify-send "📦 vimv" "must be installed for this function."
+	notify-send "Please wait few seconds 😀"
+	cp "$inst_vimv" "$HOME/.local/bin/"
+	filename=$(basename "$fx")
+	vimv $filename
+fi
+}}
+cmd r_ ${{			# r_
+	set -f
+	mv "$f" $(echo "$fx"|tr " " _)\
+}}
+
+#{{{ TODO CREATE }}}
+cmd new_file ${{
+	newfile="$f"
+	echo -n 'Name file: '
+	read
+	touch $REPLY
+	sudo chmod +x $REPLY >/dev/null 2>&1
+	echo "Create file with permissions: $(ls -la "$REPLY")"
+$EDITOR $REPLY
+}}
+cmd new_dir ${{
+	newdir="$f"
+	echo -n 'Name folder: '
+	read
+	mkdir $REPLY
+	sudo chmod +x $REPLY >/dev/null 2>&1
+	echo "Create file with permissions: $(ls -la "$REPLY")"
+lf -remote "send $id select \"$REPLY\""
+}}
+
+
+#{{{ TODO change source file}}}
+cmd source_preview ${{
+	set -f
+sed -i '1cset previewer ~/.config/lf/preview' /home/kalex/.config/lf/lfrc
+notify-send 'source preview'
+$(lfrun && killall -q "lf")
+}}
+cmd source_pv.sh ${{
+set -f
+sed -i '1cset previewer ~/.config/lf/pv.sh' /home/kalex/.config/lf/lfrc
+killall -q "tail" && $(lf)
+#pgrep -HUP $(pgrep -u $UID -x lf)
+#kill -TERM kill -TERM $(pgrep -HUP $(pgrep -u $UID -x "lf")
+notify-send 'source pv.sh'
+
+#$TERMINAL -e lf & disown ;exit
+killall -q lfrun
+}}
+## cd location
+cmd fzf_jump ${{
+  res="$(find ~ -maxdepth 3 | fzf --reverse --header='Jump to location')"
+  if [ -f "$res" ]; then
+    cmd="select"
+  elif [ -d "$res" ]; then
+    cmd="cd"
+  fi
+  lf -remote "send $id $cmd \"$res\""
+}}
+## merge folder/file
+cmd merge ${{
+set -f
+merge.sh "$1" "$2"
+
+}}
+
+## mount folder
+cmd mount ${{
+set -f
+  ISO="$HOME/ISO"
+	file="$f"
+  if [ -d "$ISO" ]; then
+		notify-send "подключение папки '$ISO'"
+		sudo mount $file $ISO
+		lf -remote "send $id reload"
+		lf -remote "send $id cd $ISO"
+  elif [ ! -z "$ISO" ]; then
+		notify-send "монтирование папки '$ISO'"
+		mkdir "~/ISO"
+		sudo mount $file $ISO
+  fi
+}}
+
+cmd umount ${{
+set -f
+  ISO="$HOME/ISO"
+	file="$f"
+		notify-send "размонтирование папки '$ISO'"
+  if [ -n "$ISO" ]; then
+		notify-send "размонтирование папки '$ISO'"
+		sudo umount $ISO
+		lf -remote "send $id reload"
+  fi
+}}
+
+cmd SIZE ${{
+set -f
+  ncdu $fx
+fi
+}}
+
+
+
+###################################
+	 #																#
+	 #						Bindings						#
+	 #																#
+###################################
+#** unbind
+map a
+map c
+map C
+map b
+map d
+map i
+map e
+map g
+map f
+map fd
+map fc
+map fm
+map y
+map r
+map m
+map p
+map u
+map w
+map sn				#:set sortby natural; set info
+map ss 				#:set sortby size; set info size
+map st 				#:set sortby time; set info time
+map sa 				#:set sortby atime
+map sc 				#:set sortby ctime; set info ctime
+map se 				#:set sortby ext; set info#** navig
+#** navigation
+map gg				top
+map <s-g>			bottom
+map <a-k>			page-up
+map <a-j>			page-down
+#** copy and move
+map dd				delete
+map C			    copyto
+map J $lf -remote "send $id cd $(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf)"
+map <c-f>			fzf_jump
+map F				$lf -remote "send $id select '$(fzf)'"
+map ;				mark-save
+map M				moveto
+map P				pasteto
+map pp				paste
+map pl				paste_link
+map yy				copy
+map yn				copy_name
+map yp				copy_path
+map <c-d>			cut		 # mark of delete or move to...
+# create ...
+map ad				new_dir
+map af              new_file
+map ai				!gstat $f || stat $f; echo ; du -sh $f ; echo ; file -b -p $f
+#map au				!du -hsx * | sort -rh | less
+map ac				SIZE
+map as				!7z x $f
+map bg               !setbg $f
+#map bv               bulkrename
+map bb 				!vimv $fx
+map cc				chmd			## chmod
+map cw				chwn			## chown
+map cr				crypt			## запаролить файл
+map rg              merge
+# rename ...
+map ea 				open_config
+map д					open
+map ev				$$EDITOR $f
+map rr 				vimv
+map r_ 				r_
+map V push :!nvim<space>
+map w         $setsid -f $TERMINAL >/dev/null 2>&1
+# reload and shell
+map aa				reload
+map <c-r>			reload
+map <enter>			shell
+map q               !sudo killall -q lf-ueberzug lf-server ; exit
+map <a-q>			!sudo killall -q lf-ueberzug lf-server ; exit
+
+# pack && unpack
+map ax					ext
+map az 					zip
+map at					tar
+map au 					tgz
+map ag 					!gzip -c $f > $f.gz
+map ab 					tarbz2
+# select / unselect
+map ud					clear
+map ul					unLink
+map ui					:unselect; invert
+map un 					push :glob-unselect<space>*.
+map uu					clear
+map us 					push :glob-select<space>*.
+map ue 					unselect
+
+# mount / umount
+map sM			mount
+map sN		  umount
+
+
+# Rename
+map A rename # at the very end
+map I push A<c-a> # at the very beginning
+map ii push A<a-b><a-b><a-f> # before extention
+map <c-x>j		source_preview
+map <c-x>k		source_pv.sh
+map oc				!inkscape "$f"
+map og 				!gimp "$f"
+map oi 				!toPNG "$fx"
+map oo        !okular "$fx"
+map -					$lf -remote "send $id $(cd -)"
+
+# execute current file (must be executable)
+#map o &mimeopen "$f"
+#map O $mimeopen --ask "$f"
+#map x $$f
+map x !$f
+
+#
+map gF						$gFFolderINCloud.sh
+map gC						$gCCloud_in_folder.sh
+
+
+# TODO Change fast directories and edit files
+source "~/.config/lf/shortcutrc"
+
+# TODO sort
+#** sort
+map st :{{
+    set sortby time
+    set info time
+}}
+
+
+#** set ratios/preview
+map sr :{{
+    set ratios 1:2:6
+}}
+
+map sR :{{
+    set reverse!
+}}
+
+map sp :{{
+    set ratios 1:3:2
+}}
+
+map s<a-p> :{{
+    set ratios 1:1:2
+}}
+
+map sP :{{
+    set ratios 1:3
+}}
+
+
+##########################
+cmd zle-cd %printf 'cd %q && zle reset-prompt\n' "$PWD" >&$ZLE_FIFO
+
+cmd zle-insert-relative %{{
+    for f in $fx; do
+        printf 'LBUFFER+="${LBUFFER:+ }${(q)$(realpath %q --relative-to=$PWD)}"\n' "$f" >&$ZLE_FIFO
+    done
+}}
+
+cmd zle-insert-absolute %{{
+    for f in $fx; do
+        printf 'LBUFFER+="${LBUFFER:+ }%q"\n' "$f" >&$ZLE_FIFO
+    done
+}}
+
+cmd zle-init :{{
+    map . zle-cd
+    map a zle-insert-relative
+    map A zle-insert-absolute
+}}
+
+&[[ -n "$ZLE_FIFO" ]] && lf -remote "send $id zle-init"
+##########################
+
+
+%{{
+    w=$(tput cols)
+    if [ $w -le 80 ]; then
+        lf -remote "send $id set ratios 1:2"
+    elif [ $w -le 160 ]; then
+        lf -remote "send $id set ratios 1:3:4"
+    else
+        lf -remote "send $id set ratios 1:3:7"
+    fi
+}}
+
+map q !killall -9 lf || killall -9 lfrun
+map <alt+q> !killall -9 lf || killall -9 lfrun
+
+#map c push A<c-u> # new rename
+#map a push A<a-b> # after extention

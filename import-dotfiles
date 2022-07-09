@@ -1,0 +1,185 @@
+#!/bin/sh
+path=$(pwd)
+
+# Home directory
+ln -sf $path/.bash_profile $HOME/.bash_profile
+ln -sf $path/.bashrc $HOME/.bashrc
+ln -sf $path/.gitconfig $HOME/.gitconfig
+
+ln -sf $path/.config/x11 $HOME/.config/x11
+ln -sf $HOME/.config/x11/xprofile $HOME/.xprofile
+
+ln -sf $path/.config/shell $HOME/.config
+ln -sf $HOME/.config/shell/profile $HOME/.zprofile
+
+# Config directory
+[ ! -d $HOME/.config ] && mkdir $HOME/.config
+
+[ -d $HOME/.config/alacritty ] && rm -rf $HOME/.config/alacritty
+ln -sf $path/.config/alacritty $HOME/.config/alacritty
+
+[ -d $HOME/.config/bookmenu ] && rm -rf $HOME/.config/bookmenu
+ln -sf $path/.config/bookmenu $HOME/.config/bookmenu
+
+[ -d $HOME/.config/.calcurse ] && rm -rf $HOME/.config/.calcurse
+ln -sf $path/.config/calcurse $HOME/.config/.calcurse
+
+[ -d $HOME/.config/conky ] && rm -rf $HOME/.config/conky
+ln -sf $path/.config/conky $HOME/.config/calcurse
+
+[ -d $HOME/.config/dmscripts ] && rm -rf $HOME/.config/dmscripts
+ln -sf $path/.config/dmscripts $HOME/.config/dmscripts
+
+[ -d $HOME/.config/dunst ] && rm -rf $HOME/.config/dunst
+ln -sf $path/.config/dunst $HOME/.config/dunst
+
+[ -d $HOME/.config/fish ] && rm -rf $HOME/.config/fish
+ln -sf $path/.config/fish $HOME/.config/fish
+
+[ -d $HOME/.config/fontconfig ] && rm -rf $HOME/.config/fontconfig
+ln -sf $path/.config/fontconfig $HOME/.config/fontconfig
+
+[ -d $HOME/.config/fzf ] && rm -rf $HOME/.config/fzf
+ln -sf $path/.config/fzf $HOME/.config/fzf
+
+[ ! -d $HOME/.config/GIMP ] && mkdir -p $HOME/.config/GIMP/2.10
+[ ! -d $HOME/.config/GIMP/2.10 ] && mkdir $HOME/.config/GIMP/2.10
+ln -sf $path/.config/GIMP/filters $HOME/.config/GIMP/2.10/filters
+ln -sf $path/.config/GIMP/patterns $HOME/.config/GIMP/2.10/patterns
+
+[ ! -d $HOME/.config/gromit-mpx-master ] && mkdir -p $HOME/.config/gromit-mpx-master
+ln -sf $path/.config/gromit-mpx-master $HOME/.config/gromit-mpx-master
+
+[ -d $HOME/.config/gtk-2.0 ] && rm -rf $HOME/.config/gtk-2.0
+ln -sf $path/.config/gtk-2.0 $HOME/.config/gtk-2.0
+
+[ -d $HOME/.config/gtk-3.0 ] && rm -rf $HOME/.config/gtk-3.0
+ln -sf $path/.config/gtk-3.0 $HOME/.config/gtk-3.0
+
+[ -d $HOME/.config/htop ] && rm -rf $HOME/.config/htop
+ln -sf $path/.config/htop $HOME/.config/htop
+
+[ -d $HOME/.config/lf ] && rm -rf $HOME/.config/lf
+ln -sf $path/.config/lf $HOME/.config/lf
+
+[ -d $HOME/.config/libreoffice ] && rm -rf $HOME/.config/libreoffice
+ln -sf $path/.config/libreoffice $HOME/.config/libreoffice
+
+[ -d $HOME/.config/mpd ] && rm -rf $HOME/.config/mpd
+ln -sf $path/.config/mpd $HOME/.config/mpd
+
+[ -d $HOME/.config/mpv ] && rm -rf $HOME/.config/mpv
+ln -sf $path/.config/mpv $HOME/.config/mpv
+
+[ -d $HOME/.config/ncmpcpp ] && rm -rf $HOME/.config/ncmpcpp
+ln -sf $path/.config/ncmpcpp $HOME/.config/ncmpcpp
+
+[ -d $HOME/.config/newsboat ] && rm -rf $HOME/.config/newsboat
+ln -sf $path/.config/newsboat $HOME/.config/newsboat
+
+[ -d $HOME/.config/nvim ] && rm -rf $HOME/.config/nvim
+ln -sf $path/.config/nvim $HOME/.config/nvim
+
+[ -d $HOME/.config/nvimKALEX ] && rm -rf $HOME/.config/nvimKALEX
+ln -sf $path/.config/nvimKALEX $HOME/.config/nvimKALEX
+
+# See https://www.addictivetips.com/ubuntu-linux-tips/back-up-opera-browser-settings-on-linux/
+if [ ! -d $HOME/.config/opera ];then
+cd $path/.config/ ; tar xvf opera.gz
+mv opera/ $HOME/.config
+else
+  rm -rf $HOME/.config/opera
+fi
+
+[ -d $HOME/.config/pinentry ] && rm -rf $HOME/.config/pinentry
+ln -sf $path/.config/pinentry $HOME/.config/pinentry
+
+[ -d $HOME/.config/pipewire ] && rm -rf $HOME/.config/pipewire
+ln -sf $path/.config/pipewire $HOME/.config/pipewire
+
+[ -d $HOME/.config/pulse ] && rm -rf $HOME/.config/pulse
+ln -sf $path/.config/pulse $HOME/.config/pulse
+
+[ -d $HOME/.config/qtile ] && rm -rf $HOME/.config/qtile
+ln -sf $path/.config/qtile $HOME/.config/qtile
+
+[ -d $HOME/.config/qutebrowser ] && rm -rf $HOME/.config/qutebrowser 
+ln -sf $path/.config/qutebrowser $HOME/.config/qutebrowser 
+
+[ -d $HOME/.config/rclone ] && rm -rf $HOME/.config/rclone 
+ln -sf $path/.config/rclone $HOME/.config/rclone 
+
+[ -d $HOME/.config/ru.webhamster.mytetra ] && rm -rf $HOME/.config/ru.webhamster.mytetra 
+ln -sf $path/.config/ru.webhamster.mytetra $HOME/.config/ru.webhamster.mytetra 
+
+#[ -d $HOME/.config/neofetch ] && rm -rf $HOME/.config/neofetch
+#ln -sf $path/.config/neofetch $HOME/.config/neofetch
+
+#[ -d $HOME/.config/powerline-shell ] && rm -rf $HOME/.config/powerline-shell
+#ln -sf $path/.config/powerline-shell $HOME/.config/powerline-shell
+
+[ -d $HOME/.config/shell ] && rm -rf $HOME/.config/shell 
+ln -sf $path/.config/shell $HOME/.config/shell 
+
+[ -d $HOME/.config/Signal ] && rm -rf $HOME/.config/Signal
+
+[ -d $HOME/.config/sxiv ] && rm -rf $HOME/.config/sxiv 
+ln -sf $path/.config/sxiv $HOME/.config/sxiv 
+
+[ -d $HOME/.config/systemd ] && rm -rf $HOME/.config/systemd 
+ln -sf $path/.config/systemd $HOME/.config/systemd 
+
+[ -d $HOME/.config/tmux ] && rm -rf $HOME/.config/tmux 
+ln -sf $path/.config/tmux $HOME/.config/tmux 
+
+[ ! -d $HOME/.config/transmission-daemon ] && mkdir $HOME/.config/transmission-daemon
+ln -sf $path/.config/transmission-daemon/settings.json $HOME/.config/transmission-daemon/settings.json
+
+[ ! -d $HOME/.config/wal ] && mkdir $HOME/.config/wal 
+ln -sf $path/.config/wal $HOME/.config/wal
+
+[ ! -d $HOME/.config/wget ] && mkdir $HOME/.config/wget
+ln -sf $path/.config/wget $HOME/.config/wget
+
+
+#[ -d $HOME/.config/yay ] && rm -rf $HOME/.config/yay  2>/dev/null
+#ln -sf $path/.config/yay/ $HOME/.config/yay/
+
+[ -d $HOME/.config/youtube-viewer ] && rm -rf  $HOME/.config/youtube-viewer
+ln -sf $path/.config/youtube-viewer $HOME/.config/youtube-viewer
+
+[ -d $HOME/.config/zathura ] && rm -rf $HOME/.config/zathura 
+ln -sf $path/.config/zathura $HOME/.config/zathura 
+
+
+[ -d $HOME/.config/zsh ] && rm -rf $HOME/.config/zsh 
+ln -sf $path/.config/zsh $HOME/.config/zsh
+
+[ -d $HOME/.config/zshWIN ] && rm -rf $HOME/.config/zshWIN
+ln -sf $path/.config/zshWIN $HOME/.config/zshWIN
+
+#[ ! -d $HOME/.config/obs-studio ] && mkdir $HOME/.config/obs-studio
+#ln -sf $path/.config/obs-studio/basic $HOME/.config/obs-studio/basic
+
+ln -sf $path/.config/fzf.bash $HOME/.config/fzf.bash
+ln -sf $path/.config/fzf.zsh $HOME/.config/fzf.zsh 
+ln -sf $path/.config/gromit-mpx.ini $HOME/.config/gromit-mpx.ini
+ln -sf $path/.config/mimeapps.list $HOME/.config/mimeapps.list
+ln -sf $path/.config/pavucontrol.ini $HOME/.config/pavucontrol.ini
+ln -sf $path/.config/screenkey.json $HOME/.config/screenkey.json
+ln -sf $path/.config/user-dirs.dirs $HOME/.config/user-dirs.dirs
+
+ln -sf $path/.config/zoomus.conf $HOME/.config/zoomus.conf
+
+# Local directory
+#[ ! -d $HOME/.local ] && mkdir -p $HOME/.local/share
+#[ -d $HOME/.local/share/applications ] && rm -rf $HOME/.local/share/applications
+#ln -sf $path/.local/share/applications $HOME/.local/share/applications
+#[ -d $HOME/.local/share/fonts ] && rm -r $HOME/.local/share/fonts
+#ln -sf $path/.local/share/fonts $HOME/.local/share/fonts
+#
+## Var Directory
+#[ ! -d /var ] && sudo mkdir -p /var/spool/cron
+#[ ! -d /var/spool ] && sudo mkdir -p /var/spool/cron
+#[ -d /var/spool/cron ] && rm -rf /var/spool/cron
+#sudo ln -sf $path/cron /var/spool/cron
