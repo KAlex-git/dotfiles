@@ -85,8 +85,11 @@ ln -sf $path/.config/nvimKALEX $HOME/.config/nvimKALEX
 
 # See https://www.addictivetips.com/ubuntu-linux-tips/back-up-opera-browser-settings-on-linux/
 if [ ! -d $HOME/.config/opera ];then
-cd $path/.config/ ; tar xvf opera.gz
+cd $path/.config/
+gpg opera.gz.gpg
+tar xvf opera.gz
 mv opera/ $HOME/.config
+rm -rf opera.gz
 else
   rm -rf $HOME/.config/opera
 fi
