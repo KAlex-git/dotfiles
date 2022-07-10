@@ -81,8 +81,8 @@ keys = [
 
     # Toggle between different layouts as defined below
     Key([SUPER],    "Tab", lazy.next_layout(),      desc="Toggle between layouts"),
-    Key([SUPER],    "q", lazy.window.kill(),        desc='Kill active window'),
-    Key([alt],      "q", lazy.spawn('kill_window'), desc='killing all this is processes'),
+    Key([alt],    "q", lazy.window.kill(),        desc='Kill active window'),
+    Key([SUPER],      "q", lazy.spawn('kill_window'), desc='killing all this is processes'),
     Key([alt],      "i", lazy.spawn('dmkill'),      desc='fzf killing processes'),
 
    ## Key([SUPER, "control"], "r", lazy.reload_config(), desc="Reload the config"),

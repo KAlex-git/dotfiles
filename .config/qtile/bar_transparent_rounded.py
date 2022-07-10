@@ -11,7 +11,7 @@ from libqtile.lazy import lazy
 from colors import gruvbox
 
 bar = Bar([
-      widget.GenPollText(
+      widget.GenPollText( # Keyboard layout
            update_interval=1,
            fontsize = 20,
            func=lambda: subprocess.check_output(os.path.expanduser("sb-layout")).decode("utf-8"),
@@ -76,21 +76,20 @@ bar = Bar([
     widget.WindowName(
             fmt = '{} ',
         foreground='#ffffff',
-        fontsize=10,
+        fontsize=14,
     ),
-
-    # Spacer(length=100),
-
-    # Spacer(length=10),
     widget.Clock(
-        font='bold',
+        format='%Y.%m.%d %a -= %H:%M =-',
+        padding = 0,
         background=gruvbox['bg'],
         foreground=gruvbox['blue'],
-        format='%Y.%m.%d %a -= %H:%M =-'),
+        font='Source Code Pro:style=Bold Italic',
+        fontsize = 18
+        ),
     widget.Spacer(length=250, background=gruvbox['bg']),
     widget.TextBox(
               text='',
-              font = "Ubuntu Mono",
+              font = 'FiraCode Nerd Font',
               background = "#ff6c6b",
               foreground = "#98be65",
               padding = 0,
