@@ -185,11 +185,14 @@ cmd zip ${{
 	notify-send "to pack" "$f.zip"
 	fi
 
-	if [[ -f $f ]]; then
-		fname=$(basename $f)
+	if [[ -f $fx ]]; then
+		fname=$(basename $fx)
 		name=${fname%.*}
-    zip -r $name.zip $fx
-		notify-send "to pack" "$name.zip"
+    mkdir $name
+    cp -r $f $name/
+    (cd $name/ ; zip -r $f.zip .)
+    rm -rf $name/
+		notify-send "to pack" "$f.zip"
 	fi
 }}
 

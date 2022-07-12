@@ -131,7 +131,7 @@ keys = [
 
 groups = [
     Group('1', label="", layout="stack"),
-    Group('2', label="2", matches=[
+    Group('2', label=" 2", matches=[
           Match(wm_class=["Opera"])
           ], layout="stack"),
     Group('3', label="3", matches=[
@@ -141,7 +141,7 @@ groups = [
     Group('4', label="4", matches=[
           Match(wm_class=["mytetra", "wtlibrary.exe"])
           ], layout="monadtall"),
-    Group('5', label="5", matches=[
+    Group('5', label=" 5", matches=[
         Match(wm_class=["TelegramDesktop", "Viber"])
         ], layout="columns"),
 ]
