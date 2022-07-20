@@ -15,6 +15,9 @@ if fn.empty(fn.glob(install_path)) > 0 then
 	vim.cmd([[packadd packer.nvim]])
 end
 
+local function is_enabled(plugin)
+  return plugin.enabled
+end
 
 -- Autocommand that reloads neovim whenever you save the plugins.lua file
 vim.cmd([[
@@ -53,7 +56,13 @@ return packer.startup(function(use)
 	use({ "akinsho/bufferline.nvim" })
 	use({ "moll/vim-bbye" })
 	use({ "nvim-lualine/lualine.nvim", config = "require'user/lualine'" })
-	use({ "akinsho/toggleterm.nvim" })
+  use {"akinsho/toggleterm.nvim", tag = 'v2.*', config = function()
+    require("toggleterm").setup()
+  end}
+  -- terminal
+  --use({ "NvChad/nvterm", config = "require'user/nvterm'" })
+  --
+
 	use({ "ahmedkhalf/project.nvim" })
 	use({ "lewis6991/impatient.nvim" })
 	use({ "lukas-reineke/indent-blankline.nvim" })
@@ -72,9 +81,10 @@ return packer.startup(function(use)
 	use({ "hrsh7th/cmp-nvim-lsp" })
 	use({ "hrsh7th/cmp-nvim-lua" })
 
+
 	-- snippets
 	use({ "L3MON4D3/LuaSnip" }) --snippet engine
-	use({ "rafamadriz/friendly-snippets" }) -- a bunch of snippets to use
+	use({ "rafamadriz/friendly-snippets", config = "require'user/friendly-snippets'" }) -- a bunch of snippets to use
 
 	-- LSP
 	use({ "neovim/nvim-lspconfig" }) -- enable LSP
@@ -82,10 +92,22 @@ return packer.startup(function(use)
 	use({ "jose-elias-alvarez/null-ls.nvim" }) -- for formatters and linters
 
 	-- Telescope
-	use({ "nvim-telescope/telescope.nvim" })
+--	use({ "nvim-telescope/telescope.nvim" })
 
-	-- Treesitter
-	use({"nvim-treesitter/nvim-treesitter"})
+  -- Tree-Sitter
+  use({
+    'nvim-treesitter/nvim-treesitter',
+    --event = 'BufWinEnter',
+    -- run = ':TSUpdate',
+    --disable = not is_enabled('treesitter'),
+    --config = "require'treesitter'"
+  })
+
+  use {
+    'RRethy/nvim-treesitter-textsubjects',
+    --disable = not is_enabled('treesitter'),
+    after = 'nvim-treesitter'
+  }
 
 	-- Git
 	use({ "lewis6991/gitsigns.nvim" })
@@ -95,10 +117,32 @@ return packer.startup(function(use)
   -- Даже если включена русская раскладка vim команды будут работать
   use 'powerman/vim-plugin-ruscmd'
 
-  use 'lervag/vimtex'
+  -- use 'lervag/vimtex'
   use 'wincent/corpus'            -- Заметки...аналог vimwiki
   use 'junegunn/goyo.vim'
   use 'reedes/vim-pencil'         -- Writer
+
+  use({ "chentoast/marks.nvim", config = "require'user/mark'" }) -- Previewer mark on left colomn
+
+ use {
+  "rinx/nvim-ripgrep",
+  config = function()
+    require("nvim-ripgrep").setup {
+        -- your configurations here
+    }
+  end
+  }
+
+  use {
+    "lazytanuki/nvim-mapper",
+    config = function() require("nvim-mapper").setup{} end
+   }
+
+  use {
+      'nvim-telescope/telescope.nvim',
+      requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
+      config = function() require("telescope").load_extension("mapper") end
+  }
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

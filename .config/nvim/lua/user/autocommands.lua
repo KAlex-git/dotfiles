@@ -1,3 +1,5 @@
+--vim: foldmethod=marker
+
 local autocmd = vim.api.nvim_create_autocmd
 ------------
 -- CMD {{{  
@@ -34,13 +36,35 @@ vim.cmd [[
     autocmd!
     autocmd User AlphaReady set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2
   augroup end
+  ]]
+-- }}}
 
+vim.cmd[[ set thesaurus+=/home/kalex/.config/nvim/thesaurus.txt ]]
 
-  set thesaurus+=/home/kalex/.config/nvim/thesaurus.txt
+-----------------------------------------------------------
+---- TODO split new window and open files-shortcuts {{{
+-----------------------------------------------------------
+---- Load command shortcuts generated from bm-dirs and bm-files via shortcuts script.
+---- Here leader is ";".
+---- So ":vs ;cfz" will expand into ":vs /home/<user>/.config/zsh/.zshrc"
+---- if typed fast without the timeout.
+-----------------------------------------------------------
+vim.cmd [[
+  augroup !shortcuts
+    au!
+    au BufWritePost, bm-files,bm-dirs, !shortcuts
+    source ~/.config/nvim/shortcuts.vim
+  augroup END
 
+	autocmd BufRead,BufNewFile Xresources,Xdefaults,xresources,xdefaults set filetype=xdefaults
+	autocmd BufWritePost Xresources,Xdefaults,xresources,xdefaults !xrdb %
 
 ]]
 -- }}}
+
+-- Save file as sudo on files that require root permission"
+vim.cmd[[ cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit! ]]
+
 --------------------------------------------------
 -- Buffer {{{
 --------------------------------------------------
@@ -126,10 +150,34 @@ autocmd FileType python imap <buffer> ,r <esc>:w<CR>:exec '!python3' shellescape
 ]])
 -- }}}
 
+-- {{{
+vim.cmd([[
+" !::exe [So]
+
+
+command!          CurrentSession   call Info('Session: ' . GetCurrentSession())
+
+command! -nargs=* Lua       lua print(vim.inspect(<args>))
+command! -nargs=* LuaReload exec 'lua package.loaded["' '<args>' '"] = nil' | luafile %
+
+command! -bar     So      so % | echo '' | call Warn('sourced')
+command! -bar     SO      w|So
+
+command! -bar     Sudo    write !sudo tee % >/dev/null
+command! -bar     Scratch        vnew | setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile
+
+" Generics
+
+command! -bar -range DeleteTrailingWS noautocmd silent! exe 'keeppatterns <line1>,<line2>s/\s\+$//g'
+command! -bar        UpdateTerminalSize silent resize +1 | silent resize -1
+
+
+]])
+-- }}}
+
 -- Autoformat
 -- augroup _lsp
 --   autocmd!
 --   autocmd BufWritePre * lua vim.lsp.buf.formatting()
 -- augroup end
 
---vim: foldmethod=marker

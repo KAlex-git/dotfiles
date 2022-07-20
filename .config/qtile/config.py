@@ -28,7 +28,7 @@ from bar_transparent_rounded import bar
 
 SUPER = "mod4"
 alt = "mod1"
-term = "alacritty"
+term = "st"
 bookmedia = "bookmenu -p '>>' -fn jetbrains mono-10 -s : -b /home/kalex/.config/bookmenu/media -co open"
 bookbrowser = "bookmenu -p '>>' -fn jetbrains mono-10 -s : -b /home/kalex/.config/bookmenu/browser -co opera"
 bookconfigs = "bookmenu -p '>>' -fn jetbrains mono-10 -s : -b /home/kalex/.config/bookmenu/configs -co 'st -e nvim'"
@@ -107,6 +107,16 @@ keys = [
     ## Mount
     Key([], 'F9', lazy.spawn('dmenumount')),
     Key(['shift'], 'F9', lazy.spawn('dmenuumount')),
+
+    ## ScreenRecord
+    Key([],                'Print', lazy.spawn('dm-maimpick screen')),
+    Key(['shift'],         'Print', lazy.spawn('dm-maimpick choice')),
+
+    Key([SUPER],           'Print', lazy.spawn('screenrecord')),
+    Key([SUPER, 'shift' ], 'Print', lazy.spawn('screenrecord kill')),
+    Key([SUPER],           'Delete', lazy.spawn('screenrecord kill')),
+
+
     ## Sound
     Key([SUPER],            'p', lazy.spawn('mpc toggle')),
     Key([SUPER],            'm', lazy.spawn(term+ ' -e ncmpcpp')),

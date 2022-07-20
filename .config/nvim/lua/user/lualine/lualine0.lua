@@ -27,6 +27,7 @@ local colors = {
     blue          = '#0b4199',
     red           = '#ff5189',
     lightgray     = "#bbbbbb",
+    black         = "#000000",
 }
 
 local conditions = {
@@ -97,9 +98,42 @@ end
 -- })
 
 ins_left({
-    'branch',
-    icon = ' ',
-    color = { fg = colors.violet, gui = 'bold' },
+    -- mode component
+    function()
+local modes = {
+  ["n"] = "NORMAL",
+  ["no"] = "NORMAL",
+  ["v"] = "VISUAL",
+  ["V"] = "VISUAL LINE",
+  [""] = "VISUAL BLOCK",
+  ["s"] = "SELECT",
+  ["S"] = "SELECT LINE",
+  [""] = "SELECT BLOCK",
+  ["i"] = "INSERT",
+  ["ic"] = "INSERT",
+  ["R"] = "REPLACE",
+  ["Rv"] = "VISUAL REPLACE",
+  ["c"] = "COMMAND",
+  ["cv"] = "VIM EX",
+  ["ce"] = "EX",
+  ["r"] = "PROMPT",
+  ["rm"] = "MOAR",
+  ["r?"] = "CONFIRM",
+  ["!"] = "SHELL",
+  ["t"] = "TERMINAL",
+}
+  return string.format(" %s ")
+    end,
+    color = 'LualineMode',
+})
+
+
+
+ins_left({
+    function()
+        return [[%{strftime ('%H:%M')}]]
+    end,
+    color = { fg = colors.black, bg = colors.cyan, gui = 'bold' },
 })
 
 ins_left({
@@ -134,6 +168,11 @@ ins_left({
     color = 'LualineMode',
 })
 
+ins_left({
+    'branch',
+    icon = '',
+    color = { fg = colors.violet, gui = 'bold' },
+})
 
 -- ins_left({
 --     function()
@@ -236,10 +275,10 @@ ins_right({
 
 ins_right({ -- к-во строк; статус процента страницы
     function ()
-        return [[row:%l/%L (%03p%%)]]
+        return [[:%l/%L (%03p%%)]]
     end,
     color = { fg = colors.lightgray, gui = 'bold' },
-    icon = " ",
+    --icon = " ",
     padding = { left = 1, right = 0 },
 })
 

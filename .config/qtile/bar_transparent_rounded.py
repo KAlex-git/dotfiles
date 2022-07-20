@@ -83,7 +83,7 @@ bar = Bar([
         padding = 0,
         background=gruvbox['bg'],
         foreground=gruvbox['blue'],
-        font='Source Code Pro:style=Bold Italic',
+        font='Menlo',
         fontsize = 18
         ),
     widget.Spacer(length=250, background=gruvbox['bg']),

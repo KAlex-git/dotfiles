@@ -3,7 +3,7 @@
 -- or go here and upload the font file: https://mathew-kurian.github.io/CharacterMap/
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 vim.g.use_nerd_icons = false
-if vim.fn.has "mac" == 1 or vim.g.use_nerd_icons then
+if vim.fn.has "linux" == 1 or vim.g.use_nerd_icons then
   -- elseif vim.fn.has "mac" == 1 then
   return {
     kind = {
@@ -78,6 +78,7 @@ if vim.fn.has "mac" == 1 or vim.g.use_nerd_icons then
       Dashboard = "",
       History = "",
       Comment = "",
+      Markdown= " ",
       Bug = "",
       Code = "",
       Telescope = "",
@@ -89,7 +90,7 @@ if vim.fn.has "mac" == 1 or vim.g.use_nerd_icons then
       Check = "",
       Fire = "",
       Note = "",
-      BookMark = "",
+      bookmark = "",
       Pencil = "",
       -- ChevronRight = "",
       ChevronRight = ">",
@@ -185,7 +186,7 @@ else
       Code = " ",
       Telescope = " ",
       Gear = " ",
-      Markdown = " ",
+      markdown = " ",
       Lua= " ",
       Package = " ",
       List = " ",

@@ -54,9 +54,9 @@ map fle    cd ~/.local/share
 map mle    !mv "$f" ~/.local/share
 map yle    !rsync -ahrp "$f" ~/.local/share 
 
-map flh    cd ~/.local/share/zettel
-map mlh    !mv "$f" ~/.local/share/zettel
-map ylh    !rsync -ahrp "$f" ~/.local/share/zettel 
+map flw    cd ~/.local/share/wiki
+map mlw    !mv "$f" ~/.local/share/wiki
+map ylw    !rsync -ahrp "$f" ~/.local/share/wiki 
 
 map fmn    cd /mnt/
 map mmn    !mv "$f" /mnt/

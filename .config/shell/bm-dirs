@@ -13,7 +13,7 @@ ii ~/Downloads/dotfiles-dev/install_pkg
 is ~/Downloads/dotfiles-dev/install_pkg/Man/shell
 lb ~/.local/bin
 le ~/.local/share
-lh ~/.local/share/zettel
+lw ~/.local/share/wiki
 mn /mnt/
 mi /mnt/iso
 mu /mnt/usb
