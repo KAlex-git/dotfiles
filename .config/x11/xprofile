@@ -31,7 +31,7 @@ fi
 
 #source /home/kalex/.cache/bwsession
 
-session=${1:-dwm}
+session=${1:-qtile}
 case $session in
     dwm)
 	    exec ssh-agent dwm;;
