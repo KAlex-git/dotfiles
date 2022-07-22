@@ -16,20 +16,37 @@
 # curl -LO https://wincent.com/link/arch-linux-install.sh
 # bash arch-linux-install.sh
 
+
+
+
 set -e
+#
+#Set Colors
+#
+
+bold=$(tput bold)
+underline=$(tput sgr 0 1)
+reset=$(tput sgr0)
+
+purple=$(tput setaf 171)
+red=$(tput setaf 1)
+green=$(tput setaf 76)
+tan=$(tput setaf 3)
+blue=$(tput setaf 38)
+
 
 function log {
-  local LINE="[arch-linux-install] $*"
+  local LINE="$bold$purple[arch-linux-install] $*$reset"
   echo "$LINE"
   echo "${LINE//?/-}"
 }
 
 function ask {
-  read -p "$1> "
+  read -p "$green$1> $reset"
   eval "export $2=\$REPLY"
 }
 
-#log "Setup questions:"
+log "Setup questions:"
 #ask 'User passphrase' __PASSPHRASE__
 #ask 'Wireless SSID' __SSID__
 #ask 'Wireless passphrase' __WIFI_PASSPHRASE__
