@@ -170,8 +170,8 @@ log Command \"git commit\"
 curdate=$(date +"%d.%m.%Y %T")
 git commit -a -v -m "Changes from Linux - $curdate"
 
-log Command \"git pull\"
-git pull -s recursive
+# log Command \"git pull\"
+# git pull -s recursive
 
 log Command \"git push\"
 git push && notify-send "Sync github to local ..." "Done"
