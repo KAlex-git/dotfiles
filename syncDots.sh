@@ -89,6 +89,7 @@ EXCLUDE=({
 "nvim*/"
 "cef_user_data*/"
 "*Organization/"
+"WebCord/"
 })
 
 
