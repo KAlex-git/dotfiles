@@ -1,0 +1,3 @@
+{"sent_at":"2023-08-19T19:43:54.350Z","sdk":{"name":"sentry.javascript.electron","version":"4.6.0"}}
+{"type":"session"}
+{"sid":"d660a0cf1bbe41a2bb8ff4dd06dfac70","init":false,"started":"2023-08-19T19:39:16.974Z","timestamp":"2023-08-19T19:43:54.349Z","status":"ok","errors":1,"did":"242741706","duration":277.3755075931549,"attrs":{"release":"boron-10.58.3","environment":"production"}}

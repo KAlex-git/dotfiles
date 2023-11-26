@@ -1,0 +1,4 @@
+2023/05/08-16:46:13.343 89e2 Creating DB /home/kalex/.config/discord/Local Storage/leveldb since it was missing.
+2023/05/08-16:46:13.353 89e2 Reusing MANIFEST /home/kalex/.config/discord/Local Storage/leveldb/MANIFEST-000001
+2023/05/08-16:50:37.103 8f61 Level-0 table #5: started
+2023/05/08-16:50:37.145 8f61 Level-0 table #5: 1596375 bytes OK

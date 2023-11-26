@@ -1,0 +1,14 @@
+2023/05/26-13:17:54.500 11c50 Reusing MANIFEST /home/kalex/.config/discord/Local Storage/leveldb/MANIFEST-000001
+2023/05/26-13:17:54.503 11c50 Recovering log #3
+2023/05/26-13:17:54.532 11c50 Level-0 table #3: started
+2023/05/26-13:17:54.615 11c50 Level-0 table #3: 1596375 bytes OK
+2023/05/26-13:17:54.616 11c50 Recovering log #4
+2023/05/26-13:17:54.617 11c50 Reusing old log /home/kalex/.config/discord/Local Storage/leveldb/000004.log 
+2023/05/26-13:17:54.621 11c50 Delete type=2 #5
+2023/05/26-13:17:54.621 11c50 Delete type=0 #3
+2023/05/26-13:20:13.180 122b5 Level-0 table #6: started
+2023/05/26-13:20:13.250 122b5 Level-0 table #6: 1591299 bytes OK
+2023/05/26-13:20:13.253 122b5 Delete type=0 #4
+2023/05/26-13:21:56.562 122b5 Level-0 table #8: started
+2023/05/26-13:21:56.602 122b5 Level-0 table #8: 1630874 bytes OK
+2023/05/26-13:21:56.606 122b5 Delete type=0 #5

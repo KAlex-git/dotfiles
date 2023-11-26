@@ -1,3 +1,5 @@
+# vim: filetype=i3
+
 set $Alt Mod1
 set $Super Mod4
 
@@ -47,6 +49,7 @@ exec_always --no-startup-id remaps
 exec --no-startup-id pkill -RTMIN+8 i3blocks
 
 
+exec --no-startup-id xautolock -time 1 -locker ~/.config/i3/lock
 
 # Use Mouse+$mod to drag floating windows
 floating_modifier $Super
@@ -182,11 +185,12 @@ bindsym $Super+n			    exec $term -e newsboat
 bindsym $Super+d            exec dmrun -fn monospace:size=10 -l 5
 
 
-bindsym $Alt+q		        kill
+bindsym $Alt+q		        [con_id="__focused__" instance="^(?!dropdown_).*$"] kill
 bindsym $Alt+BackSpace		restart
-bindsym $Alt+Shift+q		restart
+bindsym $Alt+Shift+q		[con_id="__focused__" instance="^(?!dropdown_).*$"] exec --no-startup-id kill -9 `xdotool getwindowfocus getwindowpid`
+bindsym $Alt+grave		exec dmenuunicode
+bindsym $Super+Shift+q		kill
 bindsym $Super+BackSpace	exec dmMenu
-bindsym $Alt+grave		 exec dmenuunicode
 
 #STOP/HIDE EVERYTHING:
 bindsym $Super+Shift+Delete	exec $truemute ; exec $truepause ; workspace lmao ; exec $term -e htop ; exec $term -e lfub
@@ -298,19 +302,8 @@ bindsym $Super+slash		split vertical; exec notify-send 'tile vertically'
 # bindsym $Super+z split h; exec $term; exec notify-send 'tile horizontally'
 # bindsym $Super+v split v; exec $term; exec notify-send 'tile vertically'
 
-#set $ws1 "1: "
-#set $ws2 "2: "
-#set $ws3 "3: "
-#set $ws4 "4: "
-#set $ws5 "5: "
-#set $ws6 "6: "
-#set $ws7 "7: "
-#set $ws8 "8: "
-#set $ws9 "9: "
-#set $ws10 "10: "
-
-set $ws1 "1: "
-set $ws2 "2: "
+set $ws1 "1:"
+set $ws2 "2: "
 set $ws3 "3: "
 set $ws4 "4: "
 set $ws5 "5: 🪟"
@@ -372,25 +365,22 @@ for_window [window_role="gimp-toolbox"] floating disable; move right; resize gro
 #for_window [class="st"] exec --no-startup-id transset -a --dec .25
 for_window [window_role="GtkFileChooserDialog"] resize shrink height 10 px
 
+
 ### --- webcam bindings --- ####
-
-for_window[class="Surf"] floating enable
-for_window[class="Surf"] sticky enable
-for_window[class="Surf"] resize set 410 330
-for_window[class="Surf"] move position 956 460
-
-# mpv floating
-for_window[class="mpv"] floating enable
-for_window[class="mpv"] resize set 640 360
-for_window[class="mpv"] move position 695 378
-
-for_window[title="video0 - mpv"] floating enable
-for_window[title="video0 - mpv"] sticky enable
+# Size window and position. Input line bottom in terminal
+# xwininfo -id `wmctrl -l | grep camera | awk '{print $1}'` | grep 'Absolute\|Width\|Heigth'
+#
+for_window [instance="gl"] floating enable
+for_window [instance="gl"] resize set 320 240
+for_window [instance="gl"] move position 1043 499
+for_window [instance="gl"] sticky enable
+for_window [instance="gl"] border pixel 0
+no_focus [instance="gl"]
 
 # feh floating
-for_window[class="feh"] floating enable
-for_window[class="feh"] resize set 640 360
-for_window[class="feh"] move position 695 378
+for_window [class="feh"] floating enable
+for_window [class="feh"] resize set 640 360
+for_window [class="feh"] move position 695 378
 
 ## path script ~/.local/bin/timer.sh
 for_window [instance="time"] floating enable

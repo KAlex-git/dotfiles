@@ -1,0 +1,15 @@
+2023/11/26-10:48:45.827 4dc0b Reusing MANIFEST /home/kalex/.config/WebCord/Local Storage/leveldb/MANIFEST-000001
+2023/11/26-10:48:45.829 4dc0b Recovering log #356
+2023/11/26-10:48:45.832 4dc0b Reusing old log /home/kalex/.config/WebCord/Local Storage/leveldb/000356.log 
+2023/11/26-11:46:50.051 4dc0b Level-0 table #360: started
+2023/11/26-11:46:50.064 4dc0b Level-0 table #360: 10885 bytes OK
+2023/11/26-11:46:50.066 4dc0b Delete type=0 #356
+2023/11/26-11:46:50.067 4dc0c Compacting 4@0 + 1@1 files
+2023/11/26-11:46:50.219 4dc0c Generated table #361@0: 109 keys, 653567 bytes
+2023/11/26-11:46:50.219 4dc0c Compacted 4@0 + 1@1 files => 653567 bytes
+2023/11/26-11:46:50.223 4dc0c compacted to: files[ 0 1 1 0 0 0 0 ]
+2023/11/26-11:46:50.224 4dc0c Delete type=2 #357
+2023/11/26-11:46:50.224 4dc0c Delete type=2 #360
+2023/11/26-11:46:50.224 4dc0c Delete type=2 #354
+2023/11/26-11:46:50.224 4dc0c Delete type=2 #351
+2023/11/26-11:46:50.224 4dc0c Delete type=2 #349
