@@ -1,6 +1,0 @@
-2023/11/25-12:08:44.693 d7d4 Reusing MANIFEST /home/kalex/.config/WebCord/Local Storage/leveldb/MANIFEST-000001
-2023/11/25-12:08:44.695 d7d4 Recovering log #353
-2023/11/25-12:08:44.696 d7d4 Reusing old log /home/kalex/.config/WebCord/Local Storage/leveldb/000353.log 
-2023/11/25-12:54:49.005 d7d6 Level-0 table #357: started
-2023/11/25-12:54:49.012 d7d6 Level-0 table #357: 14430 bytes OK
-2023/11/25-12:54:49.015 d7d6 Delete type=0 #353
