@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+__ScriptVersion="1.0"
+
+function usage ()
+{
+	echo "Usage :  $0 [options] [--]
+
+    Options:
+    -h|help       Display this message
+    -v|version    Display script version
+
+		tooltips:    crop a pdf file (pdfcrop *.pdf)"
+}
+#-----------------------------------------------------------------------
+#  Handle command line arguments
+#-----------------------------------------------------------------------
+
+while getopts "cv:" opt
+do
+  case $opt in
+		v|version)  echo "$0 -- Version $__ScriptVersion"; exit 0   ;;
+		h|help   )  usage ; exit 0																	;;
+		*	       )  echo -e "\n  Option does not exist : $OPTARG\n"
+		usage; exit 1																							  ;;
+  esac    # --- end of case ---
+done
+shift $(($OPTIND-1))
+
+# Convert PDF to PNG
+		filename="${1%.*}"
+		pdftoppm -png "$1" $filename | xargs -0 mv $filename-1.png $filename.png
+		RED="\033[0;31m" ; ORANGE="\033[33m" ; PURPLE="\033[45m"; blink="\e[5m"
+		clear
+    printf "$RED rename to:\n$ORANGE$blink$filename.png\n"
+		open $filename.png
+
+exit 0

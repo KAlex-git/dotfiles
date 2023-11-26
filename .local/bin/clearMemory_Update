@@ -1,0 +1,28 @@
+#!/usr/bin/sh
+
+
+# Variable
+icons_WM="$HOME/.local/share/icons"
+
+DMdwm="$(ps -A | grep -i "dwm" | head -1 | awk '{print $4}')"
+DMqtile="$(ps -aux | grep -Eoi "qtile" | head -1)"
+DMxmonad="$(ps -aux | grep -Eoi "xmonad" | head -1)"
+
+
+
+if [[ "$DMdwm" == "dwm" ]];then
+	notify-send -i "$icons_WM/dwm.png"
+	kill -HUP $(pgrep -u $USER "dwm$")
+elif [[ "$DMxmonad" == "xmonad-x86_64-l" ]];then
+    notify-send -i "$icons_WM/haskell.png" \"律師\"
+    xmonad --restart
+elif [[ "$DMqtile" == "qtile" ]];then
+    notify-send -i "$icons_WM/python.png" \"律師\"
+    qtile cmd-obj -o cmd -f restart
+fi
+
+
+#sudo sh -c 'echo 3 >  /proc/sys/vm/drop_caches' &&  sudo swapoff -a &&  sudo swapon -a && \
+[ "$(pidof lf)" ] && ( killall lf ; rm -rf ~/.cache/lf/ueberzug-* ; notify-send 'Memory clear' 'lf clear' )
+
+$(xrdb $HOME/.config/x11/xresources)

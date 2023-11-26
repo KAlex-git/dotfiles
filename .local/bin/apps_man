@@ -1,0 +1,88 @@
+#!/usr/bin/sh
+
+# Set with the flags '-e', '-o pipefail' cause the script to fail
+# if certain things happen, which is a good thing.  Otherwise, we can
+# get hidden bugs that are hard to discover.
+set -euo pipefail
+##
+folder="$HOME/Documents/MANUAL"
+
+menu2(){ dmenu -fn Monospace-14 -nb "#100" -nf "#b9c0af" -sb "#000" -sf "#afff2f" -i -b -l 22 -p "choice" ;}
+
+
+############################################
+#                                          #
+###                 OTHER                ###
+#                                          #
+############################################
+# Variable
+OTHER(){
+local file
+file="$HOME/.local/share/larbs/getkeys"
+
+# Misc
+ declare -a options=(\
+#dev_null
+calcurse
+mutt
+ncmpcpp
+newsboat
+sxiv
+zathura
+"  git"
+)
+
+choice=$(echo "$(printf '%s\n' "${options[@]}")" | "menu2" 'Open file: ')
+case "$choice" in
+ 	"calcurse") 	$TERMINAL -e $EDITOR "$file/calcurse" ;;
+	"mutt")		$TERMINAL -e $EDITOR "$file/mutt" ;;
+ 	"ncmpcpp")	find $file -name "ncmpcpp*"			| menu | xargs -n 1 -I {} open "{}" ;;
+	"newsboat") 	$TERMINAL -e $EDITOR "$file/newsboat" ;;
+	#"lf") 		$READER "$file/lf_GoDoc.pdf" ;;
+	# "MIME-типы") 	$READER "$file/MIME-типы_и_расширения_файлов.pdf" ;;
+ 	"sxiv")		$TERMINAL -e $EDITOR "$file/sxiv";;
+ 	"zathura")	$TERMINAL -e $EDITOR "$file/zathura";;
+ 	"  git")	$TERMINAL -e $EDITOR "$file/git";;
+	*)
+		exit 1
+	;;
+esac
+}
+#########################################################################################################
+menu() { \
+declare -a options=(\
+	#"bash ->"
+	#"inkscape ->"
+	"latex >>"
+	"keys >>"
+	" python3 >>"
+	" sed >>"
+	" vim >>"
+	"xargs >>"
+	" add shortcuts"
+	"  Electric"
+	" other doc"
+	"vnote"
+	"dm-note"
+)
+
+choice=$(echo "$(printf '%s\n' "${options[@]}")" | sort | "menu2" 'Open file: ')
+case "$choice" in
+	"bash >>"        )	cd $folder/shell/; ls | grep "bash*"	| menu2 | xargs -I {} open "{}" ;;
+	"inkscape >>"    )	cd $folder/inkscape/; ls		| menu2 | xargs -I {} open "{}" ;;
+	"latex >>"       )	cd $folder/LaTeX/; ls			| menu2 | xargs -I {} open "{}" ;;
+	"keys >>"        )      OTHER;;
+	" python3 >>"   )	cd $folder/Python3/; ls			| menu2 | xargs -I {} open "{}"  ;;
+	" sed >>"       )	cd $folder/shell/SED/; ls	-I sed	| menu2 | xargs -I {} open "{}"  ;;
+	" vim >>"       )	cd $folder/vim/; ls		| menu2 | xargs -I {} open "{}"  ;;
+	"xargs >>"       )	cd $folder/shell/xargs/; ls *.{pdf,docx}| menu2 | xargs -I {} open "{}" ;;
+	" add shortcuts") "$(shortcuts_apps)" ;;
+	"  Electric"    ) "$(electroFast)" ;;
+	" other doc"    ) "$(dm-documents)" ;;
+    "vnote"          ) st -e vnote ;;
+    "dm-note"          ) "$(dm-note)" ;;
+
+esac
+}
+
+menu

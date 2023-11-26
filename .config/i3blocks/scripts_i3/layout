@@ -1,0 +1,26 @@
+#!/bin/sh
+##
+##
+
+#kb="$(xkb-switch)"
+#echo " $kb "
+#
+##
+
+layout_mask=$(xset -q | grep LED | awk '{ print $10 }')
+
+
+case $layout_mask in
+  "00000000"|"00000002")
+      echo "🇺🇸"
+      ;;
+
+  "00001000"|"00001002")
+      echo "🇷🇺"
+      ;;
+
+  *)
+      echo -n "??"
+      ;;
+esac
+

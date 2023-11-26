@@ -1,0 +1,10 @@
+#!/bin/sh
+
+article=$(cat "${1:--}")
+
+title="$(awk -F: '/^Title:/{for(i=2;i<=NF;++i)print $i}' <<< "$article")"
+url="$(awk -F: '/^Link:/{print $2 ":" $3}' <<< "$article")"
+printf '%s\n' "$title" "$url" > /home/alex/.config/newsboat/newsboat_result
+
+cat /home/alex/.config/newsboat/newsboat_result | head -2 | pbcopy
+notify-send "$(cat /home/alex/.config/newsboat/newsboat_result | head -2)"

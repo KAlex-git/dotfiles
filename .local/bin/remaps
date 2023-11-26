@@ -1,0 +1,31 @@
+#!/bin/sh
+
+###################################################
+# PREVIEW CODE:
+#	/usr/share/X11/xkb/rules/base.lst
+###################################################
+# This script is called on startup to remap keys.
+# Increase key speed via a rate change
+xset r rate 300 50
+# Map the caps lock key to super...
+setxkbmap -option caps:super
+# But when it is pressed only once, treat it as escape.
+killall xcape 2>/dev/null ; xcape -e 'Super_L=Escape'
+# Map the menu button to right super as well.
+xmodmap -e 'keycode 135 = Super_R'
+# Turn off the caps lock if on since there is no longer a key for it.
+xset -q | grep "Caps Lock:\s*on" && xdotool key Caps_Lock
+xcape -e Super_L Escape
+setxkbmap -layout "us,ru" -option 'grp:win_space_toggle,compose:ralt'
+
+## info xcape
+#
+# -t <timeout ms>
+# If you hold a key longer than this timeout, xcape will not generate a key event. Default is 500 ms.
+#
+##
+# xcape -t 1000 -e 'Shift_L=Super_R|space' # Change keyboard layout with new configuration
+xcape -e 'Shift_L=Super_R|space' # Change keyboard layout with new configuration
+#
+##
+notify-send  'Keyboard remapping...' 'Re-running keyboard defaults for any newly plugged-in keyboards.'

@@ -1,0 +1,7 @@
+#!/usr/bin/sh
+##
+##
+
+pbpaste(){ xclip -out -selection clipboard ;}
+
+pbpaste

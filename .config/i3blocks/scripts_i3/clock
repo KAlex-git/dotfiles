@@ -1,0 +1,53 @@
+#!/bin/sh
+
+WIDTH=${WIDTH:-200}
+HEIGHT=${HEIGHT:-200}
+# NOTE="$($TERMINAL -c note -n note -f "roboto mono nerd font:pixelsize=27:antialias=true:autohint=true" -e /home/kalex/.config/dmscripts/takeNote.sh)"
+
+clock=$(date '+%I')
+
+case "$clock" in
+	"00") icon="🕛" ;;
+	"01") icon="🕐" ;;
+	"02") icon="🕑" ;;
+	"03") icon="🕒" ;;
+	"04") icon="🕓" ;;
+	"05") icon="🕔" ;;
+	"06") icon="🕕" ;;
+	"07") icon="🕖" ;;
+	"08") icon="🕗" ;;
+	"09") icon="🕘" ;;
+	"10") icon="🕙" ;;
+	"11") icon="🕚" ;;
+	"12") icon="🕛" ;;
+esac
+
+case $BLOCK_BUTTON in
+	#1) notify-send "This Month" "$(cal --color=always | sed "s/..7m/<b><span color=\"red\">/;s|..27m|</span></b>|")" && notify-send "Appointments" "$(calcurse -d3)" ;;
+      1) 
+	# the position of the upper left corner of the popup
+	posX=$(($BLOCK_X - $WIDTH / 2))
+	posY=$(($BLOCK_Y - $HEIGHT - 80))
+
+	i3-msg -q "exec yad --calendar \
+        --width=$WIDTH --height=$HEIGHT \
+	    --undecorated --fixed \
+	    --close-on-unfocus --no-buttons \
+	    --posx=$posX --posy=$posY \
+	    > /dev/null"
+            ;;        
+	 2) 
+         #setsid -f "$TERMINAL" -e calcurse ;;
+         setsid -f vnote ;;
+    
+	3) 
+    # notify-send "📅 Time/date module" "\- Left click to show upcoming appointments for the next three days via \`calcurse -d3\` and show the month via \`cal\`
+    # - Middle clickh opens
+        setsid -f $TERMINAL -c note -n note -f "Menlo:pixelsize=18:antialias=true:autohint=true" -e /home/kalex/.config/dmscripts/takeNote.sh 
+        ;;
+    6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+
+
+date '+<big>📅</big><span foreground="#ff000f"> %A</span>, %d %b <span foreground="#fff00f">    <big>'"$icon"'%H:%M:%S</big>  </span>'

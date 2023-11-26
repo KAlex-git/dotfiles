@@ -1,0 +1,117 @@
+#!/usr/bin/bash
+# vim: foldmethod=marker
+
+set -euo pipefail
+
+#
+# File connention {{{
+_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && cd "$(dirname "$(readlink "${BASH_SOURCE[0]}" || echo ".")")" && pwd)"
+if [[  -f "${_path}/_dm-helper.sh" ]]; then
+  # shellcheck disable=SC1090,SC1091
+  source "${_path}/_dm-helper.sh"
+else
+  # shellcheck disable=SC1090
+  echo "No helper-script found"
+fi
+
+# script will not hit this if there is no config-file to load
+# shellcheck disable=SC1090
+source "$(get_config)"
+#}}}
+
+# Indentification Browsers
+id=$(wmctrl -l | grep -oP "(?<=)(0x\w+)(?=.*Opera)")
+# id=$(wmctrl -l | grep -oP "(?<=)(0x\w+)(?=.*Opera)|(?<=)(0x\w+)(?=.*LibreWolf)")
+
+#
+#{{{ variable
+__addBookmarks(){
+# set focus to address on browser
+xdotool key --window $id "ctrl+l"
+
+# copy address from browser tab
+xdotool key --window $id "ctrl+c"
+
+# delivery of clipboard content to variable
+url=`xclip -o -selection clipboard`
+
+# clear clipboard
+#xsel -bc; xsel -c
+
+# echo URL of active tab of active browser
+notify-send "${url}"
+#}}}
+
+#{{{ Add Bookmarks
+# Create name bookmarks and url
+__nameBookmarks__=$(printf '%s\n' "" | dmenu -p 'Name bookmarks:') "$@" || exit 1
+# Find word and delete line input word
+_name_="$(echo "${__nameBookmarks__}" | sed 's/[0-9]\+//')"
+
+
+if [[ "${_name_}" == "rezonans" ]];then
+sed -i 's/.*rezonans.*//;/^$/d' ~/.config/bookmenu/browser
+sed -i 's/.*rezonans.*//;/^$/d' ~/.config/qutebrowser/quickmarks
+fi
+
+if [[ "${_name_}" == "haos" ]]; then
+sed -i 's/.*haos.*//;/^$/d' ~/.config/bookmenu/browser
+sed -i 's/.*haos.*//;/^$/d' ~/.config/qutebrowser/quickmarks
+fi
+
+
+if [[ "${_name_}" == "naruto" ]]; then
+sed -i 's/'"$_name_"'//;/^$/d' ~/.config/bookmenu/browser
+sed -i 's/'"$_name_"'//;/^$/d' ~/.config/qutebrowser/quickmarks
+fi
+
+_name_zvezda="$(echo "${__nameBookmarks__}" | sed 's@.*zvezda.@@; s@/@@')"
+if [[ "${_name_zvezda}" == "zvezda" ]];then
+sed -i 's/.*zvezda.*//;/^$/d' ~/.config/bookmenu/browser
+sed -i 's/.*zvezda.*//;/^$/d' ~/.config/qutebrowser/quickmarks
+fi
+
+echo "${__nameBookmarks__} ${url}"  >> ~/.config/qutebrowser/quickmarks
+echo -e "${__nameBookmarks__}:\t\t\t${url}" >> ~/.config/bookmenu/browser | sed -i 's,https://,,' ~/.config/bookmenu/browser
+}
+#}}}
+
+#{{{ Edit Bookmarks
+__editBookmarks(){ $TERMINAL -e $EDITOR ~/.config/{qutebrowser/quickmarks,bookmenu/browser} ;}
+#}}}
+#{{{ Delete Bookmarks
+__DelBookmarks(){
+SELECT=$(cat ~/.config/{qutebrowser/quickmarks,bookmenu/browser} | rofi -i -width 1000 -theme solarized -dmenu )
+fixSELECT="$(echo "${SELECT}" | awk '{print$1}' | sed 's/://')"
+
+sed -i 's|'"$fixSELECT"'.*||' ~/.config/qutebrowser/quickmarks && notify-send "delete $SELECT in qutebrowser/quickmarks" || notify-send "Oh"
+sed -i 's|'"$fixSELECT"'.*||' ~/.config/bookmenu/browser && notify-send "delete $SELECT in bookmenu/browser" || notify-send "Oh"
+# fix line a file
+sed -i '\|^$|d' ~/.config/qutebrowser/quickmarks 
+sed -i '\|^$|d' ~/.config/bookmenu/browser && notify-send "delete empty line in file" || notify-send "empty line a file" "not delete"
+}
+#}}}
+
+# TODO Create menu {{{
+padding="   ......................."
+title="📚"
+ADDB="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" "add Bookmarks ") "
+title="🖊️  "
+EDITB="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" "edit Bookmarks") "
+title="🚷 "
+DEL="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" "delete Bookmarks") "
+
+declare -a options=(
+"${ADDB}"
+"${EDITB}"
+"${DEL}"
+)
+
+choice=$(echo "$(printf '%s\n' "${options[@]}")" | ${DMENU} 'Choice: ')
+case "$choice" in
+  "${ADDB}") __addBookmarks;;
+  "${EDITB}") __editBookmarks;;
+  "${DEL}") __DelBookmarks;;
+  *) exit 1 ;;
+esac
+#}}}

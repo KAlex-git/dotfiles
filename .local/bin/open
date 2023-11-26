@@ -1,0 +1,113 @@
+#!/usr/bin/env sh
+
+open(){
+# Variable
+PDFXview="/home/alex/.wine/drive_c/Program Files/Tracker Software/PDF Viewer/PDFXCview.exe"
+
+# fix Newsboat open url
+WINDOW_PID=$(xdotool getactivewindow getwindowpid)
+_Newboat=$(xprop -id $(xdotool getactivewindow ) | cut -d '"' -f2 | grep -Eo "newsboat"| tail -1)
+urlregex="(((http|https|gopher|gemini|ftp|ftps|git)://|www\\.)[a-zA-Z0-9.]*[:]?[a-zA-Z0-9./@$&%?$\#=_~-]*)|((magnet:\\?xt=urn:btih:)[a-zA-Z0-9]*)"
+urls="$(sed 's/.*│//g' | tr -d '\n' | # First remove linebreaks and mutt sidebars:
+    grep -aEo "$urlregex" | # grep only urls as defined above.
+    uniq | # Ignore neighboring duplicates.
+    sed 's/^www./http:\/\/www\./g')" # xdg-open will not detect url without http://
+
+#if [ "$_Newboat" = "newsboat" ]; then
+#    case "$1" in
+#        *.jpg|*.png)
+#            sxiv "$1" >/dev/null 2>&1 & ;;
+#        *mp3|*flac|*opus|*mp3?source*|*mp4|*mkv|*avi|*mpg|*webm|*m4v|*ogv|*.m3u)
+#            mpv --really-quiet "$@" & disown; exit ;;
+#        *.pdf|*.epub)
+#            notify-send -i "$HOME/.local/share/icons/pdf_zathura.png" "zathura"
+#			setsid zathura "$1" >/dev/null 2>&1 & ;;
+#    esac
+#
+#fi
+
+# Meaningful aliases for arguments:
+## For *.html
+vHTML() {
+	local dm
+	dm(){ dmenu -fn glisp -nb "#100" -nf "#b9c0af" -sb "#000" -sf "#afff2f" -i -l 22 -p "choice" ;}
+case "$(printf "🍷$BROWSER\\n$EDITOR" | dm )"  in
+    "$EDITOR") "$TERMINAL" -e "$EDITOR" "$1" >/dev/null 2>&1 & ;;
+    "🍷$BROWSER") setsid "$BROWSER" "$1" >/dev/null 2>&1 & disown; exit  ;;
+
+esac
+}
+
+
+## For *.pdf
+viewer_pdf() {
+	local dm
+	dm(){ dmenu -fn glisp -nb "#100" -nf "#b9c0af" -sb "#000" -sf "#afff2f" -i -p "choice" ;}
+	case "$(printf "okular\\nPDFx\\nzathura" | dm)"  in
+    "okular")
+			notify-send "Okular"
+			setsid okular "$1" >/dev/null 2>&1 &
+			;;
+    "zathura")
+			notify-send -i "$HOME/.local/share/icons/pdf_zathura.png" "zathura"
+			setsid zathura "$1" >/dev/null 2>&1 &
+			;;
+    "foliate")
+			notify-send -i "$HOME/.local/share/icons/pdf_zathura.png" "foliate"
+			setsid foliate "$1" >/dev/null 2>&1 & disown; exit
+			;;
+esac
+}
+
+
+
+# Find out something about the file:
+case "$1" in
+	# -- Office; text
+	*.md) $TERMINAL -e $EDITOR "$1";;
+	*.csv) "$TERMINAL" -e sc-im "$1" >/dev/null 2>&1 & ;;
+	*doc|*docx|*xls|*xlsx)
+		notify-send  -i "/home/alex/.local/share/icons/libreoffice.png" "Edit of text"
+		setsid libreoffice "$@" & disown; exit  ;;
+  *.sh|*.yml) "$TERMINAL" -e "$EDITOR" "$1" >/dev/null 2>&1 & ;;
+  *.jpg|*.png|*.webp) sxiv "$1" >/dev/null 2>&1 & ;;
+
+	# -- Video; Audio
+	*mp3|*flac|*opus|*mp3?source*|*mp4|*mkv|*avi|*mpg|*webm|*m4v|*ogv|*.m3u)
+#		setsid ffplay "$1" >/dev/null 2>&1 & ;;
+		mpv --really-quiet "$@" & disown; exit ;;
+	*.exe) wine "$@" 2>&1 & disown ;exit;;
+	*.wtfav) wine start /ProgIDOpen Wtlib.Favorite "$@" & disown; exit  ;;
+
+	*.torrent)setsid -f transadd "$@" & disown; exit  ;;
+	*.html)
+		vHTML "$@" >/dev/null 2>&1 & ;;
+		#xdg-open "$1" >/dev/null 2>&1 & ;;
+
+	# -- Image
+    *.xmind) xmind-2020 "$@" >/dev/null 2>&1 & ;;
+	*.pdf) viewer_pdf "$@" >/dev/null 2>&1 ;;
+	*.epub) foliate "$@" >/dev/null 2>&1 ;;
+	*) $TERMINAL -e $EDITOR "$@" >/dev/null 2>&1 & ;;
+esac
+
+case "$(file --mime-type $1 -Lb)" in
+	# -- Office; text
+		text/troff) man ./ "$1";;
+		application/csv) $TERMINAL -e sc-im "$1";;
+	# -- Image
+		image/svg+xml) display -- "$1";;
+
+esac
+
+####################################################
+}
+
+
+	if [[  -d "$@" ]]
+	then
+		builtin cd -P "$1" || return
+        exa --icons -la --color=always --group-directories-first
+	else
+		open "$1" & disown ; exit
+	fi

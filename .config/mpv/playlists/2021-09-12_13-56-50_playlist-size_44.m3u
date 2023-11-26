@@ -1,0 +1,88 @@
+#EXTINF:,Рен ТВ HD
+http://ad-hls-rentv.cdnvideo.ru/ren/smil:ren.smil/chunklist_b1024000.m3u8
+#EXTINF:,112 Україна 2
+http://app.live.112.events/hls-ua/112hd_hi/index.m3u8
+#EXTINF:,ACB TV
+http://cdn-01.bonus-tv.ru:8080/9volna/tracks-v1a1/index.m3u8
+#EXTINF:,NewsOne
+http://cdn1.live-tv.od.ua:8081/ktkod/ktkod-abr/ktkod/ktkod/playlist.m3u8
+#EXTINF:,Россия 1
+http://cdnmg.secure.live.rtr-vesti.ru/live/smil:rhd.smil/chunklist_b1800000.m3u8
+#EXTINF:,DW English
+http://dwstream4-lh.akamaihd.net/i/dwstream4_live@131329/index_1_av-b.m3u8
+#EXTINF:,К1
+http://edge1.iptv.macc.com.ua/life/k1_3/index.m3u8
+#EXTINF:,МИР Premium
+http://hls.mirtv.cdnvideo.ru/mirtv-parampublish/hd/playlist.m3u8
+#EXTINF:,Мир 24 HD
+http://hls.mirtv.cdnvideo.ru/mirtv-parampublish/mir24_2500/playlist.m3u8
+#EXTINF:,Мир HD
+http://hls.mirtv.cdnvideo.ru/mirtv-parampublish/mirtv_2500/playlist.m3u8
+#EXTINF:,МТВ
+http://hls.volgograd1vtv.cdnvideo.ru/volgograd1vtv/volgograd1vtv.sdp/playlist.m3u8
+#EXTINF:,DW
+http://live-1.otcnet.ru/DW/tracks-v1a1/index.m3u8
+#EXTINF:,Губерния Самарская
+http://live.guberniatv.cdnvideo.ru/guberniatv/guberniatv.sdp/chunklist.m3u8
+#EXTINF:,M2O TV
+http://m2otv-lh.akamaihd.net/i/m2oTv_1@186074/index_600_av-p.m3u8
+#EXTINF:,Luxury HD
+http://nano.teleservice.su:8080/hls/luxury.m3u8
+#EXTINF:,Оплoт 2 HD
+http://ott.inmart.tv:8081/17/index.m3u8
+#EXTINF:,Оплoт HD
+http://ott.inmart.tv:8081/54/index.m3u8
+#EXTINF:,CTБ HD
+http://ott.watch/stream/IFBYIR5OA7/156.m3u8
+#EXTINF:,Первый канал (+6)
+http://rt-sib-chita-htlive.cdn.ngenix.net/hls/CH_R03_1TV/variant.m3u8?version=2
+#EXTINF:,Первый канал (+5)
+http://rt-sib-irk-htlive.cdn.ngenix.net/hls/CH_R03_OTT_SIB_IRK_1TV/variant.m3u8?version=2
+#EXTINF:,Первый канал (+1)
+http://rt-vlg-saratov-htlive.cdn.ngenix.net/hls/CH_R03_OTT_VLG_SARATOV_1TV/variant.m3u8?version=2
+#EXTINF:,43 канал HD
+http://sochinskayatrk.ru/hdtv/hls/43Channel_hd/playlist.m3u8
+#EXTINF:,Новый мир
+http://stream.studio360.tv/nw/nw_576p/playlist.m3u8
+#EXTINF:,ТНВ Планета
+http://tnv.bonus-tv.ru/cdn/tnvplanet/tracks-v1a1/mono.m3u8
+#EXTINF:,MostVideo TV
+http://w4.mostvideo.tv/tv/ch1.m3u8
+#EXTINF:,Пятый канал
+http://zabava-htlive.cdn.ngenix.net/hls/CH_5TV/bw2000000/variant.m3u8?version=2
+#EXTINF:,Домашний
+http://zabava-htlive.cdn.ngenix.net/hls/CH_DOMASHNIY/bw2000000/variant.m3u8?version=2
+#EXTINF:,НТВ
+http://zabava-htlive.cdn.ngenix.net/hls/CH_NTV/bw2000000/variant.m3u8?version=2
+#EXTINF:,Че
+http://zabava-htlive.cdn.ngenix.net/hls/CH_PERETZ/bw2000000/variant.m3u8?version=2
+#EXTINF:,Пятница!
+http://zabava-htlive.cdn.ngenix.net/hls/CH_PYATNIZZA/bw2000000/variant.m3u8?version=2
+#EXTINF:,РЕН ТВ
+http://zabava-htlive.cdn.ngenix.net/hls/CH_RENTV/bw2000000/variant.m3u8?version=2
+#EXTINF:,Супер
+http://zabava-htlive.cdn.ngenix.net/hls/CH_SUPER/bw2000000/variant.m3u8?version=2
+#EXTINF:,ТВ Центр
+http://zabava-htlive.cdn.ngenix.net/hls/CH_TVC/bw2000000/variant.m3u8?version=2
+#EXTINF:,Ю
+http://zabava-htlive.cdn.ngenix.net/hls/CH_U/bw2000000/variant.m3u8?version=2
+#EXTINF:,112 Україна
+https://app.live.112.events/hls-ua/112hd_mid/index.m3u8
+#EXTINF:,112 Україна 1
+https://app.live.112.events/hls/112hd_mid/index.m3u8
+#EXTINF:,Интер
+https://edge1.iptv.macc.com.ua/img/inter_3/index.m3u8
+#EXTINF:,Чернівецький Промінь
+https://langate.tv/promin/live_720/index.m3u8
+#EXTINF:,Первый канал HD
+https://plmgr-moretv.cdnvideo.ru/1tvstream/playlist.m3u8
+#EXTINF:,31 канал
+https://sc.id-tv.kz/31Kanal_38_39.m3u8
+#EXTINF:,Мир 24
+https://sc.id-tv.kz/Mir24_38_39.m3u8
+#EXTINF:,Рен ТВ International
+https://sc.id-tv.kz/RenTV_38_39.m3u8
+#EXTINF:,СТС International
+https://sc.id-tv.kz/STS_38_39.m3u8
+#EXTINF:,СТС Love
+https://zabava-htlive.cdn.ngenix.net/hls/CH_STSLOVE/variant.m3u8

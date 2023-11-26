@@ -1,0 +1,92 @@
+#!/usr/bin/sh
+
+# PID - активного окна
+WINDOW_ACTIVE_CLASS=$(xprop -id $(xdotool getactivewindow) | grep WM_CLASS | cut -d '"' -f2 | tail -1 ) 
+
+
+
+## {{{ -- ZOOM
+# Поиск CLASS, активного окна
+ZOOM="$(xprop -id $(xdotool getactivewindow ) | cut -d '"' -f2 | grep -Eo "zoom"| tail -1)"
+# Проверка...если есть, то находит ВСЕ процессы и удаляет
+if [ "$ZOOM" ];then
+    kill -9 $(pidof zoom)
+    notify-send "\"$ZOOM\" удалён из процессов"
+fi
+## -- }}}
+
+## -- TELEGRAM {{{ 1
+TELEGRAM=$(xprop -id $(xdotool getactivewindow ) | cut -d '"' -f2 | grep -Eo "TelegramDesktop"| tail -1)
+# Проверка...если есть, то находит ВСЕ процессы и удаляет
+if [ "$TELEGRAM" ];then
+    kill -9 $(pidof telegram-desktop)
+    notify-send "Удаленно из процессов \${TELEGRAM}"
+fi
+## -- }}}
+
+## -- VIBER {{{ 2
+VIBER=$(xprop -id $(xdotool getactivewindow ) | cut -d '"' -f2 | grep -Eo
+"ViberPC"| tail -1)
+# Проверка...если есть, то находит ВСЕ процессы и удаляет
+if [ "$VIBER" ];then
+    kill -9 $(pidof Viber-desktop)
+    notify-send 'Удал. из процессов'
+fi
+## -- }}}
+
+## -- WIRE {{{ 3
+WIRE=$(xprop -id $(xdotool getactivewindow ) | cut -d '"' -f2 | grep -Eo "Wire"| tail -1)
+if [ "$WIRE" ];then
+    kill -9 $(pidof wire-desktop)
+    notify-send 'Процесс убит'
+fi
+## -- }}}
+
+## -- SIGNAL {{{ 4
+SIGNAL=$(xprop -id $(xdotool getactivewindow ) | cut -d '"' -f2 | grep -Eo "Signal"| tail -1)
+if [ "$SIGNAL" ];then
+    kill -9 $(pidof signal-desktop)
+    notify-send 'Процесса нет уже'
+fi
+## -- }}}
+
+## -- OPERA {{{ 5
+OPERA=$(xprop -id $(xdotool getactivewindow ) | cut -d '"' -f2 | grep -Eo "opera"| tail -1)
+if [ "$OPERA" ];then
+    kill -9 $(pidof opera)
+    notify-send 'Процесс OPERA удален'
+fi
+## -- }}}
+
+
+## -- MyTetra {{{ 5
+TETRA=$(xprop -id $(xdotool getactivewindow ) | cut -d '"' -f2 | grep -Eo "mytetra"| tail -1)
+if [ "$TETRA" ];then
+  xdotool key "${TETRA}" ctrl+q 
+  notify-send 'Удален из процессов MyTetra'
+fi
+## -- }}}
+
+## -- Google Chrome [google-chrome-stable] {{{ 6
+CHROMIUM=$(xprop -id $(xdotool getactivewindow ) | cut -d '"' -f2 | grep -Eo "Chromium"| tail -1)
+if [ "$CHROMIUM" ];then
+    kill -9 $(pidof google)
+    notify-send 'Удален из процессов Chromium'
+fi
+## -- }}}
+
+
+# Если окно, активно, то закрывает его (процессы могут не все закрывать, т.е могут висеть в фоне)
+#if [[ "$WINDOW_ACTIVE_CLASS" != "$ZOOM" ]] ||\
+  #[[ "$WINDOW_ACTIVE_CLASS" != "$TELEGRAM" ]] ||\
+  #[[ "$WINDOW_ACTIVE_CLASS" != "$VIBER" ]] ||\
+  #[[ "$WINDOW_ACTIVE_CLASS" != "$WIRE" ]] ||\
+  #[[ "$WINDOW_ACTIVE_CLASS" != "$SIGNAL" ]] ||\
+  #[[ "$WINDOW_ACTIVE_CLASS" != "$OPERA" ]] ||\
+  #[[ "$WINDOW_ACTIVE_CLASS" != "$TETRA" ]]; then 
+  xdotool key "${WINDOW_ACTIVE_CLASS}" super+q 
+#fi
+
+
+
+# vim: foldmethod=marker

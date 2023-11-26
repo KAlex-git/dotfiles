@@ -1,0 +1,20 @@
+2023/11/09-11:29:16.238 1460b8 Reusing MANIFEST /home/kalex/.config/whatsdesk/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2023/11/09-11:29:16.239 1460b8 Recovering log #47
+2023/11/09-11:29:16.273 1460b8 Reusing old log /home/kalex/.config/whatsdesk/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/000047.log 
+2023/11/09-11:29:16.274 1460b8 Delete type=2 #46
+2023/11/09-11:29:18.140 1460b8 Manual compaction at level-0 from '\x00\x14\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x15\x00\x00\x00' @ 0 : 0; will stop at (end)
+2023/11/09-11:29:18.153 1460b8 Manual compaction at level-0 from '\x00\x13\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x14\x00\x00\x00' @ 0 : 0; will stop at (end)
+2023/11/09-11:29:18.153 1460b8 Manual compaction at level-1 from '\x00\x13\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x14\x00\x00\x00' @ 0 : 0; will stop at (end)
+2023/11/09-11:29:18.160 1460b8 Manual compaction at level-0 from '\x00\x12\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x13\x00\x00\x00' @ 0 : 0; will stop at (end)
+2023/11/09-11:29:18.161 1461af Manual compaction at level-1 from '\x00\x12\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x13\x00\x00\x00' @ 0 : 0; will stop at (end)
+2023/11/09-11:29:18.165 1461ae Level-0 table #52: started
+2023/11/09-11:29:18.182 1461ae Level-0 table #52: 156786 bytes OK
+2023/11/09-11:29:18.183 1461ae Delete type=0 #47
+2023/11/09-11:29:18.184 1461ae Manual compaction at level-0 from '\x00\x15\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x16\x00\x00\x00' @ 0 : 0; will stop at (end)
+2023/11/09-11:29:18.197 1461ae Manual compaction at level-0 from '\x00\x11\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x12\x00\x00\x00' @ 0 : 0; will stop at (end)
+2023/11/09-11:29:18.197 1461ae Manual compaction at level-1 from '\x00\x11\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x12\x00\x00\x00' @ 0 : 0; will stop at '\x00\x15\x00\x00\xc8\x0d\x00l\x00o\x00c\x00a\x00l\x00_\x00s\x00t\x00o\x00r\x00a\x00g\x00e' @ 89070 : 1
+2023/11/09-11:29:18.197 1461ae Compacting 1@1 + 1@2 files
+2023/11/09-11:29:18.210 1461ae Generated table #53@1: 1689 keys, 59488 bytes
+2023/11/09-11:29:18.210 1461ae Compacted 1@1 + 1@2 files => 59488 bytes
+2023/11/09-11:29:18.211 1461ae compacted to: files[ 0 0 1 0 0 0 0 ]
+2023/11/09-11:29:18.212 1461ae Manual compaction at level-1 from '\x00\x15\x00\x00\xc8\x0d\x00l\x00o\x00c\x00a\x00l\x00_\x00s\x00t\x00o\x00r\x00a\x00g\x00e' @ 89070 : 1 .. '\x00\x12\x00\x00\x00' @ 0 : 0; will stop at (end)

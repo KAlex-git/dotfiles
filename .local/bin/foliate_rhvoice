@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# ifinstalled "rhvoice-dictionary-git  rhvoice-voice-arina rhvoice-language-russian speech-dispatcher"
+
+ rhvoice_say "$(</dev/stdin)" &
+trap 'kill $!; killall spd-say; killall RHVoice-test; killall sd_rhvoice; exit 0' INT
+wait

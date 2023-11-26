@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+ifinstalled xsel || sudo pacman -S xsel --noconfirm
+
+text="$(xsel -o)"
+translate="$(wget -U "Mozilla/5.0" -qO - "http://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=ru&dt=t&q=$(echo $text | sed "s/[\"'<>]//g")" | sed "s/,,,0]],,.*//g;s/en//;/^$/d;s/.$//;s/^[t]*//;/^$/d;s/\t*$//" | awk -F'"' '{print $2, $6}')"
+echo "$translate" | xclip -selection clipboard
+notify-send  "$text"
+notify-send  "$translate"
+
+# ver. 2
+#notify-send --icon=info "$(xsel -o)" "$(wget -U "Mozilla/5.0" -qO - "http://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=ru&dt=t&q=$(xsel -o | sed "s/[\"'<>]//g")" | sed "s/,,,0]],,.*//g" | awk -F'"' '{print $2, $6}')"
+
+
+##;s/cce7c67b3f2439089dd6b428e0b83b88//

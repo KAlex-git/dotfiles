@@ -1,0 +1,19 @@
+#!/bin/bash
+
+function lookup() {
+    short=${2:-y}
+    if [[ $short = y ]]; then
+        ans=$(sdcv -u 'Full English-Russian' -n "$1")
+    else
+        ans=$(sdcv -n "$1")
+    fi
+    echo "$ans"
+}
+
+QUERY=$(rofi -dmenu -p '👓')
+
+while [[ -n $QUERY ]]; do
+    trans=$(lookup "$QUERY" 'y')
+    # get new search
+    QUERY=$(echo "$trans" | sed -e 's/[0-9])/\n&/g; s/\;/&\n/g' | rofi -dmenu -config ~/.config/rofi/my_config -format f)
+done

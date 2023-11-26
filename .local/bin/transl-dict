@@ -1,0 +1,19 @@
+#!/bin/sh
+#STYLE="/home/farseerfc/.config/awesome/awesome.outlang"
+cword=`pbpaste`
+word=${cword}
+#word=`xsel`
+#
+# online
+# dcv=`trans -b :ru \"$word\"`
+#notify-send -t 30000 "Google" "$dcv"
+
+# offline
+sdcv=`sdcv -u 'Full English-Russian' -n \"$word\" |\
+	fold -s -w 70 |\
+sed -e "s/^(S+)\s/1\n/" |\
+sed -e :a -e 's/^.\{1,5\}$/ & /;ta' |\
+sed -e :a -e 's/^.\{6,50\}$/& /;ta' |\
+sed -e 's/\([0-9])\)/\n\1/g; 1,4d'`
+
+notify-send -t 30000 "$sdcv"

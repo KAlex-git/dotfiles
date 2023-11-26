@@ -1,0 +1,140 @@
+#!/usr/bin/env sh
+##
+##
+set -euo pipefail
+
+# TODO Checking
+#[ wire-desktop ] || ifinstalled
+
+dm(){ dmenu -i -l 22 -p "choice" ;}
+
+DISCORD(){
+	[[ -x "$(command -v "webcord")" ]] || st -e yes | yay -S webcord --noconfirm 
+		webcord 
+
+}
+
+VIBER(){
+	if [[ -z "$(pgrep -u $UID -x viber)" ]];then
+		killall -q viber
+		/opt/viber/Viber
+		notify-send -i ''$HOME'/.local/share/icons/arc_wolf.jpeg' 'Viber'
+	else
+		notify-send "bay-bay"
+		killall -q viber
+		/opt/viber/Viber
+	fi
+}
+TELEGRAM(){
+	if [[ ! -z "$(pgrep -u $UID -x telegram-desktop)" ]];then
+		killall -q telegram-desktop
+		telegram-desktop
+		notify-send "bay-bay"
+	else
+		notify-send -i "/home/kalex/.local/share/icons/telegram-512.png" "telegram-desktop"
+		telegram-desktop
+	fi
+}
+ZOOM(){
+	if [[ ! -z "$(pgrep -u $UID -x zoom)" ]];then
+	killall -q zoom
+	zoom
+	notify-send -i "~/.local/share/icons/zoom.png" "zoom Meeting"
+        else
+	notify-send -i "~/.local/share/icons/zoom.png" "zoom Meeting"
+	zoom
+	fi
+}
+WIRE(){
+	killall -q wire
+	wire-desktop
+	notify-send -i "~/.local/share/icons/wire-messenger.png" "Wire Messenger"
+}
+SIGNAL(){
+	killall -q signal
+	signal-desktop
+	notify-send -i "~/.local/share/icons/signal.png" "Signal Messenger"
+}
+
+
+menu_QR(){
+declare -a options=(\
+	"qtqr"
+	"qrcode online (+logo)"
+)
+
+choice=$(echo "$(printf '%s\n' "${options[@]}")" | rofi -dmenu -fn 'kalexsTTF:size=12' -i -l 10 -p 'Выбрать:')
+case "$choice" in
+	"qtqr") qtqr ;;
+	"qrcode online (+logo)") $BROWSER "https://www.qrcode-monkey.com/" ;;
+esac
+}
+WT(){
+killall dunst; 
+dunst & disown;
+notify-send  -i "$HOME/.local/share/icons/logo-watchtower.png" "wt-k"
+wine "$HOME/.local/share/wineprefixes/default/drive_c/Program Files (x86)/Watchtower/Watchtower Library/K/WTLibrary.exe" 2>/dev/null & disown ; exit
+}
+##############################################
+
+# TDO Create menu
+padding="   ..."
+title=""
+    __discord="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" " Discord Webcord [ Дискорд ]") "]
+title=""
+    __viber="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" " Viber [ Вайбер ]") "]
+title=""
+    __telegram="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" " Telegram [ телеграмм ]") "]
+title=""
+    __wire="$(printf "%s  %s %s\n" "$title" "${padding:${#title}}" " Wire ") "
+title=""
+    __signal="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" " Signal ") "
+title=""
+    __zoom="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" " ZOOM ") "
+title=""
+    __task="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" " Task ") "
+title=""
+    __qr="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" " QR-code ") "
+title=" "
+__whatsapp="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" " whatsapp (whatsdesk) ") "
+title=" "
+    __wt="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" " wt-k ") "
+title="DTOS"
+    __alias="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" " folder 'shell' ") "
+title=" "
+    __themes="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" " choice colorscheme ") "
+## icons:   
+## Misc
+declare -a options=( \
+"${__discord}"
+"${__qr}"
+"${__signal}"
+"${__wt}"
+"${__task}"
+"${__telegram}"
+"${__viber}"
+"${__wire}"
+"${__whatsapp}"
+"${__zoom}"
+"${__alias}"
+"${__themes}"
+)
+
+
+
+choice=$(echo "$(printf '%s\n' "${options[@]}")" | rofi -dmenu -fn 'monospace:size=14' -i -l 13 -p 'Да будет так  :')
+case "$choice" in
+	"${__discord}"    ) DISCORD;;
+	"${__viber}"      ) VIBER;;
+	"${__telegram}"   ) TELEGRAM;;
+	# "${__signal}"     ) SIGNAL;;
+	"${__zoom}"       ) ZOOM ;;
+	"${__task}"       ) zathura ~/Documents/ministry/my/График_ПСРН\(личный\).pdf ;;
+	"${__qr}"         ) menu_QR ;;
+	# "${__wire}"       ) WIRE;;
+	"${__whatsapp}"       ) whatsdesk;;
+	"${__wt}"         ) WT;;
+	"${__alias}"      ) dm-alias;;
+	"${__themes}"      ) $(dtos-colorscheme);;
+    *) exit 1 ;;
+esac

@@ -1,0 +1,24 @@
+@theme "flat-nord.rasi"
+
+* {
+  bg:                 #2e344070;
+  bg-normal:          #2e344070;
+  bg-selected:        #4C566A;
+  font:               "mono 12";
+}
+
+window {
+  transparency:       "real";
+}
+
+message {
+  padding:            1px 0px 2px 2px;
+}
+/*
+prompt {
+  text-color:         #282828;
+}
+*/
+
+/* https://raw.githubusercontent.com/yusufaktepe/dotfiles/tp/.config/rofi/themes/flat-nord_rofitr.rasi */
+/* vim:set ts=2 sw=2 et: */

@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# This file runs when a DM logs you into a graphical session.
+# If you use startx/xinit like a Chad, this file will also be sourced.
+
+xrandr --dpi 96		# Set DPI. User may want to use a larger number for larger screens.
+setbg &			# set the background with the `setbg` script
+#xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources & xrdbpid=$!	# Uncomment to use Xresources colors/settings on startup
+
+autostart="mpd xcompmgr dunst unclutter pipewire remapd"
+
+for program in $autostart; do
+	pidof -sx "$program" || "$program" &
+done >/dev/null 2>&1
+
+# Ensure that xrdb has finished running before moving on to start the WM/DE.
+[ -n "$xrdbpid" ] && wait "$xrdbpid"
+
+
+# Fix Errors about missing or failing to open a display DUNST
+# https://dunst-project.org/faq/
+/etc/X11/xinit/xinitrc.d/50-systemd-user.sh
+
+
+
+# Here Xfce is kept as default
+session=${1:-i3}
+
+case $session in
+    i3|i3wm           ) exec i3;;
+    dwm               ) exec ssh-agent dwm;;
+    # No known session, try to run it as command
+    *                 ) exec $1;;
+esac
+

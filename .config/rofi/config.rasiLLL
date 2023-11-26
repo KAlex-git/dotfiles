@@ -1,0 +1,19 @@
+configuration {
+	modi: "calc,drun,window,shortcuts:/home/anno/coding/bash-script/short_rofi/rofi-shortcut.sh";
+	font: "SourceHanSans 12";
+	show-icons: true;
+	terminal: "st";
+	icon-theme: "Numix-Circle";
+	cycle: true;
+	sidebar-mode: true;
+	kb-move-word-back: "Alt+b";
+	kb-move-word-forward: "Alt+f";
+	kb-mode-next: "Control+Right";
+	kb-mode-previous: "Control+Left";
+	kb-cancel: "Escape";
+  kb-row-up: "Up,Control+p,Alt+k";
+  kb-row-down: "Down,Control+n,Alt+j";
+}
+@theme "themes/arc_dark_transparent_colors.rasi"
+
+	terminal: "st";

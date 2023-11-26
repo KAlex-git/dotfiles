@@ -1,0 +1,138 @@
+   empty;        U+F15B;
+   file;         U+F15C;
+   pdf;          U+F1C1;
+   word;         U+F1C2;
+   word;         U+EB00;
+   xls;          U+F1C3;
+   xls;          U+EAF9;
+   powerpoint;   U+F1C4;
+   picture_file; U+F1C5;
+   zip_file;     U+F1C6;
+   sound_file;   U+F1C7;
+   video_file;   U+F1C8;
+   xml_file;     U+F1C9;
+   setting;      U+f013;
+   video_folder; U+F008;
+   onenote;      U+EAFC;
+   music;        U+f001;
+   download;     U+e9cd;
+   not_link;     U+f127;
+   datebase;     U+F1C0;
+   dir_open;     U+f07c;
+   dir_close;    U+f07b;
+   dropbox;      U+F16B;
+   gulp;         U+EA4F;
+   phone;        U+F2C1;
+   binary;       U+eb4e;
+   abook;        U+F2BC;
+   js;           U+EB24;
+   npm;          U+EB2A;
+   mySQL;        U+EB15;
+   torrents;
+   python;       U+eb79;
+   viber;        U+ec58;
+   whatsapps;    U+ec70;
+   ZOOM;         U+eca3;
+   vim;          U+ec59;
+   vi;
+   sound;        U+ea91;
+   gnu;          U+ea2d;
+   libreoffice;  U+eac5;
+   mail;         U+ea2b;
+   dev;          U+e9be;
+   Cи;           U+E9AA;
+   Cи;           U+E98B;
+   googledisk;   U+ea3b;
+   dell;         U+e9ba;
+   adobe;        U+e90b;
+   bing;         U+e95a;
+   ruby;         U+EBA5;
+   term;         U+F120;
+   duckduck;     U+e9d6;
+   amazon;       U+F270;
+   QR;           U+F029;
+   barcode;      U+F02A;
+   code;         U+f121;
+   s_code;       U+ec10;
+   brave;        U+e96c;
+   librewolf;    U+ec7c;
+   gimp;         U+F1FC;
+   gimp;         U+ea22;
+   inkcape;      U+ea81;
+   adobe;        U+e90b;
+   telegram;     U+f2c6;
+   soundcloud;   U+F1BE;
+   git;          U+F1D3;
+   github;       U+f092;
+   git;          U+F09B;
+   translate;    U+e93c;
+   arxiv;        U+e93d;
+   wordpress;    U+f19a;
+   hashtag;      U+f198;
+   box;          U+f187;
+   obs;          U+eb30;
+
+   mac, apple;   U+F179;
+   win10;        U+F17A;
+   android;      U+F17B;
+   linux;        U+F17C;
+
+   arch;         U+e93a;
+   debian;       U+e9b5;
+   awesome;      U+e94a;
+   ubuntu;       U+ec46;
+   centos;       U+eb3d;
+
+   tower;        U+e6ea;
+   stand;        U+e6bf;
+   orator_men;   U+e696;
+   ministry;     U+e62f;
+   kindom hall;  U+E670;
+   jw;           U+e66c;
+   jwb;          U+E66B;
+   bible;        U+e623;
+   rsl, sing;    U+E6BD;
+   sheep;        U+E6BB;
+
+   period;       U+f054;
+   comma;        U+f053;
+   right;        U+f0da;
+   left;         U+f0d9;
+   max;          U+f0b2;
+   calendar;     U+f073;
+   eth;          U+e717;
+   ethernet;
+   wifi;
+   disconnect;
+   mic;          U+F130;
+   mic_mute;     U+F131;
+   vol_low;      U+f026;
+   vol_middle;   U+f027;
+   vol_max;      U+f028;
+   chat;         U+F098;
+   chat;         U+f086;
+   phone;        U+F095;
+   mobile;       U+F10B;
+   tablet;       U+F10A;
+   notebook;     U+F109;
+   monitor;      U+F108;
+   share, send;  U+F1E0;
+   copyright;    U+F25D;
+   copyright;    U+F1F9;
+   copyright;    U+F25C;
+
+  electric,dead; U+ea54;
+  haskell;       U+ea5c;
+  wordL;
+" cub;
+
+  makefile         ; U+E6BC
+  makefile 1       ; U+E99D
+  makefile 2       ; U+EAE5
+  makefile 3       ; U+F085
+  dots horizont    ; U+E6D9
+  dots horizont 1  ; U+F141
+  dots vertical    ; U+E6DA
+  dots vertical 1  ; U+F142
+  connect          ; U+E717
+  openssl          ; U+EB3B

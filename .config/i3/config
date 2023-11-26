@@ -1,0 +1,555 @@
+set $Alt Mod1
+set $Super Mod4
+
+set $term st
+set $brows "notify-send -i '~/.local/share/icons/opera.png' ' ';$BROWSER"
+set $spcalc st -n spcalc -f "monospace:size=16" -g "50x20" -e bc -lq
+set $timer st -c time -n time -f "roboto mono nerd font:pixelsize=27:antialias=true:autohint=true" -g 10x3 -e timer.sh
+
+# start i3bar to display a workspace bar
+bar {
+    status_command         SCRIPT_DIR=$HOME/.config/i3blocks/scripts_i3 i3blocks
+    bindsym button4         nop
+    bindsym button5         nop
+    position                bottom
+    tray_output             primary
+    separator_symbol        "·"
+    workspace_buttons       yes
+    strip_workspace_numbers yes
+}
+
+#Needed for i3-gaps
+hide_edge_borders both
+for_window [class="^.*"] border pixel 0
+gaps inner 2
+gaps outer 2
+
+font xft:URWGothic-Book 11
+
+############## AUTOSTART ##############
+
+###---touchpad---###
+exec --no-startup-id synclient VertEdgeScroll=1 TapButton1=1 TapButton2=3 TapButton3=2 PalmDetect=1 VertEdgeScroll=0 HorizEdgeScroll=0 PalmMinWidth=5
+
+###---Цветовая температура экрана ---###
+# -b 1.0:0.7 уровень яркости день:ночь
+# -t 6500:3200 цветовая температура день:ночь
+# -l 45:39 укороченные координаты местонахождения latitude:longitude (ширина:долгота). Узнать свои координаты
+# https://www.latlong.net/
+exec --no-startup-id redshift -b 1.0:0.7 -t 6500:3200 -l 45:39
+exec --no-startup-id flameshot
+
+#Add wallpaper:
+exec --no-startup-id feh --bg-fill ~/.local/share/bg
+#exec_always --no-startup-id wal -c -i ~/.config/wall.png
+exec_always --no-startup-id remaps
+# Обновление конфигурации и i3blocks
+exec --no-startup-id pkill -RTMIN+8 i3blocks
+
+
+
+# Use Mouse+$mod to drag floating windows
+floating_modifier $Super
+focus_follows_mouse no
+
+
+################################################################################################
+###---Audio and Music Definitions---###
+#Music player daemon:
+set $stoprec --no-startup-id killall ffmpeg & killall screenkey
+exec --no-startup-id mpd
+exec --no-startup-id remapd
+# exec --no-startup-id pulseaudio
+exec --no-startup-id pipewire 
+exec --no-startup-id xcompmgr
+ 
+
+##For mpc:
+# Use pactl to adjust volume in PulseAudio.
+set $refresh_i3status killall -SIGUSR1 i3status
+
+set $music st -e ncmpcpp
+set $pause --no-startup-id mpc toggle
+set $pauseUnpause --no-startup-id mpc pause ; pauseallmpv
+
+set $upvol   --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2% && $refresh_i3status
+set $downvol --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2% && $refresh_i3status
+set $mutevol --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+# set $mutevol --no-startup-id wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+# bindsym $mod+Shift+o exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+set $next --no-startup-id mpc next
+set $prev --no-startup-id mpc prev
+set $lilfor --no-startup-id mpc seek +10
+set $bigfor --no-startup-id mpc seek +120
+set $lilbak --no-startup-id mpc seek -10
+set $bigbak --no-startup-id mpc seek -120
+set $beg --no-startup-id mpc seek 0%
+
+#FOR ALSA/AMIXER
+#set $inc --no-startup-id amixer sset Master 2%+
+#set $biginc --no-startup-id amixer sset Master 5%+
+#set $dec --no-startup-id amixer sset Master 2%-
+#set $bigdec --no-startup-id amixer sset Master 5%-
+#set $mute --no-startup-id amixer sset Master toggle
+#set $truemute --no-startup-id amixer sset Master mute
+#set $screencast  --no-startup-id bash ~/.config/Scripts/screencast_alsa.sh
+#set $audio --no-startup-id bash ~/.config/Scripts/audio_alsa.sh
+
+#For PULSEAUDIO/PAMIXER
+#set $inc --no-startup-id pamixer --allow-boost -i 5
+#set $biginc --no-startup-id pamixer --allow-boost -i 15
+#set $dec --no-startup-id pamixer --allow-boost -d 5
+#set $bigdec --no-startup-id pamixer --allow-boost -d 15
+#set $mute --no-startup-id pamixer --allow-boost -t
+#set $micmute --no-startup-id pamixer --allow-boost -t
+#set $truemute --no-startup-id pamixer -m
+#set $screencast  --no-startup-id bash ~/.config/Scripts/screencast_pulse.sh
+#set $audio --no-startup-id bash ~/.config/Scripts/audio_pulse.sh
+
+#Volume keys
+bindsym $Super+p		    exec $pause
+bindsym $Super+minus		exec $downvol
+bindsym $Super+equal		exec $upvol
+
+###---THE END Audio and Music Definitions---###
+
+
+###tty-clock
+#
+#for_window [instance="clock"] floating enable
+#for_window [instance="clock"] resize set 300 200
+#for_window [instance="clock"] move position 1038 72
+#for_window [instance="clock"] move scratchpad
+#exec st -n clock -c clock -f "roboto mono nerd font:pixelsize=10:antialias=true:autohint=true"
+
+##############################################################################
+
+# class                 border  backgr. text    indicator child_border
+client.focused          #000000 #9a2efe #000000 #30669B   #30669B
+client.focused_inactive #000000 #000000 #ffffff #484e50   #5f676a
+client.unfocused        #000000 #000000 #555555 #000000   #000000
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #000000 #000000 #ffffff #000000   #0c0c0c
+
+
+###---Basic Definitions---###
+bindsym $Alt+Control+d 	layout default
+bindsym $Alt+Control+a 	layout stacking
+bindsym $Alt+Control+s  layout tabbed
+# toggle sticky
+bindsym $Super+Shift+s sticky toggle
+# bindsym $Alt+Shift+s exec ~/.config/i3/i3-display-swap.sh
+
+bindsym $Super+Shift+space 	floating toggle; exec notify-send 'floating toggle'
+bindsym $Super+space		focus mode_toggle; exec notify-send 'mode toggle'
+
+###--- Windows Manipulation ---###
+bindsym $Super+Shift+y		resize shrink width 10 px or 10ppt
+bindsym $Super+Shift+u		resize grow height 10 px or 10 ppt
+bindsym $Super+Shift+i		resize shrink height 10 px or 10 ppt
+bindsym $Super+Shift+o		resize grow width 10 px or 10 ppt
+
+bindsym $Super+f			fullscreen toggle
+bindsym $Super+a			workspace prev
+bindsym $Super+semicolon	workspace next
+
+bindsym $Super+h			focus left
+bindsym $Super+j			focus down
+bindsym $Super+k			focus up
+bindsym $Super+l			focus right
+
+bindsym $Super+Shift+h		move left 30
+bindsym $Super+Shift+j		move down 30
+bindsym $Super+Shift+k		move up 30
+bindsym $Super+Shift+l		move right 30
+
+
+bindsym $Super+x			gaps inner current plus 5
+bindsym $Super+Shift+x		gaps inner current minus 5
+bindsym $Super+Shift+d		gaps inner current set 0; gaps outer current set 0
+bindsym $Super+Shift+t		gaps inner current set 15; gaps outer current set 15
+
+# binding for lock screen
+bindsym $Super+$Alt+x		exec --no-startup-id ~/.config/i3/lock
+
+
+
+bindsym $Super+r                exec $term -e lfub
+bindsym $Super+Return 		    exec $term
+bindsym $Super+Shift+Return 	exec $term -e tmux
+bindsym $Super+n			    exec $term -e newsboat
+bindsym $Super+d            exec dmrun -fn monospace:size=10 -l 5
+
+
+bindsym $Alt+q		        kill
+bindsym $Alt+BackSpace		restart
+bindsym $Alt+Shift+q		restart
+bindsym $Super+BackSpace	exec dmMenu
+bindsym $Alt+grave		 exec dmenuunicode
+
+#STOP/HIDE EVERYTHING:
+bindsym $Super+Shift+Delete	exec $truemute ; exec $truepause ; workspace lmao ; exec $term -e htop ; exec $term -e lfub
+
+
+##### --- Twince keyboards --- #####
+
+mode "bro[w]ser [e]copylinkBrowser [n]mtui" {
+    bindsym a exec dm-bookman, mode "default"
+    bindsym e exec copylinkBrowser, mode "default"
+    bindsym n exec st -e sudo nmtui, mode "default"
+    bindsym w exec $brows, mode "default"
+
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+
+##########
+mode "[m]socialweb [n]mounter [u]nmounter" {
+    bindsym m exec fixsocialweb, mode "default"
+    bindsym n exec mounter, mode "default"
+    bindsym u exec unmounter, mode "default"
+
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+
+# -- Twine keys for calculator, ncmpcpp and timer {{{ 
+mode "[c]alculator [m]usic t[i]mer my[t]etra" {
+    bindsym c exec $spcalc, mode "default"
+    bindsym m exec $music, mode "default"
+    bindsym s exec spotify, mode "default"
+    bindsym i exec $timer, mode "default"  
+    bindsym t exec FixMyTetra.sh, mode "default"  
+
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+#--}}}
+mode "dm-ali[a]s [e]lectroFast dtos-[c]olorscheme [h]apps_man dm-[k]ill dm-[r]adio pa[s]smenu [y]upgrade" {
+    bindsym a exec dm-alias, mode "default"
+    bindsym m exec electroFast, mode "default"
+    bindsym c exec dtos-colorscheme, mode "default"
+    bindsym h exec apps_man, mode "default"
+    bindsym k exec dm-kill, mode "default"
+    bindsym r exec dm-radio, mode "default"
+    bindsym s exec passmenu.sh, mode "default"
+    bindsym y exec st -e sb-popupgrade  , mode "default"
+    
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+
+
+##########
+mode "bookmenuBro[w]ser [a]dm-bookman" {
+    bindsym w exec exec bookmenu -p ">>" -l 5  -fn "jetbrains mono-10" -s ":" -b /home/kalex/.config/bookmenu/browser -co opera, mode "default"
+    bindsym a exec dm-bookman  , mode "default"
+    
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+
+##########
+bindsym $Super+w mode "bro[w]ser [e]copylinkBrowser [n]mtui"
+bindsym $Alt+m mode "[m]socialweb [n]mounter [u]nmounter"
+bindsym $Alt+s mode "[c]alculator [m]usic t[i]mer my[t]etra"
+bindsym $Alt+p mode "dm-ali[a]s [e]lectroFast dtos-[c]olorscheme [h]apps_man dm-[k]ill dm-[r]adio pa[s]smenu [y]upgrade"
+bindsym $Alt+w mode "bookmenuBro[w]ser [a]dm-bookman"
+
+#######################################################################
+
+
+bindsym $Alt+b exec bookmenu -p ">>" -l 15 -fn "Menlo Regular-16"  -s ":" -b /home/kalex/.config/bookmenu/media   -co open
+bindsym $Alt+o exec bookmenu -p ">>" -l 5  -fn "jetbrains mono-10" -s ":" -b /home/kalex/.config/bookmenu/configs -co "st -e nvim"
+
+
+
+#### Mps youtube binding
+# bindsym $Alt+Shift+y exec st -f "roboto mono nerd font:pixelsize=20:antialias=true:autohint=true" -e mpsyt --no-textart
+
+
+
+
+###---Workspace Bindings---###
+
+workspace_auto_back_and_forth yes
+bindsym $Super+Tab		        workspace back_and_forth
+
+
+bindsym $Super+Home		        workspace $ws1
+bindsym $Super+Shift+Home		move container to workspace $ws1
+bindsym $Super+End		        workspace $ws10
+bindsym $Super+Shift+End		move container to workspace $ws10
+bindsym $Super+Prior		    workspace prev
+bindsym $Super+Shift+Prior	    move container to workspace prev
+bindsym $Super+Next		        workspace next
+bindsym $Super+Shift+Next		move container to workspace next
+bindsym $Super+XF86Back		    workspace prev
+bindsym $Super+XF86Forward	    workspace next
+#bindsym $Super+Shift+XF86Back
+#bindsym $Super+Shift+XF86Forward
+
+# split orientation
+# bindsym $Super+q			split toggle
+# bindsym $Super+backslash		workspace back_and_forth
+bindsym $Super+backslash	split horizontal; exec notify-send 'tile horizontally'
+bindsym $Super+slash		split vertical; exec notify-send 'tile vertically'
+# bindsym $Super+z split h; exec $term; exec notify-send 'tile horizontally'
+# bindsym $Super+v split v; exec $term; exec notify-send 'tile vertically'
+
+#set $ws1 "1: "
+#set $ws2 "2: "
+#set $ws3 "3: "
+#set $ws4 "4: "
+#set $ws5 "5: "
+#set $ws6 "6: "
+#set $ws7 "7: "
+#set $ws8 "8: "
+#set $ws9 "9: "
+#set $ws10 "10: "
+
+set $ws1 "1: "
+set $ws2 "2: "
+set $ws3 "3: "
+set $ws4 "4: "
+set $ws5 "5: 🪟"
+set $ws6 "6: 🥝"
+set $ws7 "7: 😀"
+set $ws8 "8: "
+set $ws9 "9:  "
+set $ws10 "10: "
+
+# switch to workspace
+bindsym $Super+1		workspace $ws1
+bindsym $Super+2		workspace $ws2
+bindsym $Super+3		workspace $ws3
+bindsym $Super+4		workspace $ws4
+bindsym $Super+5		workspace $ws5
+bindsym $Super+6		workspace $ws6
+bindsym $Super+7		workspace $ws7
+bindsym $Super+8		workspace $ws8
+bindsym $Super+9		workspace $ws9
+bindsym $Super+0		workspace $ws10
+
+# move focused container to workspace
+bindsym $Alt+Shift+1	move container to workspace $ws1
+bindsym $Alt+Shift+2	move container to workspace $ws2
+bindsym $Alt+Shift+3	move container to workspace $ws3
+bindsym $Alt+Shift+4	move container to workspace $ws4
+bindsym $Alt+Shift+5	move container to workspace $ws5
+bindsym $Alt+Shift+6	move container to workspace $ws6
+bindsym $Alt+Shift+7	move container to workspace $ws7
+bindsym $Alt+Shift+8	move container to workspace $ws8
+bindsym $Alt+Shift+9	move container to workspace $ws9
+bindsym $Alt+Shift+0	move container to workspace $ws10
+
+##### ---- Open applications on specific workspaces ---- #####
+# Open applications on specific workspaces
+assign [class="Opera"]              → $ws2
+assign [title="vnote"]              → $ws3
+assign [class="Gimp"]               → $ws5
+assign [title="GIMP Startup"]       → $ws5
+assign [class="wtlibrary.exe"]      → $ws6
+assign [class="WebCord"]            → $ws8
+assign [title="солнышко"]           → $ws8
+assign [class="TelegramDesktop"]    → $ws8
+assign [instance="mytetra"]         → $ws9
+assign [instance="spotify"]         → $ws9
+
+for_window [title="солнышко"]           layout tabbed enable
+for_window [class="TelegramDesktop"]    layout tabbed enable
+for_window [instance="spotify"]         layout tabbed enable
+for_window [class="WebCord"]            layout tabbed enable
+for_window [instance="mytetra"]         layout tabbed enable
+for_window [title="vnote"]              layout tabbed enable
+for_window [instance="spotify"]         layout tabbed enable
+for_window [class="wtlibrary.exe"]      layout tabbed toggle
+for_window [class="Yad"]                floating enable
+
+for_window [window_role="gimp-dock"] floating disable; move left; resize shrink width 50 px or 50ppt
+for_window [window_role="gimp-toolbox"] floating disable; move right; resize grow width 30 px or 30ppt
+#for_window [class="st"] exec --no-startup-id transset -a --dec .25
+for_window [window_role="GtkFileChooserDialog"] resize shrink height 10 px
+
+### --- webcam bindings --- ####
+
+for_window[class="Surf"] floating enable
+for_window[class="Surf"] sticky enable
+for_window[class="Surf"] resize set 410 330
+for_window[class="Surf"] move position 956 460
+
+# mpv floating
+for_window[class="mpv"] floating enable
+for_window[class="mpv"] resize set 640 360
+for_window[class="mpv"] move position 695 378
+
+for_window[title="video0 - mpv"] floating enable
+for_window[title="video0 - mpv"] sticky enable
+
+# feh floating
+for_window[class="feh"] floating enable
+for_window[class="feh"] resize set 640 360
+for_window[class="feh"] move position 695 378
+
+## path script ~/.local/bin/timer.sh
+for_window [instance="time"] floating enable
+for_window [instance="time"] resize set 240 100 
+for_window [instance="time"] move position 1038 72
+
+for_window [instance="spcalc"] floating enable
+
+
+# switch to workspace with urgent window automatically
+for_window [urgent=latest] focus
+
+##### ---- END  Open applications on specific workspaces ---- #####
+
+
+workspace $ws2 gaps inner 0
+workspace $ws2 gaps outer 0
+workspace $ws3 gaps inner 0
+workspace $ws3 gaps outer 0
+workspace $ws4 gaps inner 0
+workspace $ws4 gaps outer 0
+workspace $ws5 gaps inner 0
+workspace $ws5 gaps outer 0
+workspace $ws6 gaps inner 0
+workspace $ws6 gaps outer 0
+workspace $ws8 gaps inner 0
+workspace $ws8 gaps outer 0
+
+
+###---Function Buttons---###
+#bindsym F1		nop
+#bindsym F2
+#bindsym F3
+#bindsym F4
+#bindsym F5
+#bindsym F6
+#bindsym F7
+#bindsym F8
+#bindsym F9
+#bindsym F10
+bindsym F11		fullscreen toggle
+#bindsym F12
+
+##bindsym $Super+F1		exec --no-startup-id mupdf ~/.config/i3/i3_guide.md.pdf
+##bindsym $Super+F2		exec --no-startup-id python ~/.config/Scripts/shortcuts.py
+##bindsym $Super+F3		exec --no-startup-id arandr
+##bindsym $Super+F4		exec --no-startup-id sudo zzz
+##bindsym $Super+F5		exec --no-startup-id sudo systemctl restart NetworkManager
+###bindsym $Super+F6		exec --no-startup-id urxvt -e transmission-remote-cli
+##bindsym $Super+F7		exec transset -a --dec .15
+##bindsym $Super+F8		exec transset -a --inc .15
+##bindsym $Super+F9		exec --no-startup-id sudo mount -a
+##bindsym $Super+F10	exec --no-startup-id ~/.config/Scripts/screen.sh l ;; exec --no-startup-id ~/.config/polybar/launch.sh
+##bindsym $Super+F11	exec --no-startup-id ~/.config/Scripts/screen.sh v ;; exec --no-startup-id ~/.config/polybar/launch.sh
+##bindsym $Super+F12	exec --no-startup-id ~/.config/Scripts/screen.sh d ;; exec --no-startup-id ~/.config/polybar/launch.sh
+
+
+
+
+
+#Print screen takes a screenshot.
+
+#For recording audio/video or stop recording. Also screenkey for visual typing.
+bindsym $Super+Print		exec --no-startup-id screenkey
+#bindsym $Super+Scroll_Lock	exec $audio
+bindsym $Alt+Shift+r		exec $screencast
+bindsym $Alt+Shift+p		exec $video
+bindsym $Super+Delete		exec $stoprec
+bindsym XF86Launch1		exec $stoprec
+
+
+
+###---Extra XF86 Keys---###
+#These are the extra media keys that some keyboards have.
+bindsym XF86AudioRaiseVolume		exec pactl set-sink-volume 0 +10%
+bindsym XF86AudioLowerVolume	exec pactl set-sink-volume 0 -10%
+# bindsym XF86AudioMute	exec amixer -q set Master toggle
+bindsym XF86AudioMute	exec $mutevol
+bindsym XF86PowerOff		exec sudo shutdown -h now
+#bindsym XF86Copy		exec
+#bindsym XF86Open		exec
+#bindsym XF86Paste		exec
+#bindsym XF86Cut		exec
+#bindsym XF86MenuKB		exec
+bindsym XF86Calculator		exec $term -e R -q
+bindsym XF86Sleep		exec sudo zzz
+#bindsym XF86WakeUp		exec
+bindsym XF86Explorer		exec $term -e lfub
+#bindsym XF86Send		exec
+#bindsym XF86Xfer		exec
+bindsym XF86WWW			exec --no-startup-id $BROWSER
+#bindsym XF86DOS		exec
+bindsym XF86ScreenSaver		exec exec --no-startup-id ~/.config/i3/lock
+#bindsym XF86RotateWindows	exec
+#bindsym XF86TaskPane		exec
+#bindsym XF86Favorites		exec
+bindsym XF86MyComputer		exec $term -e ranger
+#bindsym XF86Back		exec
+#bindsym XF86Forward		exec
+bindsym XF86Eject		exec sudo umount -R /mnt
+bindsym XF86AudioNext		exec $next
+bindsym XF86AudioPlay		exec $pause
+bindsym XF86AudioPrev		exec $prev
+bindsym XF86AudioStop		exec $pause
+bindsym XF86AudioRecord		exec $audio
+bindsym XF86AudioRewind		exec $lilbak
+bindsym XF86AudioForward	exec $lilfor
+#bindsym XF86Phone		exec
+#bindsym XF86Tools		exec
+# bindsym XF86HomePage		exec 
+# bindsym XF86Reload		restart
+#bindsym XF86ScrollUp		exec
+#bindsym XF86ScrollDown		exec
+#bindsym XF86New		exec
+#bindsym XF86LaunchA		exec
+#bindsym XF86LaunchB		exec
+#bindsym XF86Launch2		exec
+#bindsym XF86Launch3		exec
+#bindsym XF86Launch4		exec
+#bindsym XF86Launch5		exec
+#bindsym XF86Launch6		exec
+#bindsym XF86Launch7		exec
+#bindsym XF86Launch8		exec
+#bindsym XF86Launch9		exec
+bindsym XF86AudioMicMute	exec $micmute
+#bindsym XF86TouchpadToggle	exec
+bindsym XF86TouchpadOn		exec --no-startup-id exec synclient TouchpadOff=0
+bindsym XF86TouchpadOff		exec --no-startup-id exec synclient TouchpadOff=1
+bindsym XF86Suspend		exec --no-startup-id ~/.config/i3/lock.sh
+bindsym XF86Close		kill
+bindsym XF86WebCam		exec mpv /dev/video0
+bindsym XF86Mail		exec $term -e mutt
+bindsym XF86Messenger		exec $term -e weechat
+bindsym XF86Search		exec $BROWSER https://duckduckgo.com
+#bindsym XF86Go			exec
+#bindsym XF86Finance		exec
+#bindsym XF86Game		exec
+bindsym XF86Shop		exec $BROWSER https://ebay.com
+bindsym XF86MonBrightnessDown	exec --no-startup-id light -U 5
+bindsym XF86MonBrightnessUp	exec --no-startup-id light -A 5
+bindsym XF86AudioMedia		exec $music
+bindsym XF86Display		exec --no-startup-id arandr
+#bindsym XF86KbdLightOnOff	exec
+bindsym XF86KbdBrightnessDown	exec --no-startup-id xbacklight -dec 15
+bindsym XF86KbdBrightnessUp	exec --no-startup-id xbacklight -inc 15
+# Screen brightness controls
+#bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
+#bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
+
+
+
+#bindsym XF86Reply		exec
+#bindsym XF86MailForward	exec
+#bindsym XF86Save		exec
+bindsym XF86Documents		exec $term -e ranger ~/Documents
+#bindsym XF86Battery		exec
+#bindsym XF86Bluetooth		exec
+bindsym XF86WLAN		exec --no-startup-id sudo systemctl restart NetworkManager
+
+#-- " vim: set ts=8 sts=4 sw=4 et :
+#-- vim: foldmethod=marker 
+

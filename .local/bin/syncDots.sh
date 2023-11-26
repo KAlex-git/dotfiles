@@ -1,0 +1,1 @@
+/home/kalex/Develop/dotfiles/syncDots.sh

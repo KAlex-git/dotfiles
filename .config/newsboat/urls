@@ -1,0 +1,65 @@
+https://lukesmith.xyz/rss.xml
+https://videos.lukesmith.xyz/feeds/videos.xml?videoChannelId=2 "~Luke Smith (Videos)"
+https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA "~Luke Smith (YouTube)"
+https://lindypress.net/rss
+https://notrelated.xyz/rss
+https://landchad.net/rss.xml
+https://based.cooking/index.xml
+https://artixlinux.org/feed.php "tech"
+https://www.archlinux.org/feeds/news/ "tech"
+https://github.com/LukeSmithxyz/voidrice/commits/master.atom "~LARBS dotfiles"
+
+
+
+-=Favorite=-
+# {{{ TODO Filter Feeds
+# hidden url "! or "
+"query:Ст.Б (Январь):tags =~ \"w_mp3|w_PDF\" and ( date =~ \"Jan\" )"
+"query:Ст.Б (Февраль):tags =~ \"w_mp3|w_PDF\" and ( date =~ \"Feb\" )"
+"query:Ст.Б (Март):tags =~ \"w_mp3|w_PDF\" and ( date =~ \"Mar\" )"
+"query:Ст.Б (Апрель):tags =~ \"w_mp3|w_PDF\" and ( date =~ \"Apr\" )"
+"query:Ст.Б (Май):tags =~ \"w_mp3|w_PDF\" and ( date =~ \"May\" )"
+"query:Ст.Б (Июнь):tags =~ \"w_mp3|w_PDF\" and ( date =~ \"Jun\" )"
+"query:Ст.Б (Июль):tags =~ \"w_mp3|w_PDF\" and ( date =~ \"Jul\" )"
+"query:Ст.Б (Август):tags =~ \"w_mp3|w_PDF\" and ( date =~ \"Aug\" )"
+"query:Ст.Б (Сентябрь):tags =~ \"w_mp3|w_PDF\" and ( date =~ \"Sep\" )"
+"query:Ст.Б (Октябрь):tags =~ \"w_mp3|w_PDF\" and ( date =~ \"Oct\" )"
+"query:Ст.Б (Ноябрь):tags =~ \"w_mp3|w_PDF\" and ( date =~ \"Nov\" )"
+"query:Ст.Б (Декабрь):tags =~ \"w_mp3|w_PDF\" and ( date =~ \"Dec\" )"
+# }}}
+
+-=Russian=-
+https://apps.jw.org/U_RSSMEDIAMAG?rln=U&rmn=g&rfm=pdf&rpf=&rpe= "g_pdf"
+https://apps.jw.org/U_RSSMEDIAMAG?rln=U&rmn=g&rfm=mp3 "g_mp3"
+https://apps.jw.org/U_RSSMEDIAMAG?rln=U&rmn=w&rfm=pdf&rpf=&rpe= "w_PDF"
+https://apps.jw.org/U_RSSMEDIAMAG?rln=U&rmn=w&rfm=mp3 "w_mp3"
+
+-=Ukrainian=-
+https://apps.jw.org/K_RSSMEDIAMAG?rln=K&rmn=g&rfm=pdf&rpf=&rpe= "g_K_pdf"
+https://apps.jw.org/K_RSSMEDIAMAG?rln=K&rmn=g&rfm=mp3 "g_K_mp3"
+https://apps.jw.org/K_RSSMEDIAMAG?rln=K&rmn=w&rfm=pdf&rpf=&rpe= "w_K_PDF"
+https://apps.jw.org/K_RSSMEDIAMAG?rln=K&rmn=w&rfm=mp3 "w_K_mp3"
+
+
+-=Other=-
+https://lukesmith.xyz/rss.xml "Luke"
+https://notrelated.libsyn.com/rss "Luke"
+https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA "~Luke Smith (YouTube)"
+https://www.archlinux.org/feeds/news/ "tech"
+
+https://tvrss.polosatus.ru/ru
+#file:///home/kalex/.config/newsboat/jw.xml
+
+#https://www.reddit.com/r/suckless/.rss "reddit" "~r/suckless "
+#https://www.reddit.com/r/linux/.rss  "reddit" "~r/linux "
+https://www.reddit.com/r/qtile/.rss  "reddit" "~r/qtile "
+#https://www.reddit.com/r/archlinux/.rss  "reddit" "~r/archlinux "
+#https://www.reddit.com/r/vim/.rss  "reddit" "~r/vim "
+#https://www.reddit.com/r/neovim/.rss  "reddit" "~r/neovim "
+#https://www.reddit.com/r/homeassistant/.rss "reddit" "~r/homeassistant 🏠"
+#https://www.reddit.com/r/commandline/.rss "reddit" "~r/commandline "
+#https://www.reddit.com/r/Syncthing/.rss "reddit" "~r/Syncthing "
+#https://www.reddit.com/r/unixporn/.rss "reddit" "~r/unixporn "
+
+# ignore-article "*" "title =~ \"Gentoo\""
+# https://synflood.at/blog/index.php?/feeds/index.rss2" "title =~ \"newsboat\""

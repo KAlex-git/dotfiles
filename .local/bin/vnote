@@ -1,0 +1,69 @@
+#!/bin/sh
+# some choice programs to use to open it.
+#
+# WINDOW_ACTIVE_CLASS=$(xprop -id $(xdotool getactivewindow) | grep WM_CLASS | cut -d '"' -f2 | tail -1 ) 
+
+TMPFILE_DIR=~/Documents/notes
+TMPFILE=$TMPFILE_DIR/$(date "+%a%d.%m_%H.%M.%S")
+[ ! -d "$NOTESDIR" ] && mkdir -p $TMPFILE_DIR
+touch $TMPFILE
+
+open_edit(){
+# Variable
+notify-send 'vinote' 'copy buffer writer'
+
+cat << EOD >> $TMPFILE
+Note $@
+Внесенно: $(date +"%A %d %B %Y, %T")
+-----------------------------------------
+
+-----------------------------------------
+EOD
+
+  chmod +x $TMPFILE # Make file only readable by you
+  $EDITOR -c "colo morning" -c ":ZenMode" $TMPFILE +4
+  cat $TMPFILE | xclip -selection clipboard
+
+
+[[ -z "$(sed -n 4p "${TMPFILE}")" ]] && rm -rf  "${TMPFILE}"
+
+}
+
+
+file_last(){
+    find $TMPFILE_DIR | sort -r | head -n 1 | xargs -I {} $EDITOR "{}" 
+}
+
+clear_dir(){
+    sudo rm -rf $TMPFILE_DIR/*
+    $TERMINAL -e "ls -la $TMPFILE_DIR | sort -r"
+}
+
+# TODO Create menu
+padding="   ..."
+title=""
+    __open_edit="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" " Open") "
+title=""
+    __file_last="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" " Edit last file...") "
+title=""
+    __clear_dir="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" " clear dir $TMPFILE_DIR") "
+
+declare -a options=( \
+"${__open_edit}"
+"${__file_last}"
+"${__clear_dir}"
+)
+
+
+# rofi -dmenu -l 5 -p 'Electro: ' "$@"
+# choice=$(echo "$(printf '%s\n' "${options[@]}")" | dmenu -l 15 -i -p "Choice:" -b)
+choice=$(echo "$(printf '%s\n' "${options[@]}")" | rofi -dmenu -l 5 -p 'Choice: ' "$@")
+
+case "$choice" in
+	"${__open_edit}"    ) open_edit;;
+    "${__file_last}"    ) file_last;;
+    "${__clear_dir}"    ) clear_dir;;
+    *) exit 1 ;;
+esac
+
+

@@ -1,0 +1,23 @@
+/** Basic config file **/
+
+configuration {
+  font: "kalexsTTF1 21";
+  show-icons: true;
+  dinamic: true;
+  cycle: true;
+  icon-theme: "Papirus";
+  display-drun: "";
+  display-window: "﩯 ";
+  display-combi: "  ";
+  terminal: "st";
+
+  kb-move-word-back: "Alt+b";
+  kb-move-word-forward: "Alt+f";
+  kb-mode-next: "Control+Right";
+  kb-mode-previous: "Control+Left";
+  kb-cancel: "Escape";
+  kb-row-up: "Up,Control+p,Alt+k";
+  kb-row-down: "Down,Control+n,Alt+j";
+
+}
+@theme "themes/arc_dark_transparent_colors.rasi"

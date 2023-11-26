@@ -1,0 +1,111 @@
+#!/bin/sh
+
+# Show wifi 📶 and percent strength or 📡 if none.
+# Show 🌐 if connected to ethernet or ❎ if none.
+# Show 🔒 if a vpn connection is active
+
+case $BLOCK_BUTTON in
+	1) "$TERMINAL" -e nmtui; pkill -RTMIN+4 dwmblocks ;;
+	3) notify-send "🌐 Internet module" "\- Click to connect
+❌: wifi disabled
+📡: no wifi connection
+📶: wifi connection with quality
+❎: no ethernet
+🌐: ethernet working
+🔒: vpn is active
+" ;;
+	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+# Wifi
+if [ "$(cat /sys/class/net/w*/operstate 2>/dev/null)" = 'up' ] ; then
+	wifiicon="$(awk '/^\s*w/ { print "📶", int($3 * 100 / 70) "% " }' /proc/net/wireless)"
+elif [ "$(cat /sys/class/net/w*/operstate 2>/dev/null)" = 'down' ] ; then
+	[ "$(cat /sys/class/net/w*/flags 2>/dev/null)" = '0x1003' ] && wifiicon="📡 " || wifiicon="❌ "
+fi
+
+# Ethernet
+# [ "$(cat /sys/class/net/e*/operstate 2>/dev/null)" = 'up' ] && ethericon="🌐" || ethericon="❎"
+[ "$(cat /sys/class/net/e*/operstate 2>/dev/null)" = 'up' ] && ethericon="🌐" || ethericon=""
+
+# TUN
+[ -n "$(cat /sys/class/net/tun*/operstate 2>/dev/null)" ] && tunicon=" 🔒"
+
+printf "%s%s%s\n" "$wifiicon" "$ethericon" "$tunicon"
+
+##############################################################################################################################
+#
+#
+##!/bin/sh
+#
+## This script requires dnsutils aka bind to fetch the WAN IP address
+#
+## Shows the connections names
+## nmcli connection show --active | grep 'ethernet' | awk '{ print $1 }' FS='  '
+## nmcli connection show --active | grep 'wifi' | awk '{ print $1 }' FS='  '
+#
+## Show ethernet interface name
+## nmcli connection show --active | grep 'ethernet' | awk '{ print $6 }' FS=' '
+#
+## Show wifi interface name
+## nmcli connection show --active | grep 'wifi' | awk '{ print $4 }' FS=' '
+#
+#case $BLOCK_BUTTON in
+#	1) "$TERMINAL" -e nmtui; pkill -RTMIN+4 dwmblocks ;;
+#	3) notify-send "🌐 Internet module" "\- Click to connect
+#❌: wifi disabled
+#📡: no wifi connection
+#📶 or  : wifi connection with quality
+#❎: no ethernet
+#🌐: ethernet working
+#🔒: vpn is active
+#" ;;
+#	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+#esac
+#
+#function ShowInfo {
+#	if [ "$(nmcli connection show --active | grep -oh "\w*ethernet\w*")" == "ethernet" ]; then
+#		wan="$(dig +short myip.opendns.com @resolver1.opendns.com)"
+#		connection="$(nmcli connection show --active | grep 'ethernet' | awk '{ print $6 }' FS=' '): $(nmcli connection show --active | grep 'ethernet' | awk '{ print $1 }' FS='  ') - $(nmcli -t -f IP4.ADDRESS dev show $(nmcli connection show --active | grep 'ethernet' | awk '{ print $6 }' FS=' ') | awk '{print $2}' FS='[:/]')
+#WAN IP: $wan"
+#	elif [ "$(nmcli connection show --active | grep -oh "\w*wifi\w*")" == "wifi" ]; then
+#		wan="$(dig +short myip.opendns.com @resolver1.opendns.com)"
+#		connection="$(nmcli connection show --active | grep 'wifi' | awk '{ print $4 }' FS=' '): $(nmcli connection show --active | grep 'wifi' | awk '{ print $1 }' FS='  ') - $(nmcli -t -f IP4.ADDRESS dev show $(nmcli connection show --active | grep 'wifi' | awk '{ print $4 }' FS=' ') | awk '{print $2}' FS='[:/]')
+#WAN IP: $wan"
+#	else
+#		connection="No active connection."
+#	fi
+#	dunstify -i "network-idle" "$connection" -r 123
+#}
+## 🌐    📲 📡 
+#function IconUpdate() {
+#  if [ "$(nmcli connection show --active | grep -oh "\w*ethernet\w**")" == "" ]; then
+#    icon=""
+#	elif [ "$(nmcli connection show --active | grep -oh "\w*wifi\w*")" == "wifi" ]; then
+#         wifiicon="$(awk '/^\s*w/ { print " ", int($3 * 100 / 70) "% " }' /proc/net/wireless) "
+#         icon="${wifiicon}"
+#	elif [ "$(nmcli connection show --active | grep -oh "\w*ethernet\w*")" == "ethernet" ] && \
+#        [ "$(nmcli connection show --active | grep -oh "\w*Redmi 8A\w*")" == "Redmi 8A" ]; then
+#    icon=" 📲 🌐"
+#	elif [ "$(nmcli connection show --active | grep -oh "\w*ethernet\w*")" == "ethernet" ] && \
+#        [ "$(nmcli connection show --active | grep -oh "\w*wifi\w*")" == "wifi" ]; then
+#		#icon=" "
+#        wifiicon="$(awk '/^\s*w/ { print "📡", int($3 * 100 / 70) "% " }' /proc/net/wireless) "
+#		icon="${wifiicon}🌐"
+#	elif [ "$(nmcli connection show --active | grep -oh "\w*ethernet\w*")" == "ethernet" ]; then
+#  icon=""
+#	elif [ "$(nmcli connection show --active | grep -oh "\w*Redmi 8A\w*")" == "Redmi 8A" ]; then
+#    icon="📲"
+#	else
+#		icon="⚰️ "
+#
+#	fi
+#	# printf "%s" "$icon"
+#	echo -e "  $icon"
+#}
+#
+#if [ "$1" = "ShowInfo" ]; then
+#	ShowInfo
+#else
+#	IconUpdate
+#fi

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=evernote-client
+Comment=evernote-clientstartup script
+Exec=/usr/lib/evernote-client/evernote-client
+StartupNotify=false
+Terminal=false

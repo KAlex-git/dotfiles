@@ -1,0 +1,18 @@
+#!/usr/bin/sh
+##
+# Variable
+#pbcopy=$(xclip -selection clipboard)
+#pbpaste=$(xclip -out -selection clipboard)
+paste(){ xdotool key shift+Insert ;}
+
+sdcv -n --utf8-output --utf8-input -u 'Full English-Russian' \"`xclip -o`\" |\
+fold -s -w 100|\
+sed -e 's@\([0-9])\)@\1@g' | \
+dzen2 -l 16 \
+-p -w 700 \
+-bg gray75 \
+-fg blue \
+-x 300 \
+-y 300 \
+-ta c \
+-e 'onstart=scrollhome,uncollapse;button4=scrollup;button5=scrolldown;button1=exit;key_Escape=ungrabkeys,exit'

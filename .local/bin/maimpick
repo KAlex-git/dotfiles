@@ -1,0 +1,87 @@
+#!/bin/sh
+
+__ScriptVersion="0.0.1-KAlexS"
+# This is bound to Shift+PrintScreen by default, requires maim. It lets you
+# choose the kind of screenshot to take, including copying the image or even
+# highlighting an area to copy. scrotcucks on suicidewatch right now.
+
+choice(){
+case "$(printf "a selected area\\ncurrent window\\nfull screen\\na selected area (copy)\\ncurrent window (copy)\\nfull screen (copy)" | dmenu -l 6 -i -p "Screenshot which area?")" in
+	"a selected area") maim -s pic-selected-"$(date '+%y%m%d-%H%M-%S').png" ;;
+	"current window") maim -i "$(xdotool getactivewindow)" pic-window-"$(date '+%y%m%d-%H%M-%S').png" ;;
+	"full screen") maim pic-full-"$(date '+%y%m%d-%H%M-%S').png" ;;
+	"a selected area (copy)") maim -s | xclip -selection clipboard -t image/png ;;
+	"current window (copy)") maim -i "$(xdotool getactivewindow)" | xclip -selection clipboard -t image/png ;;
+	"full screen (copy)") maim | xclip -selection clipboard -t image/png ;;
+esac
+}
+
+screen(){
+    local dest="maim pic-full-"$(date '+%y%m%d-%H%M-%S').png""
+    ${dest}
+    notify-send "Screenshot make: ${dest}"
+}
+
+OtherPackage_Flameshot(){
+    #
+[[ -x "$(command -v "flameshot")" ]] && flameshot gui || st -e yes | yay -S flameshot --noconfirm 
+
+##I=`yay -Qs $1 ` #проверяем состояние пакета (aur)
+##if [ -n "$I" ] #проверяем что нашли строку со статусом (что строка не пуста)
+##then
+##   # echo $1" installed" #выводим результат
+##   flameshot gui
+##else
+##   echo $1" not installed"
+##fi
+
+}
+
+#===  FUNCTION  ================================================================
+#         NAME:  usage
+#  DESCRIPTION:  Display usage information.
+#===============================================================================
+function HelpPage()
+{
+    padding="......................................"
+    printf "==== OPTARG HelpPage OF CONTENTS =====\n"
+    # print first line
+    title="maimpick screen"
+    printf "%s%s %s\n" "$title" "${padding:${#title}}" "[printscreen]"
+    # print second line
+    title="maimpick choice"
+    printf "%s%s %s\n" "$title" "${padding:${#title}}" "dmenu choice"
+    # print tree line
+    title="flameshot"
+    printf "%s%s %s\n" "$title" "${padding:${#title}}" "start flameshot"
+    # print four line
+    title="maimpick -v or version"
+    printf "%s%s %s\n" "$title" "${padding:${#title}}" "Display script version"
+    # print five line
+    title="maimpick -h or help"
+    printf "%s%s %s\n" "$title" "${padding:${#title}}" "Display this message"
+}    # ----------  end of function usage  ----------
+
+
+# Loop over arguments to script
+for Value in "$@"
+do
+  # Handle options
+  case "$Value" in
+    # Options requring arguments
+    screen|choice|flameshot|-h|help|-v|version) OptionSet=$Value ;;
+  esac
+
+  # Handle arguments
+  if [ -n "$OptionSet" ]; then
+    case "$OptionSet" in
+      screen    ) screen  ;;
+      choice    ) choice  ;;
+      flameshot ) OtherPackage_Flameshot  ;;
+      -h|help   ) HelpPage; exit 0   ;;
+      -v|version) echo "$0 -- Version $__ScriptVersion"; exit 0 ;;
+      * )  echo -e "\n  Option does not exist : OPTARG\n"
+                HelpPage; exit 1   ;;
+  esac
+  fi
+done

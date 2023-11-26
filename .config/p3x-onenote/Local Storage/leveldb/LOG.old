@@ -1,0 +1,8 @@
+2023/08/04-12:45:08.188 e6886 Reusing MANIFEST /home/kalex/.config/p3x-onenote/Local Storage/leveldb/MANIFEST-000001
+2023/08/04-12:45:08.189 e6886 Recovering log #3
+2023/08/04-12:45:08.189 e6886 Reusing old log /home/kalex/.config/p3x-onenote/Local Storage/leveldb/000003.log 
+2023/08/04-12:50:49.152 e6888 Level-0 table #5: started
+2023/08/04-12:50:49.161 e6888 Level-0 table #5: 58165 bytes OK
+2023/08/04-12:50:49.163 e6888 Delete type=0 #3
+2023/08/04-12:53:17.046 e6898 Level-0 table #7: started
+2023/08/04-12:53:17.091 e6898 Level-0 table #7: 45086 bytes OK

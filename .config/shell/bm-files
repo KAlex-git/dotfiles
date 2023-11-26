@@ -1,0 +1,24 @@
+# These files automatically update when edited/saved in vim:
+
+# keys	filename				description
+bf	$HOME/.config/shell/bm-files	                      # This file, a list of bookmarked files
+bd	$HOME/.config/shell/bm-dirs		                      # A list of bookmarked directories similar to this file
+cfX	$HOME/.config/x11/xresources	                      # Colors, themes and variables for X11
+#cfb	~/.local/src/dwmblocks/config.h				            # dwmblocks: the status bar for dwm
+
+
+# These do not update automatically, but on the next new instance of a program:
+
+#cfv	$HOME/.config/nvim/init.vim		                      # vim/neovim config
+cfa	$HOME/.config/shell/aliasrc		                      # aliases used by zsh (and potentially other shells)
+fcl	$HOME/.config/lf/lfrc					                      # lf (file browser) config
+cfn	$HOME/.config/newsboat/config	                      # newsboat (RSS reader)
+cfp	$HOME/.config/shell/profile		                      # profile file for login settings for zsh
+cfv	$HOME/.config/nvim/lua/core/configs.lua	  # vim/neovim config
+cfu	$HOME/.config/newsboat/urls		                      # RSS urls for newsboat
+cfx	$HOME/.config/x11/xprofile
+#cft	$HOME/.config/tmux/.tmux.conf
+cfQ $HOME/.config/qutebrowser/config.py
+cfq $HOME/.config/qtile/config.py
+cfz	$ZDOTDIR/.zshrc								                      # zsh (shell) config
+ldc	$HOME/.local/src/dwm-master/config.h								# zsh (shell) config

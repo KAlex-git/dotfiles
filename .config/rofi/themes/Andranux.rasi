@@ -1,0 +1,93 @@
+/* general */
+* {
+  bc: rgba(20, 20, 20, 85%);
+  bl: rgba(10, 10, 10, 40%);
+  background-color: #00000000;
+  text-color: #ffffff;
+  border-radius: 5px;
+}
+
+/* searchbar on top */
+inputbar {
+  background-color: @bc;
+  margin: 0 0 5px 0;
+  border: 4px;
+  border-color: #000000;
+}
+
+prompt {
+  enabled: false;
+}
+
+entry {
+  background-color: #00000064;
+  margin: 5px 0 5px 5px;
+  padding: 9px; 
+  border: 1px;
+  border-color: #ffffff80;
+  placeholder: "Searching ...";
+  placeholder-color: #ffffff7f;
+}
+
+/* text from scripts and from anthor */
+textbox {
+  background-color: @bc;
+  padding: 8px 16px;
+  border: 4px;
+  border-color: #000000;
+}
+
+/* choices from the list with items */
+listview {
+  background-color: @bc;
+  columns: 1;
+  lines: 10;
+  border: 4px;
+  border-color: #000000;
+}
+
+element {
+  background-color: @background-color;
+  padding: 10px;
+}
+
+element selected {
+  background-color: #00ff00bf;
+  color: black;
+  border: 0px 15px 0px 15px;
+  border-color: #0000007f;
+}
+
+element-icon {
+  size: 32px;
+  padding: 0 0 0 15px;
+}
+
+element-text {
+  vertical-align: 0.55;
+}
+
+element-text selected {
+  color: black;
+}
+
+/* switcher between mods*/
+mode-switcher{
+  background-color: @bc;
+  margin: 5px 0 0 0;
+  border: 4px;
+  border-color: #000000;
+}
+
+button {
+  border-radius: 7px;
+  background-color: @background-color;
+  padding: 2px;
+}
+
+button selected {
+  background-color: #007fffbf;
+  color: black;
+  border: 0px 20px 0px 20px;
+  border-color: #0000007f;
+}

@@ -1,0 +1,12 @@
+#!/bin/sh
+
+package=p3x-onenote
+if [[ ! -z /usr/bin/"$package" ]];then
+on="/usr/bin/$package &> /dev/null & disown & exit "
+notify-send -i "$HOME/.local/share/icons/onenote.png" 'Welcome to "p3x-onenote"' -t 10000 && $on
+else
+	yay -S $package
+	notify-send "plese wait..." "install $package"
+	sleep 10
+	notify-send "Когда установится запустите еще раз этот" "$package"
+fi

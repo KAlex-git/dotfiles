@@ -1,0 +1,24 @@
+# You can add comments to these files with #
+bm ~/.config/bookmenu
+cac ~/.cache
+cc ~/.config
+cl ~/.config/lf
+de ~/Documents/meeting
+dc ~/Documents
+ds ~/Downloads
+dm ~/Documents/ministry
+fh ~
+lb ~/.local/bin
+le ~/.local/share
+lr ~/.local/src
+mn /mnt/
+mi /mnt/iso
+mu /mnt/usb
+mw /mnt/win10
+mm ~/Music
+pp ~/Pictures
+vv ~/Videos
+VV ~/.config/nvim
+qt ~/.config/qtile
+qu ~/.config/qutebrowser
+zh ~/.config/zsh

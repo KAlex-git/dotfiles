@@ -1,0 +1,127 @@
+#!/bin/sh
+##
+
+# TODO Logout WM
+wslogout(){
+    local icons_WM="$HOME/.local/share/icons"
+DMxmonad="$(ps -A | grep -i "xmonad-x86_64-l" | head -1 | awk '{print $4}')"
+DMdwm="$(ps -A | grep -i "dwm" | head -1 | awk '{print $4}')"
+DMqtile="$(ps -aux | grep -Eoi "qtile" | head -1)"
+DMi3="$(ps -aux | grep -Eoi "i3" | head -1)"
+
+
+			if [[ "$DMxmonad" == "xmonad-x86_64-l" ]]; then
+				notify-send -i "$icons_WM/haskell.png" "leave Xmonad"
+				kill -TERM $(pgrep -u $USER "xmonad")
+			elif [[ "$DMdwm" == "dwm" ]];then
+				notify-send -i "$icons_WM/dwm.png" "leave dwm"
+				kill -TERM $(pgrep -u $USER "\bdwm$")
+			elif [[ "$DMqtile" == "qtile" ]];then
+				notify-send -i "$icons_WM/python.png" "leave Qtile"
+				kill -TERM $(pgrep -u $USER "qtile") || loginctl terminate-user kalex
+			elif [[ "$DMi3" == "i3" ]];then
+				notify-send -i "$icons_WM/python.png" "leave Qtile"
+				kill -TERM $(pgrep -u $USER "i3") || loginctl terminate-user kalex
+			fi
+}
+
+# TODO Change WM
+dm(){ dmenu -fn 'FiraCode Nerd Font:size=12' glisp -nb "#100" -nf "#b9c0af" -sb "#000" -sf "#afff2f" -i -l 22 -p "choice" ;}
+changeWM(){
+declare -a options=(
+"dwm"
+# "xmonad"
+# "qtile"
+"i3"
+)
+
+choice=$(echo "$(printf '%s\n' "${options[@]}")" | rofi -dmenu -fn 'FiraCode Nerd Font:size=12' -i -l 10 -p 'Перейти:'  )
+case "$choice" in
+  "dwm")
+		if [[ "$choice" ]];then
+		sed -i "/session\=\${1\:\-/ s/xmonad/$choice/1" ~/.config/x11/xprofile
+		sed -i "/session\=\${1\:\-/ s/qtile/$choice/1" ~/.config/x11/xprofile
+		sed -i "/session\=\${1\:\-/ s/i3/$choice/1" ~/.config/x11/xprofile
+		# Change Volume
+		sed -i 's//🔈/; s//🔉/; s//🔊/; s//🔇/' ~/.local/bin/statusbar/sb-volume
+		fi
+		wslogout
+		;;
+  "xmonad")
+		if [[ "$choice" ]];then
+		  sed -i "/session\=\${1\:\-/ s/dwm/$choice/1" ~/.config/x11/xprofile
+          sed -i "/session\=\${1\:\-/ s/qtile/$choice/1" ~/.config/x11/xprofile
+        fi
+        wslogout
+		;;
+  "i3")
+		if [[ "$choice" ]];then
+            sed -i "/session\=\${1\:\-/ s/xmonad/$choice/1" ~/.config/x11/xprofile
+            sed -i "/session\=\${1\:\-/ s/dwm/$choice/1" ~/.config/x11/xprofile
+            sed -i "/session\=\${1\:\-/ s/qtile/$choice/1" ~/.config/x11/xprofile
+        fi
+        wslogout
+        ;;
+  "qtile")
+		if [[ "$choice" ]];then
+            sed -i "/session\=\${1\:\-/ s/xmonad/$choice/1" ~/.config/x11/xprofile
+            sed -i "/session\=\${1\:\-/ s/dwm/$choice/1" ~/.config/x11/xprofile
+	    # Change Volume
+	    sed -i 's/🔈//; s/🔉//; s/🔊//; s/🔇//' ~/.local/bin/statusbar/sb-volume
+
+        fi
+        wslogout
+		;;
+	*) echo "Program terminated." && exit 1 ;;
+
+esac
+}
+
+
+# TDO Create menu
+padding="   ......................."
+title="🚪"
+__logout="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" " Leave WM ") "
+title="🔁"
+__reboot="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" " Reboot ") "
+title=""
+__shutdown="$(printf "%s  %s %s\n" "$title" "${padding:${#title}}" " Shutdown ") "
+title="😴"
+__sleep="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" " Sleep ") "
+title="🔒"
+__lock="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" " Lock ") "
+title="📺"
+__displayOFF="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" " Display OFF ") "
+title=""
+__changeWM="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" " Change WM [dwm|i3] ") "
+
+## Misc
+declare -a options=(
+"${__logout}"
+"${__reboot}"
+"${__shutdown}"
+"${__sleep}"
+"${__lock}"
+"${__displayOFF}"
+"${__changeWM}"
+)
+
+# A dmenu wrapper script for system functions.
+case "$(readlink -f /sbin/init)" in
+	*systemd*) ctl='systemctl' ;;
+	*) ctl='loginctl' ;;
+esac
+
+# choice=$(echo "$(printf '%s\n' "${options[@]}")" | dmenu -fn 'FiraCode Nerd Font:pixelsize=14' -i -l 10 -p 'Choice: ')
+choice=$(echo "$(printf '%s\n' "${options[@]}")" | dmenu -i -l 10 -p 'Choice: ')
+case "$choice" in
+  "${__logout}"       ) wslogout || exit 1 ;;
+  "${__reboot}"       ) $ctl reboot || exit 1;;
+  "${__shutdown}"     ) $ctl poweroff || exit 1;;
+  "${__sleep}"      ) slock $ctl suspend || exit 1;;
+  "${__lock}"         ) slock || exit 1;;
+  "${__displayOFF}"   ) xset dpms force off || exit 1 ;;
+  "${__changeWM}"     ) changeWM || exit 1 ;;
+  *) exit 1 ;;
+esac
+

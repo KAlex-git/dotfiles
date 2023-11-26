@@ -1,0 +1,45 @@
+## -- FZF --------------------------------
+  ## update fzf (git)
+     upfzf () {
+		 if [[ -d "$HOME/.config/fzf" ]];then
+     	cd ~/.config/fzf && git pull && ./install ; notify-send 'update' '<b>fzf</b>'
+			else
+			git clone --depth 1 https://github.com/junegunn/fzf.git ~/.config/fzf
+			~/.config/fzf/install
+			notify-snd 'install' '<b>fzf</b>'
+			fi
+     }
+
+
+## Установка нужного npm пакета
+fnpm() {
+    local packages
+    packages=$(all-the-package-names | fzf -m) &&
+    echo "$packages" &&
+    npm i $(echo $packages)
+}
+
+
+##  Убить процесс
+fkill() {
+  local pid
+  pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+
+  if [ "x$pid" != "x" ]
+  then
+    echo $pid | xargs kill -${1:-9}
+  fi
+}
+
+
+## -- START ----------- OPEN {} FILES
+se() { du -a  $HOME/.config/dmscripts/* $HOME/.local/{bin,src}/* | awk '{print$2}' | fzf | xargs -r -I % $EDITOR % && disown ; exit ;}
+ff() { cat $HOME/.config/bookmenu/configs | sed 's/^.*://' | fzf | xargs -r -I % $EDITOR % && disown ; exit ;}
+ld() { lf "$(awk '{print $2}' ~/.config/shell/bm-dirs | grep -vi memes | fzf | sed "s|~|$HOME|")" ;}
+
+
+
+pf(){
+cd ~/.config/shell/add_aliases/
+fzf --preview='less {}' --bind J:preview-page-up,K:preview-page-down
+}

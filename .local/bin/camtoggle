@@ -1,0 +1,29 @@
+#!/bin/sh
+
+
+# Set with the flags "-e", "-u","-o pipefail" cause the script to fail
+# if certain things happen, which is a good thing.  Otherwise, we can
+# get hidden bugs that are hard to discover.
+set -euo pipefail
+
+
+
+# Maibe added in dwm-master/config
+#mpv --no-cache --no-osc --no-input-default-bindings --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)"
+
+source "$HOME/.config/dmscripts/config"
+
+declare -A VID
+VID['Local Camera']="/dev/video0"
+VID[CAMERA 'CANYON']="/dev/video2"
+
+title=$(printf '%s\n' "${!VID[@]}" | sort | ${DMENU} 'Choice Camera:' "$@")
+path="${VID["${title}"]}"
+
+if [ "$path" ]; then
+pkill -f /dev/video || mpv --no-osc --no-input-default-bindings --input-conf=/dev/null --geometry=-0-0 --autofit=20% --title="camera" --profile=low-latency --untimed "${path}"
+# What to do if we just escape without choosing anything.
+else
+  echo "Program terminated." && exit 0
+fi
+

@@ -1,0 +1,117 @@
+##################################################################
+#bar {
+#  position top
+#  status_command MYSCRIPTS=/path/to/my/scripts i3blocks
+#  ...
+#}
+#In i3blocks config I have:
+#
+#[whatever]
+#command=$MYSCRIPTS/script_name
+#
+##################################################################
+color=#f3f4f5
+separator_block_width=15
+markup=none
+
+
+#[volume-pulseaudio]
+#command=~/.local/src/i3blocks-contrib/volume-pulseaudio/volume-pulseaudio
+#interval=1
+#signal=10
+#LONG_FORMAT="${SYMB}${VOL}%"
+#SHORT_FORMAT="${SYMB}${VOL}%"
+#DEFAULT_COLOR="#f3f4f5"
+#USE_ALSA_NAME=1
+
+[window]
+command=xtitle -s
+interval=persist
+
+[space]
+full_text= 
+min_width=240
+
+[time]
+markup=pango
+command=$SCRIPT_DIR/clock
+min_width=200
+align=center
+background=#000000
+interval=1
+signal=10 
+
+#[calendar]
+#command=$SCRIPT_DIR/calendar/calendar
+#LABEL= 
+#DATEFMT=+%H:%M:%S
+## SHORTFMT=+%H:%M:%S
+#HEIGHT=180
+#WIDTH=220
+#interval=1
+
+
+[space]
+full_text= 
+min_width=240
+
+# AUR package: xkb-switch-git
+[keymap]
+#label=⌨
+#command=xkb-switch -W
+command=~/.config/i3blocks/scripts_i3/layout
+interval=repeat
+# border=#0d5eaf
+
+[volume]
+command=sb-volume
+interval=repeat
+align=right
+min_width=40
+
+[cpu]
+command=echo -e "$(sb-cpu)"
+interval=5
+
+# Backlight Level
+#[light]
+#command=echo "☀️️ $(light -G)%"
+#interval=once
+#signal=4
+
+
+#[disk-home]
+#command=echo -n '  '; df -h -l --output='used' "$HOME" | grep -E -o '[0-9]+G'
+#interval=30
+#align=left
+
+
+[bandwidth]
+command=$SCRIPT_DIR/bandwidth/bandwidth
+interval=1
+markup=pango
+#INTERFACE=enp3s0
+
+#[bandwidth2]
+#command=$SCRIPT_DIR/bandwidth2/bandwidth2 
+#interval=persist
+#markup=pango
+#LABEL=
+
+#[bandwidth3]
+#command=$SCRIPT_DIR/bandwidth3/bandwidth3
+#interval=persist
+#markup=pango
+##LABEL=<span font='FontAwesome'>  </span>
+##IFACE=[automatically determined]
+##DT=3
+##UNIT=Mb
+## Exposed variables: rx, wx, tx, unit, iface
+##PRINTF_COMMAND=printf "${LABEL}%-5.1f/%5.1f %s/s\n", rx, wx, unit;
+
+
+[inet]
+command=$SCRIPT_DIR/network
+interval=5
+align=center
+

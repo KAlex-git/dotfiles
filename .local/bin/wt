@@ -1,0 +1,96 @@
+#!/bin/bash
+#for opening file with Watchtower Library
+prog="/usr/bin/"
+inst(){
+    local installpkg="wine lib32-libldap wine_gecko winetricks wine-mono"
+    printf "installed packages?\n $installpkg? [y/n]\n"; read -r ans
+    case "$ans" in
+        y*|Y*) yes | sudo pacman -S $installpkg || yay -S $installpkg ;;
+    esac
+}
+
+inst_update(){
+#WTLibrary.U.WTU.2104.UPDATEPKG
+upd_wt="/home/kalex/.local/share/wineprefixes/default/drive_c/users/kalex/AppData/Local/Watchtower/wtlibrary/U/WTU/Updates"
+cp -v "$1" $upd_wt/
+}
+
+
+## Проверка на запущенный процесс и если запущенн....убивается
+[[ ! -z $(pgrep -xU $UID WTLibrary.exe) ]] && killall WTLibrary.exe
+
+
+## Watchtower
+wi(){
+notify-send  -i "$HOME/.local/share/icons/wtl.png" "wt"
+wine "$HOME/.local/share/wineprefixes/default/drive_c/Program Files (x86)/Watchtower/Watchtower Library/U/WTLibrary.exe" 2>/dev/null & disown ; exit
+}
+## SKE
+SKE="$HOME/Documents/ministry/SKE"
+ske(){
+	open=zathura  # this will open pdf file withthe default PDF viewer on KDE, xfce, LXDE and perhaps on other desktops.
+	cd ${SKE}/SKE-U/
+	ag -U -g ".pdf$" \
+		| fast-p \
+    | fzf --read0 --reverse -e -d $'\t'  \
+        --preview-window down:80% --preview '
+            v=$(echo {q} | tr " " "|");
+            echo -e {1}"\n"{2} | grep -E "^|$v" -i --color=always;
+        ' \
+    | cut -z -f 1 -d $'\t' | tr -d '\n' | xargs -r --null $open > /dev/null 2> /dev/null
+}
+
+#===  FUNCTION  ================================================================
+#         NAME:  usage
+#  DESCRIPTION:  Display usage information.
+#===============================================================================
+function HelpPage()
+{
+    padding="......................................"
+    printf "==== OPTARG HelpPage OF CONTENTS =====\n"
+    # print first line
+    title="wt -w"
+    printf "%s%s %s\n" "$title" "${padding:${#title}}" "[Run wtlibrary(needed
+    wine)]"
+    # print second line
+    title="wt -i"
+    printf "%s%s %s\n" "$title" "${padding:${#title}}" "Run PDF
+    si-U_Всё_Писание.pdf"
+    # print tree line
+    title="wt -s"
+    printf "%s%s %s\n" "$title" "${padding:${#title}}" "ske"
+    # print four line
+    title="wt -h or help"
+    printf "%s%s %s\n" "$title" "${padding:${#title}}" "Display this message"
+}    # ----------  end of function usage  ----------
+
+# Loop over arguments to script
+for Value in "$@"
+do
+  # Handle options
+  case "$Value" in
+    # Options requring arguments
+    -w|-i|-s|-u) OptionSet=$Value ;;
+    -h|--help) HelpPage; exit 0;;
+  esac
+
+  # Handle arguments
+  if [ -n "$OptionSet" ]; then
+    case "$OptionSet" in
+      -w)  wi ;;
+      -i) zathura ${SKE}/si-U_Всё_Писание.pdf ;;
+      -s) test -x /usr/bin/ag || yay -S the_silver_searcher ; ske ;;
+      -u) [[ -e "$prog/$installpkg" ]] ||	inst && wt ;;
+        
+      * )  echo -e "\n  Option does not exist : OPTARG\n"
+                HelpPage; exit 1   ;;
+  esac
+  fi
+done
+
+
+if [[ -z "$1" ]]; then
+     echo " Try '--help' "
+     HelpPage
+     exit 1
+fi

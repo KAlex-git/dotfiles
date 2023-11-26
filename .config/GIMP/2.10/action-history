@@ -1,0 +1,14 @@
+# GIMP action-history
+
+(history-item "file-quit" 5)
+(history-item "file-export-as" 2)
+(history-item "file-save-as" 1)
+(history-item "layers-alpha-add" 0)
+(history-item "filters-color-to-alpha" 1)
+(history-item "file-save-a-copy" 0)
+(history-item "image-scale" 0)
+(history-item "file-export" 0)
+(history-item "file-close-all" 0)
+(history-item "file-overwrite" 1)
+
+# end of action-history

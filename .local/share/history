@@ -1,0 +1,51 @@
+sdcv -l
+locate stardict
+rm -rf phone/*
+ls
+rm -rf phone/.*
+ls phone/
+ls -a phone/
+locate stardict
+ls /usr/share/stardict/dic
+cd /usr/share/stardict/dic
+cfp
+source .config/shell/profile
+echo $DICS
+mkdir .config/stardict/dic
+cd Downloads
+ls
+tar -xvjf stardict-full-eng-rus-2.4.2.tar.bz2 -C ~/.config/stardict/dic
+tar -xvjf stardict-full-rus-eng-2.4.2.tar.bz2 -C ~/.config/stardict/dic
+tar -xvjf stardict-Mueller7accentGPL-2.4.2.tar.bz2 -C ~/.config/stardict/dic
+unzip ozhegov.zip -C ~/.config/stardict/dic
+unzip ozhegov.zip
+cat OZHEGOV.TXT
+egrep -i0 у�ерма OZHEGOV.TXT
+egrep -i -0 у�ерма OZHEGOV.TXT
+egrep -i0 у�ерма OZHEGOV.TXT
+egrep -ie0 у�ерма OZHEGOV.TXT
+q
+source .config/shell/profile
+echo $STARDICT_DATA_DIR
+sdcv -l
+cfp
+ref
+source .config/shell/profile
+sl
+ls
+ref
+cfa
+source .config/shell/profile
+ls
+cfp
+source .config/shell/profile
+cfp
+source .config/shell/profile
+ls
+cfp
+source .config/shell/profile
+ls
+dircolors --print-database > ~/.dir_colors
+v .dir_colors
+mv .dir_colors .config
+source ~/.config/shell/profile

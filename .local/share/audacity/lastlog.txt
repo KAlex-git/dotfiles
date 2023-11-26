@@ -1,0 +1,28 @@
+03:00:14 PM: Audacity 3.3.3
+03:00:14 PM: sqlite3 message: (1) no such table: project in "SELECT 1 FROM project LIMIT 1;"
+03:00:14 PM: FFmpeg libraries loaded successfully from: /usr/lib/libavformat.so.60.3.100
+03:00:16 PM: File name is abcdefu.mp3
+03:00:16 PM: Mime type is *
+03:00:16 PM: Opening with libmpg123
+03:00:16 PM: Open(abcdefu.mp3) succeeded
+03:00:21 PM: Operation 'Importing MP3 files' took 4.524000 seconds. Poll was called 7748 times and took 3.402156 seconds. Yield was called 70 times and took 0.405701 seconds.
+03:06:01 PM: FFmpeg libraries loaded successfully from: /usr/lib/libavformat.so.60.3.100
+03:06:42 PM: Attempting to load LAME from system search paths
+03:06:42 PM: Loading LAME from libmp3lame.so.0
+03:06:42 PM: Actual LAME path /usr/lib/libmp3lame.so.0.0.0
+03:06:42 PM: LAME library successfully loaded
+03:06:49 PM: Attempting to load LAME from system search paths
+03:06:49 PM: Loading LAME from libmp3lame.so.0
+03:06:49 PM: Actual LAME path /usr/lib/libmp3lame.so.0.0.0
+03:06:49 PM: LAME library successfully loaded
+03:06:57 PM: Operation 'abcdefu' took 7.148000 seconds. Poll was called 41 times and took 0.476616 seconds. Yield was called 39 times and took 0.256068 seconds.
+03:07:36 PM: FFmpeg libraries loaded successfully from: /usr/lib/libavformat.so.60.3.100
+03:08:04 PM: Attempting to load LAME from system search paths
+03:08:04 PM: Loading LAME from libmp3lame.so.0
+03:08:04 PM: Actual LAME path /usr/lib/libmp3lame.so.0.0.0
+03:08:04 PM: LAME library successfully loaded
+03:08:06 PM: Attempting to load LAME from system search paths
+03:08:06 PM: Loading LAME from libmp3lame.so.0
+03:08:06 PM: Actual LAME path /usr/lib/libmp3lame.so.0.0.0
+03:08:06 PM: LAME library successfully loaded
+03:08:13 PM: Operation 'abcdefu_pack' took 6.862000 seconds. Poll was called 41 times and took 0.461162 seconds. Yield was called 38 times and took 0.226339 seconds.

@@ -1,0 +1,29 @@
+#!/bin/sh
+
+## Variable
+purple=$(tput setaf 171)
+reset=$(tput sgr0)
+
+TMP=$(sensors | awk '/Core 2/ {print "🌡" $3}'|sed "s/\.[0-9]//")
+cpuuse=$(cat /proc/loadavg | awk '{printf("%d\n",$1 + 0.5)}')
+mem="$(free -h | awk '/^Mem:/ {print "🧠" $3 "/" $2}'| sed 's/i//g')"
+cpu="$(ps -A -o pcpu | tail -n+2 | paste -sd+ | bc | awk '{printf (( $1 / 4 ))}' | sed "s/\.*//")"
+
+
+case $BLOCK_BUTTON in
+    # Left Click Button
+	1) setsid -f "$TERMINAL" -e htop ;;
+    # Right Click Button
+	3) notify-send "🖥 CP
+- [Left click] to open htop.
+- [Shift + Left click] to open its config." ;;
+    # Shift + Click [ setting in dwm/config.h +478]
+	6) "$TERMINAL" "$EDITOR" "$0" ;;
+esac
+
+#echo "|$TMP| $fr $cpu%|"
+# printf "%s %s %s" "$TMP" "$mem" "|$(sb-uptime)"
+printf "%s %s %s" "$TMP" "$mem"
+
+
+

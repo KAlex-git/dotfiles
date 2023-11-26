@@ -1,0 +1,52 @@
+#!/usr/bin/sh
+#
+#
+#
+# command ' uniq '  			- фильтрует дубликаты
+# command ' sort '  			- упорядочивает по алфовиту
+# command ' sed 's/^/https:\/\//g' '  	- вставляет при вхождении 'https://'
+#
+#
+#
+#######################################################################################
+
+# Set with the flags "-e", "-u","-o pipefail" cause the script to fail
+# if certain things happen, which is a good thing.  Otherwise, we can
+# get hidden bugs that are hard to discover.
+set -euo pipefail
+bgloc="${XDG_DATA_HOME:-$HOME/.local/share}/bg"
+
+namepic="background"
+
+#TODO ver.2 [new]
+CHANGE_PICTURES(){
+urlpath=$( \
+curl "https://www.bing.com/HPImageArchive.aspx?format=rss&idx=0&n=1&mkt=en-US" \
+| xmllint --xpath "/rss/channel/item/link/text()" - \
+| sed 's/1366x768/1920x1080/g' \
+)
+curl -o $HOME/$namepic.jpg "https://www.bing.com$urlpath"
+feh --bg-fill $HOME/$namepic.jpg &&\
+	cp "$HOME/$namepic.jpg" "${bgloc}" &&\
+notify-send -i "$HOME/.local/share/icons/bing_1.png" "download complete " || echo "error"
+}
+
+#while true; do
+#	pic
+#	sleep 3h
+#done
+
+# TODO ver.1 [old]
+#CHANGE_PICTURES(){
+#cd $HOME
+#wget -O - https://bingwallpaper.anerg.com/au/202204 \
+#	| grep -Eo "bing.nanxiongnandi.com/202204[^&]+jpg" \
+#	| sed 's/^/https:\/\//g' | uniq | shuf -n 1 \
+#	| xargs wget -O background.jpg &&  feh --bg-fill $HOME/background.jpg \
+#	&& notify-send -i "$HOME/.local/share/icons/bing_1.png" "download complete " || notify-send "error"
+#}
+
+while true; do
+	CHANGE_PICTURES
+	sleep 12h
+done

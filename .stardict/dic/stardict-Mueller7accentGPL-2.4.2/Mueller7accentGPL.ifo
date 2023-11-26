@@ -1,0 +1,8 @@
+StarDict's dict ifo file
+version=2.4.2
+wordcount=46195
+idxfilesize=806290
+bookname=Англо-русский словарь Мюллера, 7-я ред., с ударениями
+date=2007.09.23
+sametypesequence=x
+description= (C)  V.K.Mueller English-Russian Dictionary, 7 Edition; "State Publishing House of Foreign and National Dictionaries" Moscow 1961; Free Electronic Version by S.Starostin 1996 starling.rinet.ru/download/dict.exe; Electronic Version by E.S.Cymbalyuk 1999 under GNU GPL, ver. 1.2, see latest version on www.chat.ru/~mueller_dic or www.geocities.com/mueller_dic   (C) Dictionary Format  A dictionary article concerning a dictionary word is implemented as a single line. Two blank symbols separate an English word from its translation. Russian characters are encoded according to koi8-r coding table. A stress in a Russian word is coded by a capital letter. Transcription in IPA is shown in square brackets. Different meanings of the same word are indexed by Latin or Arabic numerals preceded by symbol "_", for example, _I-_VII, 1.-6., 1>-34>, а>-о>. A functional label is preceded by the symbol "_" and terminated by the symbol "." or ":".   (C) ФормАт словарЯ  КАждая словАрная статьЯ представлЯет собОй строкУ. Два пробЕла отделЯют англИйское слОво от егО перевОда. РУсские бУквы кодИруются в koi8-r. УдарЕния в рУсских словАх отображАются большОй бУквой. ТранскрИпция в формАте IPA покАзывается в квадрАтных скОбках. РазлИчные значЕния одногО слОва индексИруются латИнскими Или арАбскими цИфрами с предшЕствующим подчЁркиванием. НапримЕр, _I-_VII, 1.-6., 1>-34>, а>-о>. СлужЕбные словА начинАются с сИмвола "_" и завершАются сИмволом "." Или ":".

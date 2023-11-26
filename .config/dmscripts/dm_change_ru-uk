@@ -1,0 +1,47 @@
+#!/bin/sh
+set -euo pipefail
+# shellcheck disable=SC1091
+source "$HOME/.config/dmscripts/config"
+
+## Functions Enable russian lang and reverse
+
+RUS() {
+  if [[ "$(grep -Eo 'us,ua' ~/.local/bin/remaps)" == "us,ua" ]];then
+sed -i 's/us,ua/us,ru/' ~/.local/bin/remaps &&\
+sed -i ':a;N;$!ba; /00001002/s/🇺🇦/🇷🇺/' ~/.local/bin/statusbar/sb-layout
+remaps
+  fi
+}
+
+UA() {
+  if [[ "$(grep -Eo 'us,ru' ~/.local/bin/remaps)" == "us,ru" ]];then
+sed -i 's/us,ru/us,ua/' ~/.local/bin/remaps &&\
+sed -i ':a;N;$!ba; /00001002/s/🇷🇺/🇺🇦/' ~/.local/bin/statusbar/sb-layout
+remaps
+  fi
+}
+
+
+
+# TDO Create menu
+padding="   ......................."
+title="RU  "
+RU_LANG="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" " Russian lang ") "
+title="UA  "
+UA_LANG="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" " Ukraine lang ") "
+
+declare -a options=(
+"${RU_LANG}"
+"${UA_LANG}"
+)
+
+
+choice=$(echo "$(printf '%s\n' "${options[@]}")" | dmenu -i -l 10 -p 'Choice: ')
+case "$choice" in
+  "${RU_LANG}") RUS;;
+  "${UA_LANG}") UA;;
+  *) exit 1 ;;
+esac
+
+
+

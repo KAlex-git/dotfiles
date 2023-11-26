@@ -1,0 +1,166 @@
+#!/usr/bin/sh
+# vim: foldmethod=marker
+##
+readonly SHORTCUTS_PATH="$HOME/.config/rofi/keys"
+
+ROFI_THEME_MAIN="/home/kalex/.config/rofi/themes/arc_dark_transparent_colors.rasi"
+ROFI_THEME="/home/kalex/.config/rofi/themes/Andranux.rasi"
+#ROFI_THEME="/home/kalex/.config/rofi/themes/Paper.rasi"
+
+# Func. [ Rofi personal setting ]{{{
+ROFI_PERSONAL(){
+rofi \
+-dmenu \
+-theme-str '*{font: "Menlo 10";}' \
+-theme-str 'window {width: 100%;}' \
+-theme ${ROFI_THEME} \
+-p "$ICON    shortcuts "
+}
+ROFI_MAIN(){
+rofi \
+-dmenu \
+-theme-str '*{font: "Menlo 10";}' \
+-theme-str 'window {width: 70%;}' \
+-theme ${ROFI_THEME_MAIN} \
+-p "$ICON    shortcuts "
+}
+#}}}
+
+# Func. [  sed ]{{{
+__sed(){
+local FILENAME="$SHORTCUTS_PATH/sed.txt"
+local PATTERN=sed
+local ICON="[   $PATTERN]"
+DMENU(){ dmenu -fn "Nimbus mono 32" -p "sed command" -i -l 15 ;}
+sheet=$(
+cat ${FILENAME} |\
+ sed -e "1d" \
+ -e 's/[[:space:]]@/      /g'  ${FILENAME} 
+
+)
+
+line=$(printf "%s __ %s" "$sheet" | DMENU) 
+exit_code=$?
+
+line=($line)
+ # -e '/   /s/\([А-Яа-я]\)/\L\1/g' ${FILENAME} | ROFI_PERSONAL
+}
+#}}}
+# Func. [  zathura ]{{{
+__zathura(){
+local FILENAME=~/.local/share/larbs/getkeys/zathura
+local PATTERN=zathura
+local ICON="[  PDF; Epub; etc $PATTERN]"
+
+sed -ne "/$PATTERN/,$ p" "${FILENAME}" |\
+  sed -e 's/ - /\t    /g' \
+  -e '/zathura.*reader/d' \
+  -e '/   /s/\([A-ZА-я]\)/\L\1/g' \
+| ROFI_PERSONAL
+}
+#}}}
+# Func. [   Gimp ]{{{
+__gimp(){
+local FILENAME="$SHORTCUTS_PATH/Gimp.txt"
+local PATTERN=Gimp
+local ICON="[   $PATTERN]"
+  sed '' $FILENAME | ROFI_PERSONAL
+}
+#}}}
+# Func. [ dwm ]{{{
+__dwm(){
+local FILENAME="$HOME/.local/src/dwm/dwm-shortcuts"
+local PATTERN=DWM
+local ICON="[  $PATTERN]"
+$FILENAME
+}
+#}}}
+# Func. [ qtile ]{{{
+__qtile(){
+local FILENAME="$HOME/.config/qtile/scripts_for_qtile/qtile_kb_rofi"
+local PATTERN=QTILE
+local ICON="[  $PATTERN]"
+$FILENAME
+}
+#}}}
+
+# Create menu {{{
+padding="   ......................."
+title="🖊️  "
+ZATHURA="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" "shortcuts zathura") "
+title="  "
+SED="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" "shortcuts sed") "
+title="  "
+GIMP="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" "shortcuts gimp") "
+title="  "
+DWM="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" "shortcuts dwm (dinamic) ") "
+title="  "
+QTILE="$(printf "%s %s %s\n" "$title" "${padding:${#title}}" "shortcuts qtile (dinamic) ") "
+
+declare -a options=(
+"${ZATHURA}"
+"${SED}"
+"${GIMP}"
+"${DWM}"
+"${QTILE}"
+"ardour"
+"arduino"
+"atom"
+"audacity"
+"blender"
+"burp"
+"chrome"
+"chromium"
+"darktable"
+"firefox"
+"gedit"
+"gimp"
+"kdenlive"
+"kicad"
+"kitty"
+"krita"
+"mpv"
+"reaper"
+"tmux"
+"typora"
+"vim"
+"vscode"
+"youtube"
+"zrythm"
+)
+
+choice=$(echo "$(printf '%s\n' "${options[@]}")" | ROFI_MAIN )
+case "$choice" in
+  "${options[@]::2}") __zathura;;
+  "${SED}") __sed;;
+  "${GIMP}")    __gimp;;
+  "${DWM}")    __dwm;;
+  "${QTILE}")    __qtile;;
+  "ardour")     cat $SHORTCUTS_PATH/Ardour.txt| ROFI_PERSONAL;;
+  "arduino")    cat $SHORTCUTS_PATH/Arduino.txt| ROFI_PERSONAL;;
+  "atom")       cat $SHORTCUTS_PATH/Atom.txt| ROFI_PERSONAL;;
+  "audacity")   cat $SHORTCUTS_PATH/Audacity.txt| ROFI_PERSONAL;;
+  "blender")    cat $SHORTCUTS_PATH/Blender.txt| ROFI_PERSONAL;;
+  "burp")       cat $SHORTCUTS_PATH/Burp.txt| ROFI_PERSONAL;;
+  "chrome")     cat $SHORTCUTS_PATH/Chrome.txt| ROFI_PERSONAL;;
+  "chromium")   cat $SHORTCUTS_PATH/Chromium.txt| ROFI_PERSONAL;;
+  "darktable")  cat $SHORTCUTS_PATH/Darktable.txt| ROFI_PERSONAL;;
+  "firefox")    cat $SHORTCUTS_PATH/Firefox.txt| ROFI_PERSONAL;;
+  "gedit")      cat $SHORTCUTS_PATH/Gedit.txt| ROFI_PERSONAL;;
+  "gimp")       cat $SHORTCUTS_PATH/Gimp.txt| ROFI_PERSONAL;;
+  "kdenlive")   cat $SHORTCUTS_PATH/Kdenlive.txt| ROFI_PERSONAL;;
+  "kicad")      cat $SHORTCUTS_PATH/Kicad.txt| ROFI_PERSONAL;;
+  "kitty")      cat $SHORTCUTS_PATH/Kitty.txt| ROFI_PERSONAL;;
+  "krita")      cat $SHORTCUTS_PATH/Krita.txt| ROFI_PERSONAL;;
+  "mpv")        cat $SHORTCUTS_PATH/Mpv.txt| ROFI_PERSONAL;;
+  "reaper")     cat $SHORTCUTS_PATH/Reaper.txt| ROFI_PERSONAL;;
+  "tmux")       cat $SHORTCUTS_PATH/Tmux.txt| ROFI_PERSONAL;;
+  "typora")     cat $SHORTCUTS_PATH/Typora.txt| ROFI_PERSONAL;;
+  "vim")        cat $SHORTCUTS_PATH/Vim.txt| ROFI_PERSONAL;;
+  "vscode")     cat $SHORTCUTS_PATH/Vscode.txt| ROFI_PERSONAL;;
+  "youtube")    cat $SHORTCUTS_PATH/Youtube.txt| ROFI_PERSONAL;;
+  "zrythm")     cat $SHORTCUTS_PATH/Zrythm.txt| ROFI_PERSONAL;;
+
+  *) exit 1 ;;
+esac
+#}}}

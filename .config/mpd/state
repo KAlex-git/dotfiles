@@ -1,0 +1,25 @@
+sw_volume: 100
+audio_device_state:1:pulse
+audio_device_state:1:Visualizer feed
+state: pause
+current: 1
+time: 182.355000
+random: 0
+repeat: 1
+single: 0
+consume: 0
+crossfade: 0
+mixrampdb: 0.000000
+mixrampdelay: -1.000000
+playlist_begin
+0:Слишком прекрасна для меня OST/Lee_Hong_Ki_OST_The_heirs_I_am_saying_mp3.mp3
+1:Слишком прекрасна для меня OST/02. Loco & Mamamoo - This Song.mp3
+2:Слишком прекрасна для меня OST/04. N-SONIC - Miss You.mp3
+3:Слишком прекрасна для меня OST/05. Alex - I Want Love You.mp3
+4:Слишком прекрасна для меня OST/08. Gavy NJ - Rewind.mp3
+5:Слишком прекрасна для меня OST/09. He.mp3
+6:Слишком прекрасна для меня OST/01. Kim Tae Woo - Only You.mp3
+7:Слишком прекрасна для меня OST/03. Kim Bo Kyung - I Know.mp3
+8:Слишком прекрасна для меня OST/14. Music Sketch.mp3
+9:Слишком прекрасна для меня OST/OST k Наследники – (I m Saying) (Inst.).mp3
+playlist_end

@@ -1,0 +1,30 @@
+#!/bin/sh
+##
+##
+
+#kb="$(xkb-switch)"
+#echo " $kb "
+#
+set -euo pipefail
+##
+ IFS=$'\n\t'
+
+declare -r layout_mask=$(xset -q | grep LED | awk '{ print $10 }')
+
+
+case $layout_mask in
+  "00000000"|"00000002")
+      # printf "%s" "🇺🇸"
+      echo "🇺🇸"
+      ;;
+
+  "00001000"|"00001002")
+      # printf "%s" "🇷🇺"
+      echo "🇷🇺"
+      ;;
+
+  *)
+      echo -n "??"
+      ;;
+esac
+

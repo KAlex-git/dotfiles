@@ -1,0 +1,98 @@
+#!/bin/sh
+# vim: foldmethod=marker  
+#
+# Set with the flags '-e', '-o pipefail' cause the script to fail
+# if certain things happen, which is a good thing.  Otherwise, we can
+# get hidden bugs that are hard to discover.
+set -euo pipefail
+
+__electro_path="$HOME/Documents/MANUAL/Electro"
+
+
+## __Other {{{
+__other() { \
+declare -a options=(\
+	"Ohm_law"
+	"Ohm_law-1"
+	"Wire cross section - выбор"
+	"capacity - кодировка"
+	"usb"
+	"Ampere"
+)
+#
+# 	"xargs >>"    )	cd $folder/shell/xargs/; ls *.{pdf,docx}| menu2 | xargs -I {} open "{}" ;;
+#
+choice=$(echo "$(printf '%s\n' "${options[@]}")" | sort | rofi -dmenu -l 5 -p 'Electro: ' "$@")
+case "$choice" in
+	"Ohm_law"                    )	open "${__electro_path}/Схемы/ohmLAW.webp" ;;
+	"Ohm_law-1"                  )	open "${__electro_path}/Схемы/ohmLAW-1.jpg" ;;
+	"Wire cross section - выбор" )	open "${__electro_path}/Схемы/Таблица_расчета_проводов_по_нагрузке.png" ;;
+	"capacity - кодировка"       )	open "$HOME/Documents/MANUAL/Electro/capacity/Конденсаторы._Кодовая_маркировка.pdf" ;;
+	"usb"                        )  open "${__electro_path}/USB/microUSB-data_cable.png" ;;
+	"Ampere"                     )  open "${__electro_path}/Схемы/Ampere/designation_Ampere.png" ;;
+esac
+}
+
+#__other(){ \
+#declare -A elecric
+#elecric[ Ohm_law                  ]="${__electro_path}/Схемы/Ohm_law.jpg"
+#elecric[ Wire cross section - выбор ]="${__electro_path}/Схемы/Таблица_расчета_проводов_по_нагрузке.png"
+#elecric[ usb                        ]="${__electro_path}/USB/microUSB-data_cable.png"
+#elecric[ capacity - кодировка       ]="$HOME/Documents/MANUAL/Electro/capacity/Конденсаторы._Кодовая_маркировка.pdf"
+#
+#title=$(printf '%s\n' "${!elecric[@]}" | sort | rofi -dmenu -l 5 -p 'Electro: ' "$@")
+#path="${elecric["${title}"]}"
+#
+#if [ -f "$path" ]; then
+#  # shellcheck disable=SC2154
+#  open "${path}"
+## What to do if we just escape without choosing anything.
+#else
+#    $DMTERM lfub "${path}"
+#fi
+#
+#  echo "Program terminated." && exit 0
+#}
+##}}}
+
+
+## __Usage {{{
+__usage(){
+	local bold=$(tput bold)
+	local red=$(tput setaf 1)
+	local green=$(tput setaf 76)
+	local reset=$(tput sgr0)
+
+while IFS= read line; do
+	printf "%s\n" "$line"
+done<<-EOF
+
+${red}${bold}USAGE:${reset}
+ ${green}${bold}-o${reset}......other
+ ${green}${bold}-h${reset}......Show this message
+
+EOF
+}
+## }}}
+
+# Loop over arguments to script
+for Value in "$@"
+do
+  # Handle options
+  case "$Value" in
+    # Options requring arguments
+    -h|help|-o) OptionSet=$Value ;;
+  esac
+
+  # Handle arguments
+  if [ -n "$OptionSet" ]; then
+    case "$OptionSet" in
+	    -o) __other          ;;
+      -h|help) __usage ; exit 0 ;;
+    esac
+  fi
+done
+
+__other
+
+

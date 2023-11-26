@@ -1,0 +1,30 @@
+#!/usr/bin/env zsh
+
+git-commit-show () 
+{
+  git log --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"  | \
+   fzf --ansi --no-sort --reverse --tiebreak=index --preview \
+   'f() { set -- $(echo -- "$@" | grep -o "[a-f0-9]\{7\}"); [ $# -eq 0 ] || git show --color=always $1 ; }; f {}' \
+   --bind "j:down,k:up,alt-j:preview-down,alt-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,q:abort,ctrl-m:execute:
+                (grep -o '[a-f0-9]\{7\}' | head -1 |
+                xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+                {}
+FZF-EOF" --preview-window=right:60%
+}
+
+# my git aliases
+ alias gl='git log'
+alias gs='git status'
+alias gadd='git add'
+alias gi='git add -i'
+alias gc='git commit -m "Update"'
+alias gpush='git push'
+# alias gfull='git add --all && git commit -m "Update" && git push'
+alias gch='git checkout'
+alias gcd='git checkout develop'
+alias gcm='git checkout master'
+alias gmf='git merge --no-ff -m "Update"'
+alias GF='git add --all && git commit -m "Update" && git push'
+alias BS='git checkout master && git merge --no-ff -m "Update" develop && git push && git checkout develop'
+alias GU='mcf && GF && gsync && bb && GF && ggsync && gl && GF && mcf'
+

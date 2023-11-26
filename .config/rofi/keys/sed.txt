@@ -1,0 +1,21 @@
+
+sed -i 's/foo/too/'                                                       @ Заменить foo на too.
+sed -i '14d' /file                                                        @ Удалить 14ю строку.
+sed -i '/[Nn]etwork/d' /file                                              @ Удалить строку содержащую Network или network.
+sed -i '$ a \\n[mounts]\nuser root' /etc/munin/config                     @ Добавить в конец файла "[mounts]" затем перенос на новую строка и "user root".
+sed '14a\ echo \"graph_category logger\"' /etc/munin/plugins/command      @ После 14ой строки добавить "echo "graph_category logger"".
+sed '1i # vim: ft=ruby\n'                                                 @ Вставить в начало файла '# vim: ft=ruby' и перенос строки.
+sed -e ':a;/^$/N;/\n$/{D;ba}' file.txt                                    @ Заменить повторяющиеся пустые строки на одну пустую строку
+sed 's/.$//' dosfile.txt > unixfile.txt                                   @ Конвертация переносов строк DOS (CR/LF) в Unix (LF)
+sed 's/string1/string2/g'                                                 @ Заменить строку string1 строкой string2
+sed 's/\(.*\)1/\12/g'                                                     @ Изменить строку anystring1 на anystring2
+sed '/ *#/d; /^ *$/d'                                                     @ Убрать комментарии и пустые строки
+sed ':a; /\\$/N; s/\\\n//; ta'                                            @ Соединить строки (линии) с предшествующим
+sed 's/[ \t]*$//'                                                         @ Удалить предшествующие пробелы с строк
+sed 's/\([\\`\\"$\\\\]\)/\\\1/g'                                          @ Заескейпить активные метасимволы оболочки двумя ковычками
+seq 10 | sed "s/^/      /; s/ *\(.\{7,\}\)/\1/"                           @ Выровнять числа по правой границе
+sed -n '1000p;1000q'                                                      @ Напечатать 1000-ную строку
+sed -n '10,20p;20q'                                                       @ Напечатать строки с 10 по 20-ую
+sed -n 's/.*<title>\(.*\)<\/title>.*/\1/ip;T;q'                           @ Получить title из HTML страницы
+sed '/^$/d' input.txt > output.txt                                        @ Убрать пустые строки из файла
+cat *.html | sed '1,/<pre>/d; /<\/pre>/,$d' > final.file                  @ Удаляем из всех .html файлов от начала <pre> до тега <\/pre>. Включая и сами теги.

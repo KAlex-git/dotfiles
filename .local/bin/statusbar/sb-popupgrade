@@ -1,0 +1,12 @@
+#!/bin/sh
+
+db_remove() { sudo rm -rf /var/lib/pacman/db.lck ;}
+db_remove
+
+printf "Beginning upgrade.\\n"
+
+yes|yay -Syu
+pkill -RTMIN+8 "${STATUSBAR:-dwmblocks}"
+
+printf "\\nUpgrade complete.\\nPress <Enter> to exit window.\\n\\n"
+read -r _

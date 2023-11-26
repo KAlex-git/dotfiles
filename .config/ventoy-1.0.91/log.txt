@@ -1,0 +1,435 @@
+[2023/04/23 10:09:24] ===============================================
+[2023/04/23 10:09:24] ===== Ventoy2Disk 1.0.91 127.0.0.1:24680 =====
+[2023/04/23 10:09:24] ===============================================
+[2023/04/23 10:09:24] ventoy_disk_enumerate_all
+[2023/04/23 10:09:24] get disk info sde
+[2023/04/23 10:09:24] is 4k native disk <sde> <0>
+[2023/04/23 10:09:24] get disk size from sysfs for sde
+[2023/04/23 10:09:24] ventoy_get_vtoy_data /dev/sde
+[2023/04/23 10:09:26] Invalid efi part2 name <Micr>
+[2023/04/23 10:09:26] disk:</dev/sde 8:64> model:<Space ke USB 3.0 Device (USB)> size:500107862016 (512 GB)
+[2023/04/23 10:09:26] /dev/sde NO Ventoy detected
+[2023/04/23 10:09:26] get disk info sdc
+[2023/04/23 10:09:26] is 4k native disk <sdc> <0>
+[2023/04/23 10:09:26] get disk size from sysfs for sdc
+[2023/04/23 10:09:26] ventoy_get_vtoy_data /dev/sdc
+[2023/04/23 10:09:26] ventoy partition layout check OK: [2048 79134680] [79136728 65536]
+[2023/04/23 10:09:26] now check secure boot for /dev/sdc ...
+[2023/04/23 10:09:26] /EFI/BOOT/grubx64_real.efi not exist
+[2023/04/23 10:09:26] disk:</dev/sdc 8:32> model:< USB DISK 2.0 (USB)> size:62026416128 (64 GB)
+[2023/04/23 10:09:26] /dev/sdc Ventoy:<1.0.91> GPT secureboot:0 preserve:21474840064
+[2023/04/23 10:09:26] get disk info sda
+[2023/04/23 10:09:26] is 4k native disk <sda> <0>
+[2023/04/23 10:09:26] get disk size from sysfs for sda
+[2023/04/23 10:09:26] ventoy_get_vtoy_data /dev/sda
+[2023/04/23 10:09:26] Invalid efi part2 name <>
+[2023/04/23 10:09:26] disk:</dev/sda 8:0> model:<ATA KINGSTON SA400S3 (scsi)> size:480103981056 (480 GB)
+[2023/04/23 10:09:26] /dev/sda NO Ventoy detected
+[2023/04/23 10:09:26] ============= DISK DUMP ============
+[2023/04/23 10:09:26] /dev/sdc [64 GB]  USB DISK 2.0 (USB)	Ventoy: 1.0.91 GPT secureboot:0 preserve:21474840064
+[2023/04/23 10:09:26] /dev/sde [512 GB] Space ke USB 3.0 Device (USB)	Ventoy: NA
+[2023/04/23 10:09:26] /dev/sda [480 GB] ATA KINGSTON SA400S3 (scsi)	Ventoy: NA
+[2023/04/23 10:09:45] ventoy_disk_enumerate_all
+[2023/04/23 10:09:45] get disk info sdc
+[2023/04/23 10:09:45] is 4k native disk <sdc> <0>
+[2023/04/23 10:09:45] get disk size from sysfs for sdc
+[2023/04/23 10:09:45] ventoy_get_vtoy_data /dev/sdc
+[2023/04/23 10:09:45] ventoy partition layout check OK: [2048 79134680] [79136728 65536]
+[2023/04/23 10:09:45] now check secure boot for /dev/sdc ...
+[2023/04/23 10:09:45] /EFI/BOOT/grubx64_real.efi not exist
+[2023/04/23 10:09:45] disk:</dev/sdc 8:32> model:< USB DISK 2.0 (USB)> size:62026416128 (64 GB)
+[2023/04/23 10:09:45] /dev/sdc Ventoy:<1.0.91> GPT secureboot:0 preserve:21474840064
+[2023/04/23 10:09:45] get disk info sda
+[2023/04/23 10:09:45] is 4k native disk <sda> <0>
+[2023/04/23 10:09:45] get disk size from sysfs for sda
+[2023/04/23 10:09:45] ventoy_get_vtoy_data /dev/sda
+[2023/04/23 10:09:45] Invalid efi part2 name <>
+[2023/04/23 10:09:45] disk:</dev/sda 8:0> model:<ATA KINGSTON SA400S3 (scsi)> size:480103981056 (480 GB)
+[2023/04/23 10:09:45] /dev/sda NO Ventoy detected
+[2023/04/23 10:10:14] ==========================================================
+[2023/04/23 10:10:14] ===== ventoy update /dev/sdc new_secureboot:0 =========
+[2023/04/23 10:10:14] ==========================================================
+[2023/04/23 10:10:14] /dev/sdc version:1.0.91 partstyle:1 oldsecureboot:0 reserve:21474840064
+[2023/04/23 10:10:14] disk is not mounted now, we can do the update ...
+[2023/04/23 10:10:14] start update thread  USB DISK 2.0 (USB) ...
+[2023/04/23 10:10:14] ventoy_update_thread run ...
+[2023/04/23 10:10:14] check disk sdc
+[2023/04/23 10:10:14] disk is not mounted now, we can do continue ...
+[2023/04/23 10:10:14] read core.img.xz rc:0 len:455168
+[2023/04/23 10:10:14] ventoy_unxz_stg1_img len:455168 rc:0
+[2023/04/23 10:10:14] read disk.img.xz rc:0 len:13422312
+[2023/04/23 10:10:15] ventoy_unxz_efipart_img len:13422312 rc:0 unxzlen:33554432
+[2023/04/23 10:10:15] Formatting part2 EFI ...
+[2023/04/23 10:10:15] Formatting part2 EFI offset:40518004736 ...
+[2023/04/23 10:10:15] VentoyProcSecureBoot 0 ...
+[2023/04/23 10:10:15] Open ventoy efi file 0x635ae0 
+[2023/04/23 10:10:15] ventoy efi file size 1916928 ...
+[2023/04/23 10:10:15] Now delete all efi files ...
+[2023/04/23 10:10:15] Open bootx64 efi file 0x635f30 
+[2023/04/23 10:10:16] Open ventoy efi file 0x635ae0
+[2023/04/23 10:10:16] ventoy efi file size 1286144 ...
+[2023/04/23 10:10:16] Now delete all efi files ...
+[2023/04/23 10:10:16] Open bootia32 efi file 0x635f30
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:10:18] Writing legacy grub ...
+[2023/04/23 10:10:18] Write GPT stage1 ...
+[2023/04/23 10:10:18] lseek offset:17408(17408) writelen:1031168(1031168)
+[2023/04/23 10:10:18] Writing reserve data offset:1044480 len:4096 ...
+[2023/04/23 10:10:18] No need to update MBR
+[2023/04/23 10:10:18] fsync data1...
+[2023/04/23 10:10:26] ====================================
+[2023/04/23 10:10:26] ====== ventoy update success ======
+[2023/04/23 10:10:26] ====================================
+[2023/04/23 10:10:26] ventoy_disk_enumerate_all
+[2023/04/23 10:10:26] get disk info sdc
+[2023/04/23 10:10:26] is 4k native disk <sdc> <0>
+[2023/04/23 10:10:26] get disk size from sysfs for sdc
+[2023/04/23 10:10:26] ventoy_get_vtoy_data /dev/sdc
+[2023/04/23 10:10:26] ventoy partition layout check OK: [2048 79134680] [79136728 65536]
+[2023/04/23 10:10:26] now check secure boot for /dev/sdc ...
+[2023/04/23 10:10:26] /EFI/BOOT/grubx64_real.efi not exist
+[2023/04/23 10:10:26] disk:</dev/sdc 8:32> model:< USB DISK 2.0 (USB)> size:62026416128 (64 GB)
+[2023/04/23 10:10:26] /dev/sdc Ventoy:<1.0.91> GPT secureboot:0 preserve:21474840064
+[2023/04/23 10:10:26] get disk info sda
+[2023/04/23 10:10:26] is 4k native disk <sda> <0>
+[2023/04/23 10:10:26] get disk size from sysfs for sda
+[2023/04/23 10:10:26] ventoy_get_vtoy_data /dev/sda
+[2023/04/23 10:10:26] Invalid efi part2 name <>
+[2023/04/23 10:10:26] disk:</dev/sda 8:0> model:<ATA KINGSTON SA400S3 (scsi)> size:480103981056 (480 GB)
+[2023/04/23 10:10:26] /dev/sda NO Ventoy detected
+[2023/04/23 10:15:18] ==================================================================================
+[2023/04/23 10:15:18] ===== ventoy install /dev/sdc style:MBR secureboot:0 align4K:1 reserve:10737418240 =========
+[2023/04/23 10:15:18] ==================================================================================
+[2023/04/23 10:15:18] /dev/sdc mounted </dev/sdc3 /mnt/usb vfat rw,relatime,uid=1000,gid=984,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro 0 0
+>
+[2023/04/23 10:15:18] disk is mounted, now try to unmount it ...
+[2023/04/23 10:15:18] umount </dev/sdc> </mnt/usb> [ failed ] error:16
+[2023/04/23 10:15:18] umount </dev/sdc> </mnt/win10> [ success ]
+[2023/04/23 10:15:18] umount </dev/sdc> </mnt/win10> [ success ]
+[2023/04/23 10:15:18] /dev/sdc mounted </dev/sdc3 /mnt/usb vfat rw,relatime,uid=1000,gid=984,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro 0 0
+>
+[2023/04/23 10:15:18] /dev/sdc is mounted and can't umount!
+[2023/04/23 10:15:50] ==================================================================================
+[2023/04/23 10:15:50] ===== ventoy install /dev/sdc style:MBR secureboot:0 align4K:1 reserve:10737418240 =========
+[2023/04/23 10:15:50] ==================================================================================
+[2023/04/23 10:15:50] disk is not mounted now, we can do the install ...
+[2023/04/23 10:15:50] start install thread  USB DISK 2.0 (USB) ...
+[2023/04/23 10:15:50] ventoy_install_thread run ...
+[2023/04/23 10:15:50] check disk sdc
+[2023/04/23 10:15:50] disk is not mounted now, we can do continue ...
+[2023/04/23 10:15:50] ventoy_clean_disk fd:5 size:62026416128
+[2023/04/23 10:15:50] write disk at off:0 writelen:65536 datalen:65536
+[2023/04/23 10:15:50] write disk at off:62026350592 writelen:65536 datalen:65536
+[2023/04/23 10:15:50] read core.img.xz rc:0 len:455168
+[2023/04/23 10:15:50] ventoy_unxz_stg1_img len:455168 rc:0
+[2023/04/23 10:15:50] read disk.img.xz rc:0 len:13422312
+[2023/04/23 10:15:51] ventoy_unxz_efipart_img len:13422312 rc:0 unxzlen:33554432
+[2023/04/23 10:15:51] Fill MBR part table
+[2023/04/23 10:15:51] Disk signature: 0x183c921e
+[2023/04/23 10:15:51] no need to align with 4KB
+[2023/04/23 10:15:51] ReservedSector: 20971520
+[2023/04/23 10:15:51] Part1StartSector:2048 Part1SectorCount:100106240 Part2StartSector:100108288
+[2023/04/23 10:15:51] Wait for format part1 (partstyle changed) ...
+[2023/04/23 10:15:52] Formatting part1 exFAT /dev/sdc ...
+[0123/04/23 10:15:52] Creating... 
+[0123/04/23 10:15:52] Flushing... 
+[2023/04/23 10:15:52] Formatting part2 EFI ...
+[2023/04/23 10:15:52] Formatting part2 EFI offset:51255443456 ...
+[2023/04/23 10:15:52] VentoyProcSecureBoot 0 ...
+[2023/04/23 10:15:52] Open ventoy efi file 0x635ae0 
+[2023/04/23 10:15:52] ventoy efi file size 1916928 ...
+[2023/04/23 10:15:52] Now delete all efi files ...
+[2023/04/23 10:15:52] Open bootx64 efi file 0x635f30 
+[2023/04/23 10:15:54] Open ventoy efi file 0x635ae0
+[2023/04/23 10:15:54] ventoy efi file size 1286144 ...
+[2023/04/23 10:15:54] Now delete all efi files ...
+[2023/04/23 10:15:54] Open bootia32 efi file 0x635f30
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:15:55] Writing legacy grub ...
+[2023/04/23 10:15:55] Write MBR stage1 ...
+[2023/04/23 10:15:55] lseek offset:512(512) writelen:1048064(1048064)
+[2023/04/23 10:15:55] fsync data1...
+[2023/04/23 10:16:05] Checking part2 efi data /dev/sdc ...
+[2023/04/23 10:16:05] efi part data check success
+[2023/04/23 10:16:05] Writting Partition Table style:0...
+[2023/04/23 10:16:05] Writting MBR Partition Table 0 512
+[2023/04/23 10:16:05] fsync data2...
+[2023/04/23 10:16:07] ====================================
+[2023/04/23 10:16:07] ====== ventoy install success ======
+[2023/04/23 10:16:07] ====================================
+[2023/04/23 10:16:07] ventoy_disk_enumerate_all
+[2023/04/23 10:16:07] get disk info sdc
+[2023/04/23 10:16:07] is 4k native disk <sdc> <0>
+[2023/04/23 10:16:07] get disk size from sysfs for sdc
+[2023/04/23 10:16:07] ventoy_get_vtoy_data /dev/sdc
+[2023/04/23 10:16:07] ventoy partition layout check OK: [2048 100106240] [100108288 65536]
+[2023/04/23 10:16:07] now check secure boot for /dev/sdc ...
+[2023/04/23 10:16:07] /EFI/BOOT/grubx64_real.efi not exist
+[2023/04/23 10:16:07] disk:</dev/sdc 8:32> model:< USB DISK 2.0 (USB)> size:62026416128 (64 GB)
+[2023/04/23 10:16:07] /dev/sdc Ventoy:<1.0.91> MBR secureboot:0 preserve:10737418240
+[2023/04/23 10:16:07] get disk info sda
+[2023/04/23 10:16:07] is 4k native disk <sda> <0>
+[2023/04/23 10:16:07] get disk size from sysfs for sda
+[2023/04/23 10:16:07] ventoy_get_vtoy_data /dev/sda
+[2023/04/23 10:16:07] Invalid efi part2 name <>
+[2023/04/23 10:16:07] disk:</dev/sda 8:0> model:<ATA KINGSTON SA400S3 (scsi)> size:480103981056 (480 GB)
+[2023/04/23 10:16:07] /dev/sda NO Ventoy detected
+[2023/04/23 10:17:11] ==========================================================
+[2023/04/23 10:17:11] ===== ventoy update /dev/sdc new_secureboot:0 =========
+[2023/04/23 10:17:11] ==========================================================
+[2023/04/23 10:17:11] /dev/sdc version:1.0.91 partstyle:0 oldsecureboot:0 reserve:10737418240
+[2023/04/23 10:17:11] disk is not mounted now, we can do the update ...
+[2023/04/23 10:17:11] start update thread  USB DISK 2.0 (USB) ...
+[2023/04/23 10:17:11] ventoy_update_thread run ...
+[2023/04/23 10:17:11] check disk sdc
+[2023/04/23 10:17:11] disk is not mounted now, we can do continue ...
+[2023/04/23 10:17:11] read core.img.xz rc:0 len:455168
+[2023/04/23 10:17:11] ventoy_unxz_stg1_img len:455168 rc:0
+[2023/04/23 10:17:11] read disk.img.xz rc:0 len:13422312
+[2023/04/23 10:17:12] ventoy_unxz_efipart_img len:13422312 rc:0 unxzlen:33554432
+[2023/04/23 10:17:12] Formatting part2 EFI ...
+[2023/04/23 10:17:12] Formatting part2 EFI offset:51255443456 ...
+[2023/04/23 10:17:12] VentoyProcSecureBoot 0 ...
+[2023/04/23 10:17:12] Open ventoy efi file 0x635ae0 
+[2023/04/23 10:17:12] ventoy efi file size 1916928 ...
+[2023/04/23 10:17:12] Now delete all efi files ...
+[2023/04/23 10:17:12] Open bootx64 efi file 0x635f30 
+[2023/04/23 10:17:13] Open ventoy efi file 0x635ae0
+[2023/04/23 10:17:13] ventoy efi file size 1286144 ...
+[2023/04/23 10:17:13] Now delete all efi files ...
+[2023/04/23 10:17:13] Open bootia32 efi file 0x635f30
+[2023/04/23 10:17:14] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:14] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:14] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:14] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:14] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:14] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:14] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:14] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:14] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:14] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:14] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:14] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:14] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:14] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:14] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:14] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:14] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:14] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:15] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:15] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:15] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:15] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:15] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:15] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:15] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:15] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:15] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:15] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:15] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:15] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:15] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:15] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:15] Writing legacy grub ...
+[2023/04/23 10:17:15] Write MBR stage1 ...
+[2023/04/23 10:17:15] lseek offset:512(512) writelen:1048064(1048064)
+[2023/04/23 10:17:15] Writing reserve data offset:1044480 len:4096 ...
+[2023/04/23 10:17:15] No need to update MBR
+[2023/04/23 10:17:15] fsync data1...
+[2023/04/23 10:17:22] ====================================
+[2023/04/23 10:17:22] ====== ventoy update success ======
+[2023/04/23 10:17:22] ====================================
+[2023/04/23 10:17:22] ventoy_disk_enumerate_all
+[2023/04/23 10:17:22] get disk info sdc
+[2023/04/23 10:17:22] is 4k native disk <sdc> <0>
+[2023/04/23 10:17:22] get disk size from sysfs for sdc
+[2023/04/23 10:17:22] ventoy_get_vtoy_data /dev/sdc
+[2023/04/23 10:17:22] ventoy partition layout check OK: [2048 100106240] [100108288 65536]
+[2023/04/23 10:17:22] now check secure boot for /dev/sdc ...
+[2023/04/23 10:17:22] /EFI/BOOT/grubx64_real.efi not exist
+[2023/04/23 10:17:22] disk:</dev/sdc 8:32> model:< USB DISK 2.0 (USB)> size:62026416128 (64 GB)
+[2023/04/23 10:17:22] /dev/sdc Ventoy:<1.0.91> MBR secureboot:0 preserve:10737418240
+[2023/04/23 10:17:22] get disk info sda
+[2023/04/23 10:17:22] is 4k native disk <sda> <0>
+[2023/04/23 10:17:22] get disk size from sysfs for sda
+[2023/04/23 10:17:22] ventoy_get_vtoy_data /dev/sda
+[2023/04/23 10:17:22] Invalid efi part2 name <>
+[2023/04/23 10:17:22] disk:</dev/sda 8:0> model:<ATA KINGSTON SA400S3 (scsi)> size:480103981056 (480 GB)
+[2023/04/23 10:17:22] /dev/sda NO Ventoy detected
+[2023/04/23 10:17:28] ventoy_disk_enumerate_all
+[2023/04/23 10:17:28] get disk info sdc
+[2023/04/23 10:17:28] is 4k native disk <sdc> <0>
+[2023/04/23 10:17:28] get disk size from sysfs for sdc
+[2023/04/23 10:17:28] ventoy_get_vtoy_data /dev/sdc
+[2023/04/23 10:17:28] ventoy partition layout check OK: [2048 100106240] [100108288 65536]
+[2023/04/23 10:17:28] now check secure boot for /dev/sdc ...
+[2023/04/23 10:17:28] /EFI/BOOT/grubx64_real.efi not exist
+[2023/04/23 10:17:28] disk:</dev/sdc 8:32> model:< USB DISK 2.0 (USB)> size:62026416128 (64 GB)
+[2023/04/23 10:17:28] /dev/sdc Ventoy:<1.0.91> MBR secureboot:0 preserve:10737418240
+[2023/04/23 10:17:28] get disk info sda
+[2023/04/23 10:17:28] is 4k native disk <sda> <0>
+[2023/04/23 10:17:28] get disk size from sysfs for sda
+[2023/04/23 10:17:28] ventoy_get_vtoy_data /dev/sda
+[2023/04/23 10:17:28] Invalid efi part2 name <>
+[2023/04/23 10:17:28] disk:</dev/sda 8:0> model:<ATA KINGSTON SA400S3 (scsi)> size:480103981056 (480 GB)
+[2023/04/23 10:17:28] /dev/sda NO Ventoy detected
+[2023/04/23 10:17:47] ==================================================================================
+[2023/04/23 10:17:47] ===== ventoy install /dev/sdc style:GPT secureboot:0 align4K:1 reserve:10737418240 =========
+[2023/04/23 10:17:47] ==================================================================================
+[2023/04/23 10:17:47] disk is not mounted now, we can do the install ...
+[2023/04/23 10:17:47] start install thread  USB DISK 2.0 (USB) ...
+[2023/04/23 10:17:47] ventoy_install_thread run ...
+[2023/04/23 10:17:47] check disk sdc
+[2023/04/23 10:17:47] disk is not mounted now, we can do continue ...
+[2023/04/23 10:17:47] ventoy_clean_disk fd:5 size:62026416128
+[2023/04/23 10:17:47] write disk at off:0 writelen:65536 datalen:65536
+[2023/04/23 10:17:47] write disk at off:62026350592 writelen:65536 datalen:65536
+[2023/04/23 10:17:48] read core.img.xz rc:0 len:455168
+[2023/04/23 10:17:48] ventoy_unxz_stg1_img len:455168 rc:0
+[2023/04/23 10:17:48] read disk.img.xz rc:0 len:13422312
+[2023/04/23 10:17:49] ventoy_unxz_efipart_img len:13422312 rc:0 unxzlen:33554432
+[2023/04/23 10:17:49] Fill GPT part table
+[2023/04/23 10:17:49] Disk signature: 0x50b63b1c
+[2023/04/23 10:17:49] Part1SectorCount:100106207 is not aligned by 4KB (7)
+[2023/04/23 10:17:49] Disk need to align with 4KB 7
+[2023/04/23 10:17:49] Part1StartSector:2048 Part1SectorCount:100106200 Part2StartSector:100108248
+[2023/04/23 10:17:49] Wait for format part1 (partstyle changed) ...
+[2023/04/23 10:17:50] Formatting part1 exFAT /dev/sdc ...
+[0123/04/23 10:17:50] Creating... 
+[0123/04/23 10:17:50] Flushing... 
+[2023/04/23 10:17:50] Formatting part2 EFI ...
+[2023/04/23 10:17:50] Formatting part2 EFI offset:51255422976 ...
+[2023/04/23 10:17:50] VentoyProcSecureBoot 0 ...
+[2023/04/23 10:17:50] Open ventoy efi file 0x635ae0 
+[2023/04/23 10:17:50] ventoy efi file size 1916928 ...
+[2023/04/23 10:17:50] Now delete all efi files ...
+[2023/04/23 10:17:50] Open bootx64 efi file 0x635f30 
+[2023/04/23 10:17:52] Open ventoy efi file 0x635ae0
+[2023/04/23 10:17:52] ventoy efi file size 1286144 ...
+[2023/04/23 10:17:52] Now delete all efi files ...
+[2023/04/23 10:17:52] Open bootia32 efi file 0x635f30
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] write disk writelen:1048576 datalen:1048576 [ success ]
+[2023/04/23 10:17:53] Writing legacy grub ...
+[2023/04/23 10:17:53] Write GPT stage1 ...
+[2023/04/23 10:17:53] lseek offset:17408(17408) writelen:1031168(1031168)
+[2023/04/23 10:17:53] fsync data1...
+[2023/04/23 10:18:01] Checking part2 efi data /dev/sdc ...
+[2023/04/23 10:18:01] efi part data check success
+[2023/04/23 10:18:01] Writting Partition Table style:1...
+[2023/04/23 10:18:01] write backup gpt part table off:62026415616 len:512
+[2023/04/23 10:18:01] write main gpt part table off:62026399232 len:16384
+[2023/04/23 10:18:01] write gpt part head off:0 len:17408
+[2023/04/23 10:18:01] fsync data2...
+[2023/04/23 10:18:01] ====================================
+[2023/04/23 10:18:01] ====== ventoy install success ======
+[2023/04/23 10:18:01] ====================================
+[2023/04/23 10:18:01] ventoy_disk_enumerate_all
+[2023/04/23 10:18:01] get disk info sdc
+[2023/04/23 10:18:01] is 4k native disk <sdc> <0>
+[2023/04/23 10:18:01] get disk size from sysfs for sdc
+[2023/04/23 10:18:01] ventoy_get_vtoy_data /dev/sdc
+[2023/04/23 10:18:01] ventoy partition layout check OK: [2048 100106200] [100108248 65536]
+[2023/04/23 10:18:01] now check secure boot for /dev/sdc ...
+[2023/04/23 10:18:01] /EFI/BOOT/grubx64_real.efi not exist
+[2023/04/23 10:18:01] disk:</dev/sdc 8:32> model:< USB DISK 2.0 (USB)> size:62026416128 (64 GB)
+[2023/04/23 10:18:01] /dev/sdc Ventoy:<1.0.91> GPT secureboot:0 preserve:10737421824
+[2023/04/23 10:18:01] get disk info sda
+[2023/04/23 10:18:01] is 4k native disk <sda> <0>
+[2023/04/23 10:18:01] get disk size from sysfs for sda
+[2023/04/23 10:18:01] ventoy_get_vtoy_data /dev/sda
+[2023/04/23 10:18:01] Invalid efi part2 name <>
+[2023/04/23 10:18:01] disk:</dev/sda 8:0> model:<ATA KINGSTON SA400S3 (scsi)> size:480103981056 (480 GB)
+[2023/04/23 10:18:01] /dev/sda NO Ventoy detected

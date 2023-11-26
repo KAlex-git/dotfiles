@@ -1,0 +1,19 @@
+[user]
+	email = Kalash20150825@outlook.com
+	name = KAlex-git
+[core]
+	editor = nvim
+	; excludesFile = .gitignore
+	; compression = 0
+    ; packedGitLimit = 512m 
+    ; packedGitWindowSize = 512m 
+;[commit]
+;	template = /home/kalex/.config/git/message
+;[http]
+;	postBuffer = 157286400
+[pack] 
+    deltaCacheSize = 2047m 
+    packSizeLimit = 2047m 
+    windowMemory = 2047m
+[init]
+	defaultBranch = KAlex-git
