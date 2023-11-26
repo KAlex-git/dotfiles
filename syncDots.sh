@@ -90,6 +90,7 @@ EXCLUDE=({
 "cef_user_data*/"
 "*Organization/"
 "WebCord/"
+".local/include"
 })
 
 
