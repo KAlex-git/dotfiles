@@ -148,7 +148,7 @@ function log {
 __BACKUP_Local_Config__
 
 # перенаправляем вывод
-exec 2>>$LOGFILE 1>>$LOGFILE
+exec 2>>$LOGFILE 1>$LOGFILE
 
 # вступление
 echo ""
